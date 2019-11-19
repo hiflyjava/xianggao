@@ -1,6 +1,8 @@
 package cc.mrbird.job.service;
 
+import cc.mrbird.job.domain.In.MobilePageIn;
 import cc.mrbird.job.domain.PMobile;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -19,6 +21,8 @@ public interface PMobileService {
 
     int updateByPrimaryKey(PMobile record);
 
-    int  insertMobileForeach(List<String> list) throws Exception;
+    int  insertMobileForeach(List<String> list,String content) throws Exception;
+
+    PageInfo<PMobile> getMobileListbByItems(MobilePageIn mobilePageIn);
 
 }

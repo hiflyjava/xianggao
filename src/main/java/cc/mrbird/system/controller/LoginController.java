@@ -3,6 +3,7 @@ package cc.mrbird.system.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cc.mrbird.common.util.MyUserUtiles;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -51,9 +52,14 @@ public class LoginController extends BaseController {
 		}
 		password = MD5Utils.encrypt(username.toLowerCase(), password);
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
+		String host = token.getHost();
+		System.out.println( host);
+
 		try {
 			super.login(token);
 			this.userService.updateLoginTime(username);
+			User user = MyUserUtiles.getUser();
+			System.out.println( user.getCompanys());
 			return ResponseBo.ok();
 		} catch (UnknownAccountException e) {
 			return ResponseBo.error(e.getMessage());
@@ -78,6 +84,7 @@ public class LoginController extends BaseController {
 			captcha.out(response.getOutputStream());
 			Session session = super.getSession();
 			session.removeAttribute("_code");
+			System.out.println(captcha.text().toLowerCase());
 			session.setAttribute("_code", captcha.text().toLowerCase());
 		} catch (Exception e) {
 			e.printStackTrace();

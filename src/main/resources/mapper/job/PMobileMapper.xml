@@ -8,12 +8,13 @@
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     <result column="create_by" property="createBy" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="extend1" property="extend1" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="extend3" property="extend3" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, mobile, type, create_date, create_by, status, extend1, user_id, extend3
+    id, mobile, type, create_date, create_by, status, province, user_id, city
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -28,11 +29,11 @@
   <insert id="insert" parameterType="cc.mrbird.job.domain.PMobile" >
     insert into p_mobile (id, mobile, type, 
       create_date, create_by, status, 
-      extend1, user_id, extend3
+      province, user_id, city
       )
     values (#{id,jdbcType=BIGINT}, #{mobile,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
       #{createDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{extend1,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{extend3,jdbcType=VARCHAR}
+      #{province,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="cc.mrbird.job.domain.PMobile" >
@@ -56,14 +57,14 @@
       <if test="status != null" >
         status,
       </if>
-      <if test="extend1 != null" >
-        extend1,
+      <if test="province != null" >
+        province,
       </if>
       <if test="userId != null" >
         user_id,
       </if>
-      <if test="extend3 != null" >
-        extend3,
+      <if test="city != null" >
+        city,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -85,14 +86,14 @@
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="extend1 != null" >
-        #{extend1,jdbcType=VARCHAR},
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="extend3 != null" >
-        #{extend3,jdbcType=VARCHAR},
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -114,14 +115,14 @@
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="extend1 != null" >
-        extend1 = #{extend1,jdbcType=VARCHAR},
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="extend3 != null" >
-        extend3 = #{extend3,jdbcType=VARCHAR},
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -133,9 +134,9 @@
       create_date = #{createDate,jdbcType=TIMESTAMP},
       create_by = #{createBy,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
-      extend1 = #{extend1,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=INTEGER},
-      extend3 = #{extend3,jdbcType=VARCHAR}
+      city = #{city,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 
@@ -143,7 +144,7 @@
 
   <insert id="insertMobileForeach" parameterType="java.util.List" useGeneratedKeys="false">
     insert into p_mobile
-   ( id, mobile, type, create_date, create_by, status, extend1, user_id, extend3)
+   ( id, mobile, type, create_date, create_by, status, province, user_id, city)
     values
     <foreach collection="list" item="item" index="index" separator=",">
       (
@@ -153,12 +154,37 @@
       #{item.createDate},
       #{item.createBy},
       #{item.status},
-      #{item.extend1},
+      #{item.province},
       #{item.userId},
-      #{item.extend3}
+      #{item.city}
       )
     </foreach>
   </insert>
+
+<select id="getMobileListbByItems" resultMap="BaseResultMap">
+
+  select  m.*,u.username as username from p_mobile m left join  t_user u on m.user_id =u.user_id
+  <where>
+    1=1
+    <if test="mobile != null and mobile !=''" >
+    and  m.mobile = #{mobile}
+    </if>
+
+    <if test="userId != null and userId !=''" >
+      and   m.user_id = #{userId}
+    </if>
+
+    <if test="status != null and status !=''" >
+    and   m.status = #{status}
+    </if>
+
+    ORDER BY m.create_date DESC
+
+  </where>
+
+
+</select>
+
 
 
 </mapper>

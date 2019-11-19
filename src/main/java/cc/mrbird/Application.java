@@ -7,7 +7,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableTransactionManagement
-@MapperScan("cc.mrbird.*.dao")
+//@MapperScan("cc.mrbird.*.dao")
+@tk.mybatis.spring.annotation.MapperScan("cc.mrbird.*.dao")
 public class Application {
 
 	public static void main(String[] args) {

@@ -14,7 +14,7 @@ public class CheckPhone {
      * 中国联通号码格式验证 手机段：130,131,132,155,156,185,186,145,176,1707,1708,1709,175
      * **/
     private static final String CHINA_UNICOM_PATTERN = "(?:^(?:\\+86)?1(?:3[0-2]|4[5]|5[56]|7[56]|8[56])\\d{8}$)|(?:^(?:\\+86)?170[7-9]\\d{7}$)";
-    public static final String CHINA_UNICOM="LY";
+    public static final String CHINA_UNICOM="LT";
 
     /**
      * 简单手机号码校验，校验手机号码的长度和1开头

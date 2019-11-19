@@ -9,6 +9,8 @@ import cc.mrbird.system.domain.UserWithRole;
 public interface UserMapper extends MyMapper<User> {
 
 	List<User> findUserWithDept(User user);
+
+	List<User> findMyWithDept(User user);
 	
 	List<UserWithRole> findUserWithRole(Long userId);
 	

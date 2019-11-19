@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.mrbird.system.dao.XgCompanyMapper" >
+  <resultMap id="BaseResultMap" type="cc.mrbird.system.domain.XgCompany" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="c_name" property="cName" jdbcType="VARCHAR" />
+    <result column="c_address" property="cAddress" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="c_mode" property="cMode" jdbcType="VARCHAR" />
+    <result column="c_img" property="cImg" jdbcType="VARCHAR" />
+    <result column="extend1" property="extend1" jdbcType="VARCHAR" />
+    <result column="extend2" property="extend2" jdbcType="VARCHAR" />
+    <result column="extend3" property="extend3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, c_name, c_address, create_date, update_date, create_by, update_by, c_mode, c_img, 
+    extend1, extend2, extend3
+  </sql>
+
+</mapper>

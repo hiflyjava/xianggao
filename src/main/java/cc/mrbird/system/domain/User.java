@@ -83,9 +83,93 @@ public class User implements Serializable {
 
 	@Column(name = "DESCRIPTION")
 	private String description;
+	@Column(name = "smsnum")
+	private Long smsnum;
 
 	@Transient
 	private String roleName;
+
+
+	private String isVip; //Y:是 N：不是
+
+	private String profession;// 职业
+
+	private String school;
+
+	private String registedAddress;
+
+	private String extend1;
+
+	private String extend2;
+
+	private String extend3;
+
+	private XgCompany companys;//0 是个人；其它是公司
+
+
+	public XgCompany getCompanys() {
+		return companys;
+	}
+
+	public void setCompanys(XgCompany companys) {
+		this.companys = companys;
+	}
+
+	public String getIsVip() {
+		return isVip;
+	}
+
+	public void setIsVip(String isVip) {
+		this.isVip = isVip;
+	}
+
+	public String getProfession() {
+		return profession;
+	}
+
+	public void setProfession(String profession) {
+		this.profession = profession;
+	}
+
+	public String getSchool() {
+		return school;
+	}
+
+	public void setSchool(String school) {
+		this.school = school;
+	}
+
+	public String getRegistedAddress() {
+		return registedAddress;
+	}
+
+	public void setRegistedAddress(String registedAddress) {
+		this.registedAddress = registedAddress;
+	}
+
+	public String getExtend1() {
+		return extend1;
+	}
+
+	public void setExtend1(String extend1) {
+		this.extend1 = extend1;
+	}
+
+	public String getExtend2() {
+		return extend2;
+	}
+
+	public void setExtend2(String extend2) {
+		this.extend2 = extend2;
+	}
+
+	public String getExtend3() {
+		return extend3;
+	}
+
+	public void setExtend3(String extend3) {
+		this.extend3 = extend3;
+	}
 
 	/**
 	 * @return USER_ID
@@ -281,4 +365,11 @@ public class User implements Serializable {
 		this.roleName = roleName;
 	}
 
+	public Long getSmsnum() {
+		return smsnum;
+	}
+
+	public void setSmsnum(Long smsnum) {
+		this.smsnum = smsnum;
+	}
 }

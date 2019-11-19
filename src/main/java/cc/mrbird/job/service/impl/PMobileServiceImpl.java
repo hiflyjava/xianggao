@@ -1,15 +1,18 @@
 package cc.mrbird.job.service.impl;
 
+import cc.mrbird.common.aws.LockProxy;
 import cc.mrbird.common.domain.SendSmsIn;
 import cc.mrbird.common.util.CheckPhone;
+import cc.mrbird.common.util.FindPhonePriAndCity;
 import cc.mrbird.common.util.MyUserUtiles;
 import cc.mrbird.common.util.SendMsgsUtils;
 import cc.mrbird.job.dao.PMobileMapper;
 import cc.mrbird.job.dao.PMobileSuccessMapper;
+import cc.mrbird.job.domain.In.MobilePageIn;
 import cc.mrbird.job.domain.PMobile;
 import cc.mrbird.job.service.PMobileService;
-import cc.mrbird.system.domain.User;
-import org.apache.shiro.SecurityUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -71,13 +75,13 @@ public class PMobileServiceImpl implements PMobileService {
     }
 
     @Override
-    public int insertMobileForeach(List<String> list) throws Exception {
-            SendSmsIn sendSmsIn =new SendSmsIn();
-            sendSmsIn.setAccesskey(accesskey);
-            sendSmsIn.setAccessSecret(accessSecret);
-            sendSmsIn.setSendContent("你好！，很高兴认识你！");
-            sendSmsIn.setSign("134043");
-            sendSmsIn.setSendUrl(sendUrl);
+    public int insertMobileForeach(List<String> list, String content) throws Exception {
+//            SendSmsIn sendSmsIn =new SendSmsIn();
+//            sendSmsIn.setAccesskey(accesskey);
+//            sendSmsIn.setAccessSecret(accessSecret);
+//            sendSmsIn.setSendContent("你好！，很高兴认识你！");
+//            sendSmsIn.setSign("134043");
+//            sendSmsIn.setSendUrl(sendUrl);
 
         List<PMobile> mobiles =new ArrayList<>();//这是所有接收到的手机号
 
@@ -85,7 +89,7 @@ public class PMobileServiceImpl implements PMobileService {
         for(String mobile :list){
             PMobile pMobile =new PMobile();
             if(CheckPhone.isPhone(mobile)){
-                realMobiles.add(mobile);
+                realMobiles.add("+86"+mobile);
                 if(CheckPhone.isChinaMobilePhoneNum(mobile)){
                        pMobile.setType(CheckPhone.CHINA_MOBILE);//移动
                 }
@@ -97,24 +101,49 @@ public class PMobileServiceImpl implements PMobileService {
                     pMobile.setType(CheckPhone.CHINA_UNICOM);//联通
                 }
 
+                Map<String, Object> map = FindPhonePriAndCity.checkPhoneNumberBelongs(mobile);
+                if(map.size()<=1){
+                    pMobile.setCity(map.get("city").toString());
+                    pMobile.setProvince(map.get("city").toString());
+                }else {
+                    pMobile.setCity(map.get("city").toString());
+                    pMobile.setProvince(map.get("prov").toString());
+                }
+
+
                 pMobile.setMobile(mobile);
                 pMobile.setCreateBy("admin");
                 pMobile.setCreateDate(new Date());
                 pMobile.setStatus(1);
-                pMobile.setUserId(Integer.parseInt(MyUserUtiles.getUser().getUserId()+""));
+                pMobile.setUserId(3l);
                 mobiles.add(pMobile);
+
             }
         }
 
 
         if(realMobiles.size()<1000){//如果发送条数小于1000；不扣
-            sendSmsIn.setMobiles(realMobiles);
-            SendMsgsUtils.sendsms(sendSmsIn);
+            LockProxy lockProxy =new LockProxy();
+
+
+            List<String> resuslts = lockProxy.sendSMS(realMobiles, content);
+            System.out.println(resuslts);
+            //sendSmsIn.setMobiles(realMobiles);
+          // SendMsgsUtils.sendsms(sendSmsIn);
         }else {//如果发送条数大于1000；扣50%
 
         }
 
      return    mobileMapper.insertMobileForeach(mobiles);
 
+    }
+
+    @Override
+    public PageInfo<PMobile> getMobileListbByItems(MobilePageIn mobilePageIn) {
+
+        PageHelper.startPage(mobilePageIn.getCurrentPage(), mobilePageIn.getPageSize());
+         mobilePageIn.setUserId(  MyUserUtiles.getUser().getUserId());
+        List<PMobile> pMobileList = mobileMapper.getMobileListbByItems(mobilePageIn);
+        return new PageInfo<>(pMobileList);
     }
 }

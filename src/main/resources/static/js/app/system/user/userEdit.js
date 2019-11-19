@@ -21,6 +21,7 @@ function updateUser() {
             $form.find("input[name='oldusername']").val(user.username);
             $form.find("input[name='userId']").val(user.userId);
             $form.find("input[name='email']").val(user.email);
+            $form.find("input[name='smsnum']").val(user.smsnum);
             $form.find("input[name='mobile']").val(user.mobile);
             var roleArr = new Array();
             for (var i = 0; i < user.roleIds.length; i++) {

@@ -2,12 +2,23 @@ package cc.mrbird.system.controller;
 
 
 
+import cc.mrbird.common.controller.BaseController;
+import cc.mrbird.common.domain.QueryRequest;
+import cc.mrbird.job.domain.In.MobilePageIn;
+import cc.mrbird.job.domain.PMobile;
 import cc.mrbird.job.service.PMobileService;
+import cc.mrbird.system.domain.Role;
+import cc.mrbird.system.domain.User;
 import cc.mrbird.system.utils.ImportExcelUtil;
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,9 +30,9 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.*;
 
-@RestController
-@RequestMapping("/mobile")
-public class MobileController {
+
+@Controller
+public class MobileController  extends BaseController {
 
 
     private static  final Logger logger = Logger.getLogger(MobileController.class);
@@ -37,7 +48,7 @@ public class MobileController {
      */
     @RequestMapping(value = "/batchAddMobiles")
     @ResponseBody
-    public String batchAddMobiles(@RequestParam(value = "file") MultipartFile file, HttpServletRequest request) throws Exception {
+    public String batchAddMobiles(@RequestParam(value = "file") MultipartFile file, HttpServletRequest request,@RequestParam(value = "content")String content) throws Exception {
         Map<String, Object> result = new HashMap<String, Object>();
         Set<String> mobiles = new HashSet<>();
 
@@ -81,10 +92,32 @@ public class MobileController {
         result.put("mobiles", mobiles);
         List<String> mobileList=new ArrayList<>();
         mobileList.addAll(mobiles);
-        pMobileService.insertMobileForeach(mobileList);
+        pMobileService.insertMobileForeach(mobileList, content);
         return JSON.toJSONString(result);
     }
 
+
+
+
+    @RequestMapping("mobile")
+   // @RequiresPermissions("mobile:list")
+    public String index() {
+
+        return "system/mobile/mobile";
+    }
+
+
+    @RequestMapping("mobile/list")
+    @ResponseBody
+    public Map<String, Object> roleList(QueryRequest request, MobilePageIn mobile) {
+        mobile.setCurrentPage(request.getPageNum());
+        mobile.setPageSize(request.getPageSize());
+       // PageHelper.startPage(request.getPageNum(), request.getPageSize());
+       // List<Role> list = this.pMobileService.(role);
+        PageInfo<PMobile> mobilePageInfo = pMobileService.getMobileListbByItems(mobile);
+        //PageInfo<Role> pageInfo = new PageInfo<Role>(list);
+        return getDataTable(mobilePageInfo);
+    }
 
 
 }

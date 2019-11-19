@@ -1,53 +1,69 @@
 $(function() {
     var settings = {
-        url: ctx + "user/list",
+        url: ctx + "mobile/list",
         pageSize: 10,
         queryParams: function(params) {
             return {
                 pageSize: params.limit,
                 pageNum: params.offset / params.limit + 1,
-                username: $(".user-table-form").find("input[name='username']").val().trim(),
-                ssex: $(".user-table-form").find("select[name='ssex']").val(),
+                mobile: $(".user-table-form").find("input[name='mobile']").val().trim(),
+                // userId: $(".user-table-form").find("input[name='userId']").val(),
                 status: $(".user-table-form").find("select[name='status']").val()
             };
         },
         columns: [{
                 checkbox: true
             }, {
-                field: 'userId',
+                field: 'id',
                 visible: false
-            }, {
+            },
+
+            {
                 field: 'username',
                 title: '用户名'
-            }, {
-                field: 'deptName',
-                title: '部门'
-            }, {
-            field: 'email',
-            title: '邮箱'
-            }, {
-                field: 'smsnum',
-                title: '短信余额'
-            }, {
+            },
+
+            {
                 field: 'mobile',
-                title: '手机'
-            }, {
-                field: 'ssex',
-                title: '性别',
+                title: '电话号码'
+            },
+
+
+            {
+                field: 'type',
+                title: '运营商类型',
                 formatter: function(value, row, index) {
-                    if (value == '0') return '男';
-                    else if (value == '1') return '女';
+                    if (value == 'YD') return '移动';
+                    else if (value == 'LT') return '联通';
+                    else if (value == 'DX') return '电信';
                     else return '保密';
                 }
-            }, {
-                field: 'crateTime',
+            },
+
+
+            {
+            field: 'province',
+            title: '省'
+            },
+
+            {
+                field: 'city',
+                title: '市'
+            },
+
+
+
+
+            {
+                field: 'createDate',
                 title: '创建时间'
             }, {
                 field: 'status',
-                title: '状态',
+                title: '发送状态',
                 formatter: function(value, row, index) {
-                    if (value == '1') return '<span class="badge badge-success">有效</span>';
-                    if (value == '0') return '<span class="badge badge-warning">锁定</span>';
+                    if (value == '1') return '<span class="badge badge-success">成功</span>';
+                    if (value == '2') return '<span class="badge badge-warning">未知</span>';
+                    if (value == '3') return '<span class="badge badge-warning">失败</span>';
                 }
             }
 
@@ -108,6 +124,9 @@ function exportUserExcel(){
 		}
 	});
 }
+
+
+
 
 function exportUserCsv(){
 	$.post(ctx+"user/csv",$(".user-table-form").serialize(),function(r){

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import cc.mrbird.common.util.MyUserUtiles;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,7 +50,18 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
 	public List<User> findUserWithDept(User user) {
 		try {
-			return this.userMapper.findUserWithDept(user);
+			Long userId = MyUserUtiles.getUser().getUserId();
+			UserRole userRole =new UserRole();
+			userRole.setUserId(userId);
+			List<UserRole> userRoles = userRoleMapper.select(userRole);
+			for(UserRole userRole1:userRoles){
+				if(1==userRole1.getRoleId()){
+					return this.userMapper.findUserWithDept(user);
+				}
+			}
+			user.setUserId(userId);
+			return  this.userMapper.findMyWithDept(user);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ArrayList<User>();

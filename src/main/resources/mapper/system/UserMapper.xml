@@ -19,19 +19,52 @@
     <result column="THEME" jdbcType="VARCHAR" property="theme" />
     <result column="AVATAR" jdbcType="VARCHAR" property="avatar" />
     <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+
+	  <result column="smsnum" jdbcType="DECIMAL" property="smsnum"/>
+	  <result column="roleName" jdbcType="VARCHAR" property="roleName"/>
+
+
+	  <result column="is_vip" property="isVip" jdbcType="VARCHAR" />
+	  <result column=" profession" property="profession" jdbcType="VARCHAR" />
+	  <result column="school" property="school" jdbcType="VARCHAR" />
+	  <result column="registed_address" property="registedAddress" jdbcType="VARCHAR" />
+	  <result column="extend1" property="extend1" jdbcType="VARCHAR" />
+	  <result column="extend2" property="extend2" jdbcType="VARCHAR" />
+	  <result column="extend3" property="extend3" jdbcType="VARCHAR" />
+
+
+
+	 <association property="companys" javaType="cc.mrbird.system.domain.XgCompany">
+		 <id column="cid" property="id"></id>
+         <result column="cImg" property="cImg"></result>
+		 <result column="cAddress" property="cAddress"></result>
+		 <result column="cName " property="cName"></result>
+		 <result column="cMode" property="cMode"></result>
+		 <result column="cCreateDate " property="createDate"></result>
+	 </association>
+
   </resultMap>
   
-  <select id="findUserWithDept" resultType="user" parameterType="user">
-  		select u.user_id userId,u.username,u.email,u.mobile,u.status,u.crate_time crateTime,
-  		u.ssex,d.dept_name deptName from t_user u 
-  		left join t_dept d on(u.dept_id = d.dept_id)
+  <select id="findUserWithDept" resultMap="BaseResultMap" parameterType="user">
+  		select u.user_id userId,u.username,u.email,u.mobile,u.status,u.crate_time crateTime,u.smsnum,
+  		u.ssex,
+  		 u.is_vip,
+  		 u.profession,
+  		 u.school,
+  		 u.registed_address,
+  		 xc.id as cid,
+  		 xc.c_name as cName,
+  		 xc.c_img as cImg,
+  		 xc.c_address as cAddress,
+  		 xc.c_mode as cMode,
+  		 xc.create_date as cCreateDate
+  		 from t_user u
+  		left join  xg_company xc on xc.id=u.company_id
   		where 1=1
   		<if test="username != null and username != ''">
         	AND u.username = #{username}
 	    </if>
-	    <if test="deptId != null and deptId != ''">
-	        AND d.dept_id = #{deptId}
-	    </if>
+
   		<if test="ssex != null and ssex != ''">
 	        AND u.ssex = #{ssex}
 	    </if>
@@ -40,10 +73,24 @@
 	    </if>
   		order by u.user_id
   </select>
-  
+
+
+
+	<select id="findMyWithDept" resultType="user" parameterType="user">
+		select u.user_id userId,u.username,u.email,u.mobile,u.status,u.crate_time crateTime,u.smsnum,
+		u.ssex,d.dept_name deptName from t_user u
+		left join t_dept d on(u.dept_id = d.dept_id)
+		where 1=1
+		<if test="userId != null and userId != ''">
+			AND u.user_id = #{userId}
+		</if>
+
+	</select>
+
+
     
   <select id="findUserWithRole" resultType="userWithRole">
-		select u.user_id userId,u.username,u.dept_id deptId,u.email,u.mobile,
+		select u.user_id userId,u.username,u.dept_id deptId,u.email,u.mobile,u.smsnum,
 		u.status,u.ssex,ur.role_id roleId from t_user u
 		left join t_user_role ur on (u.user_id = ur.user_id)
 		where u.user_id = #{userId}
@@ -60,6 +107,7 @@
 		U .description,
 		U .ssex,
 		U .dept_id deptId,
+		U.smsnum,
 		group_concat(r.role_name) AS roleName
 	FROM
 		t_user U
@@ -77,7 +125,8 @@
 		U .description,
 		U .ssex,
 		U .USER_ID,
-		U .dept_id
+		U .dept_id,
+		U.smsnum
   </select>
   
 </mapper>

@@ -1,6 +1,7 @@
 package cc.mrbird.job.dao;
 
 
+import cc.mrbird.job.domain.In.MobilePageIn;
 import cc.mrbird.job.domain.PMobile;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface PMobileMapper {
     int updateByPrimaryKey(PMobile record);
 
     int  insertMobileForeach(List<PMobile> list);
+
+    List<PMobile> getMobileListbByItems(MobilePageIn mobilePageIn);
 }

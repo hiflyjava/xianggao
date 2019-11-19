@@ -52,7 +52,10 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/druid/**", "anon");
 		filterChainDefinitionMap.put("/user/regist", "anon");
 		filterChainDefinitionMap.put("/gifCode", "anon");
-		filterChainDefinitionMap.put("/mobile/batchAddMobiles", "anon");
+		filterChainDefinitionMap.put("/mobile/**", "anon");
+		filterChainDefinitionMap.put("/batchAddMobiles", "anon");
+		filterChainDefinitionMap.put("/sys/upImg/**", "anon");
+
 		filterChainDefinitionMap.put("/logout", "logout");
 		filterChainDefinitionMap.put("/", "anon");
 		filterChainDefinitionMap.put("/**", "user");

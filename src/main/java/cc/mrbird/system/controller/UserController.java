@@ -186,7 +186,7 @@ public class UserController extends BaseController {
 
 	@RequestMapping("user/updatePassword")
 	@ResponseBody
-	public ResponseBo updatePassword(String newPassword) {
+		public ResponseBo updatePassword(String newPassword) {
 		try {
 			this.userService.updatePassword(newPassword);
 			return ResponseBo.ok("更改密码成功！");

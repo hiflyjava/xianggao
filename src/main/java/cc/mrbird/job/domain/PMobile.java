@@ -15,11 +15,14 @@ public class PMobile {
 
     private Integer status;
 
-    private String extend1;
+    private String province;
 
-    private Integer userId;
+    private Long userId;
 
-    private String extend3;
+    private String city;
+
+
+    private String  username;
 
     public Long getId() {
         return id;
@@ -69,27 +72,42 @@ public class PMobile {
         this.status = status;
     }
 
-    public String getextend1() {
-        return extend1;
+
+
+
+
+    public String getProvince() {
+        return province;
     }
 
-    public void setextend1(String extend1) {
-        this.extend1 = extend1 == null ? null : extend1.trim();
+    public void setProvince(String province) {
+        this.province = province;
     }
 
-    public void setExtend1(String extend1) {
-        this.extend1 = extend1;
+
+
+    public String getCity() {
+        return city;
     }
 
-    public void setUserId(Integer userId) {
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public String getExtend3() {
-        return extend3;
+    public String getUsername() {
+        return username;
     }
 
-    public void setExtend3(String extend3) {
-        this.extend3 = extend3 == null ? null : extend3.trim();
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
