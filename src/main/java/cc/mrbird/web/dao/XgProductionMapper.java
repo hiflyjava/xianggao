@@ -1,17 +1,14 @@
-package com.pg.mapper;
+package cc.mrbird.web.dao;
 
-import com.pg.bean.XgProduction;
+import cc.mrbird.common.config.MyMapper;
+import cc.mrbird.web.domain.XgProduction;
+import cc.mrbird.web.dto.in.XgProductionPageIn;
 
-public interface XgProductionMapper {
-    int deleteByPrimaryKey(Long id);
+import java.util.List;
 
-    int insert(XgProduction record);
+public interface XgProductionMapper extends MyMapper<XgProduction> {
+    int  updateProductionById (XgProduction xgProduction);
+    int addProduction(XgProduction xgProduction);
+    List<XgProduction> getProductionListByItems(XgProductionPageIn productionPageIn);
 
-    int insertSelective(XgProduction record);
-
-    XgProduction selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(XgProduction record);
-
-    int updateByPrimaryKey(XgProduction record);
 }

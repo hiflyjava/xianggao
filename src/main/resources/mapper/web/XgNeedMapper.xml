@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.pg.mapper.XgNeedMapper" >
-  <resultMap id="BaseResultMap" type="com.pg.bean.XgNeed" >
+<mapper namespace="cc.mrbird.web.dao.XgNeedMapper" >
+  <resultMap id="BaseResultMap" type="cc.mrbird.web.domain.XgNeed" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
     <result column="budget" property="budget" jdbcType="VARCHAR" />
     <result column="is_home" property="isHome" jdbcType="VARCHAR" />
     <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
@@ -16,12 +16,12 @@
     <result column="fourthly_pay_time" property="fourthlyPayTime" jdbcType="TIMESTAMP" />
     <result column="fifth_pay_time" property="fifthPayTime" jdbcType="TIMESTAMP" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
-    <result column="extend1" property="extend1" jdbcType="VARCHAR" />
-    <result column="extend2" property="extend2" jdbcType="VARCHAR" />
+    <result column="checked_by" property="checkedBy" jdbcType="VARCHAR" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
     <result column="extend3" property="extend3" jdbcType="VARCHAR" />
     <result column="need_info" property="needInfo" jdbcType="VARCHAR" />
     <result column="need_check_status" property="needCheckStatus" jdbcType="VARCHAR" />
-    <result column="nedd_mode" property="neddMode" jdbcType="VARCHAR" />
+    <result column="need_mode" property="needMode" jdbcType="VARCHAR" />
     <result column=" discount" property="discount" jdbcType="VARCHAR" />
     <result column="hosting_state" property="hostingState" jdbcType="VARCHAR" />
     <result column="need_user_type" property="needUserType" jdbcType="VARCHAR" />
@@ -30,228 +30,28 @@
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="need_days" property="needDays" jdbcType="INTEGER" />
     <result column="need_imgs" property="needImgs" jdbcType="VARCHAR" />
+    <result column="checked_date" property="checkedDate" jdbcType="TIMESTAMP" />
+    <result column="username" property="username" jdbcType="VARCHAR"></result>
+    <result column="signName" property="signName" jdbcType="VARCHAR"></result>
+    <result column="needType" property="needType" jdbcType="VARCHAR"></result>
   </resultMap>
   <sql id="Base_Column_List" >
     id, title, type, budget, is_home, start_time, end_time, pay_type, first_pay_time, 
-    second_pay_time, thirdly_pay_time, fourthly_pay_time, fifth_pay_time, user_id, extend1, 
-    extend2, extend3, need_info, need_check_status, nedd_mode, " discount", hosting_state, 
-    need_user_type, need_pay_address, create_date, update_date, need_days, need_imgs
+    second_pay_time, thirdly_pay_time, fourthly_pay_time, fifth_pay_time, user_id, checked_by, 
+    update_by, extend3, need_info, need_check_status, nedd_mode, " discount", hosting_state, 
+    need_user_type, need_pay_address, create_date, update_date, need_days, need_imgs,checked_date
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from xg_need
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from xg_need
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.pg.bean.XgNeed" >
-    insert into xg_need (id, title, type, 
-      budget, is_home, start_time, 
-      end_time, pay_type, first_pay_time, 
-      second_pay_time, thirdly_pay_time, fourthly_pay_time, 
-      fifth_pay_time, user_id, extend1, 
-      extend2, extend3, need_info, 
-      need_check_status, nedd_mode, " discount", 
-      hosting_state, need_user_type, need_pay_address, 
-      create_date, update_date, need_days, 
-      need_imgs)
-    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{budget,jdbcType=VARCHAR}, #{isHome,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
-      #{endTime,jdbcType=TIMESTAMP}, #{payType,jdbcType=VARCHAR}, #{firstPayTime,jdbcType=TIMESTAMP}, 
-      #{secondPayTime,jdbcType=TIMESTAMP}, #{thirdlyPayTime,jdbcType=TIMESTAMP}, #{fourthlyPayTime,jdbcType=TIMESTAMP}, 
-      #{fifthPayTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=BIGINT}, #{extend1,jdbcType=VARCHAR}, 
-      #{extend2,jdbcType=VARCHAR}, #{extend3,jdbcType=VARCHAR}, #{needInfo,jdbcType=VARCHAR}, 
-      #{needCheckStatus,jdbcType=VARCHAR}, #{neddMode,jdbcType=VARCHAR}, #{discount,jdbcType=VARCHAR}, 
-      #{hostingState,jdbcType=VARCHAR}, #{needUserType,jdbcType=VARCHAR}, #{needPayAddress,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{needDays,jdbcType=INTEGER}, 
-      #{needImgs,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.pg.bean.XgNeed" >
-    insert into xg_need
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="title != null" >
-        title,
-      </if>
-      <if test="type != null" >
-        type,
-      </if>
-      <if test="budget != null" >
-        budget,
-      </if>
-      <if test="isHome != null" >
-        is_home,
-      </if>
-      <if test="startTime != null" >
-        start_time,
-      </if>
-      <if test="endTime != null" >
-        end_time,
-      </if>
-      <if test="payType != null" >
-        pay_type,
-      </if>
-      <if test="firstPayTime != null" >
-        first_pay_time,
-      </if>
-      <if test="secondPayTime != null" >
-        second_pay_time,
-      </if>
-      <if test="thirdlyPayTime != null" >
-        thirdly_pay_time,
-      </if>
-      <if test="fourthlyPayTime != null" >
-        fourthly_pay_time,
-      </if>
-      <if test="fifthPayTime != null" >
-        fifth_pay_time,
-      </if>
-      <if test="userId != null" >
-        user_id,
-      </if>
-      <if test="extend1 != null" >
-        extend1,
-      </if>
-      <if test="extend2 != null" >
-        extend2,
-      </if>
-      <if test="extend3 != null" >
-        extend3,
-      </if>
-      <if test="needInfo != null" >
-        need_info,
-      </if>
-      <if test="needCheckStatus != null" >
-        need_check_status,
-      </if>
-      <if test="neddMode != null" >
-        nedd_mode,
-      </if>
-      <if test="discount != null" >
-        " discount",
-      </if>
-      <if test="hostingState != null" >
-        hosting_state,
-      </if>
-      <if test="needUserType != null" >
-        need_user_type,
-      </if>
-      <if test="needPayAddress != null" >
-        need_pay_address,
-      </if>
-      <if test="createDate != null" >
-        create_date,
-      </if>
-      <if test="updateDate != null" >
-        update_date,
-      </if>
-      <if test="needDays != null" >
-        need_days,
-      </if>
-      <if test="needImgs != null" >
-        need_imgs,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="budget != null" >
-        #{budget,jdbcType=VARCHAR},
-      </if>
-      <if test="isHome != null" >
-        #{isHome,jdbcType=VARCHAR},
-      </if>
-      <if test="startTime != null" >
-        #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="payType != null" >
-        #{payType,jdbcType=VARCHAR},
-      </if>
-      <if test="firstPayTime != null" >
-        #{firstPayTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="secondPayTime != null" >
-        #{secondPayTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="thirdlyPayTime != null" >
-        #{thirdlyPayTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="fourthlyPayTime != null" >
-        #{fourthlyPayTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="fifthPayTime != null" >
-        #{fifthPayTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="extend1 != null" >
-        #{extend1,jdbcType=VARCHAR},
-      </if>
-      <if test="extend2 != null" >
-        #{extend2,jdbcType=VARCHAR},
-      </if>
-      <if test="extend3 != null" >
-        #{extend3,jdbcType=VARCHAR},
-      </if>
-      <if test="needInfo != null" >
-        #{needInfo,jdbcType=VARCHAR},
-      </if>
-      <if test="needCheckStatus != null" >
-        #{needCheckStatus,jdbcType=VARCHAR},
-      </if>
-      <if test="neddMode != null" >
-        #{neddMode,jdbcType=VARCHAR},
-      </if>
-      <if test="discount != null" >
-        #{discount,jdbcType=VARCHAR},
-      </if>
-      <if test="hostingState != null" >
-        #{hostingState,jdbcType=VARCHAR},
-      </if>
-      <if test="needUserType != null" >
-        #{needUserType,jdbcType=VARCHAR},
-      </if>
-      <if test="needPayAddress != null" >
-        #{needPayAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null" >
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateDate != null" >
-        #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="needDays != null" >
-        #{needDays,jdbcType=INTEGER},
-      </if>
-      <if test="needImgs != null" >
-        #{needImgs,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pg.bean.XgNeed" >
+
+
+
+  <update id="updateNeedById" parameterType="cc.mrbird.web.domain.XgNeed" >
     update xg_need
     <set >
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="type != null" >
-        type = #{type,jdbcType=VARCHAR},
+        type = #{type,jdbcType=INTEGER},
       </if>
       <if test="budget != null" >
         budget = #{budget,jdbcType=VARCHAR},
@@ -286,11 +86,11 @@
       <if test="userId != null" >
         user_id = #{userId,jdbcType=BIGINT},
       </if>
-      <if test="extend1 != null" >
-        extend1 = #{extend1,jdbcType=VARCHAR},
+      <if test="checkedBy != null" >
+        checked_by = #{checkedBy,jdbcType=VARCHAR},
       </if>
-      <if test="extend2 != null" >
-        extend2 = #{extend2,jdbcType=VARCHAR},
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
       </if>
       <if test="extend3 != null" >
         extend3 = #{extend3,jdbcType=VARCHAR},
@@ -301,8 +101,8 @@
       <if test="needCheckStatus != null" >
         need_check_status = #{needCheckStatus,jdbcType=VARCHAR},
       </if>
-      <if test="neddMode != null" >
-        nedd_mode = #{neddMode,jdbcType=VARCHAR},
+      <if test="needMode != null" >
+        need_mode = #{needMode,jdbcType=VARCHAR},
       </if>
       <if test="discount != null" >
         " discount" = #{discount,jdbcType=VARCHAR},
@@ -328,38 +128,41 @@
       <if test="needImgs != null" >
         need_imgs = #{needImgs,jdbcType=VARCHAR},
       </if>
+      <if test="checkedDate != null" >
+        checked_date = #{checkedDate,jdbcType=TIMESTAMP},
+      </if>
+
+
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pg.bean.XgNeed" >
-    update xg_need
-    set title = #{title,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      budget = #{budget,jdbcType=VARCHAR},
-      is_home = #{isHome,jdbcType=VARCHAR},
-      start_time = #{startTime,jdbcType=TIMESTAMP},
-      end_time = #{endTime,jdbcType=TIMESTAMP},
-      pay_type = #{payType,jdbcType=VARCHAR},
-      first_pay_time = #{firstPayTime,jdbcType=TIMESTAMP},
-      second_pay_time = #{secondPayTime,jdbcType=TIMESTAMP},
-      thirdly_pay_time = #{thirdlyPayTime,jdbcType=TIMESTAMP},
-      fourthly_pay_time = #{fourthlyPayTime,jdbcType=TIMESTAMP},
-      fifth_pay_time = #{fifthPayTime,jdbcType=TIMESTAMP},
-      user_id = #{userId,jdbcType=BIGINT},
-      extend1 = #{extend1,jdbcType=VARCHAR},
-      extend2 = #{extend2,jdbcType=VARCHAR},
-      extend3 = #{extend3,jdbcType=VARCHAR},
-      need_info = #{needInfo,jdbcType=VARCHAR},
-      need_check_status = #{needCheckStatus,jdbcType=VARCHAR},
-      nedd_mode = #{neddMode,jdbcType=VARCHAR},
-      " discount" = #{discount,jdbcType=VARCHAR},
-      hosting_state = #{hostingState,jdbcType=VARCHAR},
-      need_user_type = #{needUserType,jdbcType=VARCHAR},
-      need_pay_address = #{needPayAddress,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      update_date = #{updateDate,jdbcType=TIMESTAMP},
-      need_days = #{needDays,jdbcType=INTEGER},
-      need_imgs = #{needImgs,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+
+
+  <select id="getNeedList" resultMap="BaseResultMap">
+
+  SELECT
+    tu.USERNAME as username,
+    tu.EMAIL as signName,
+    xt.p_type as needType,
+    xn.*
+  FROM xg_need xn LEFT JOIN t_user tu on tu.USER_ID =xn.user_id
+  left  join  xg_production_type xt on xt.id =xn.type
+    <where>
+      <if test="username != null and username != '' ">
+        tu.USERNAME like '%${username}%'
+      </if>
+
+      <if test="startTime != null and startTime != '' and endTime !=null and endTime != '' ">
+        and xn.create_date  &gt;= #{startTime} and  xn.create_date &lt;= #{endTime}
+      </if>
+      <if test="type != null and type != '' ">
+        and  xn.type = #{type}
+      </if>
+
+    </where>
+
+  </select>
+
+
+
 </mapper>

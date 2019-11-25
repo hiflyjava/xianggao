@@ -31,7 +31,7 @@
 	  <result column="extend1" property="extend1" jdbcType="VARCHAR" />
 	  <result column="extend2" property="extend2" jdbcType="VARCHAR" />
 	  <result column="extend3" property="extend3" jdbcType="VARCHAR" />
-
+	  <result column="company_id" property="companyId" jdbcType="BIGINT"></result>
 
 
 	 <association property="companys" javaType="cc.mrbird.system.domain.XgCompany">

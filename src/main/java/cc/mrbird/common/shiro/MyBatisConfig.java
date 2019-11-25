@@ -1,4 +1,4 @@
-package com.pg.config;
+package cc.mrbird.common.shiro;
 
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -15,7 +15,7 @@ public class MyBatisConfig {
      * @return SqlStatementInterceptor
      */
     @Bean
-    @ConditionalOnProperty(name = "febs.showsql", havingValue = "true")
+    @ConditionalOnProperty(name = "febss.showsql", havingValue = "true")
     SqlStatementInterceptor sqlStatementInterceptor() {
         return new SqlStatementInterceptor();
     }

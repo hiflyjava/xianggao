@@ -5,6 +5,7 @@ import java.util.List;
 import cc.mrbird.common.service.IService;
 import cc.mrbird.system.domain.User;
 import cc.mrbird.system.domain.UserWithRole;
+import cc.mrbird.system.domain.XgCompany;
 
 public interface UserService extends IService<User> {
 
@@ -18,7 +19,7 @@ public interface UserService extends IService<User> {
 
 	void updateTheme(String theme, String userName);
 
-	void addUser(User user, Long[] roles);
+	void addUser(User user,XgCompany xgCompany,  Long[] roles);
 
 	void updateUser(User user, Long[] roles);
 	

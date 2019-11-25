@@ -1,13 +1,18 @@
-package com.pg.bean;
+package cc.mrbird.web.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class XgNeed {
+public class XgNeed  implements Serializable {
+
+
+    private static final long serialVersionUID = -6051593356331868324L;
+
     private Long id;
 
     private String title;
 
-    private String type;
+    private int type;
 
     private String budget;
 
@@ -31,9 +36,9 @@ public class XgNeed {
 
     private Long userId;
 
-    private String extend1;
+    private String checkedBy;
 
-    private String extend2;
+    private String updateBy;
 
     private String extend3;
 
@@ -41,7 +46,7 @@ public class XgNeed {
 
     private String needCheckStatus;
 
-    private String neddMode;
+    private String needMode;
 
     private String discount;
 
@@ -59,6 +64,53 @@ public class XgNeed {
 
     private String needImgs;
 
+    private Date checkedDate;
+
+
+
+    private String username;//账号
+
+    private String signName;//昵称
+
+    private String needType;
+
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public String getNeedType() {
+        return needType;
+    }
+
+    public void setNeedType(String needType) {
+        this.needType = needType;
+    }
+
+    public Date getCheckedDate() {
+        return checkedDate;
+    }
+
+    public void setCheckedDate(Date checkedDate) {
+        this.checkedDate = checkedDate;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getSignName() {
+        return signName;
+    }
+
+    public void setSignName(String signName) {
+        this.signName = signName;
+    }
+
     public Long getId() {
         return id;
     }
@@ -75,12 +127,9 @@ public class XgNeed {
         this.title = title == null ? null : title.trim();
     }
 
-    public String getType() {
-        return type;
-    }
 
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+    public int getType() {
+        return type;
     }
 
     public String getBudget() {
@@ -171,20 +220,21 @@ public class XgNeed {
         this.userId = userId;
     }
 
-    public String getExtend1() {
-        return extend1;
+
+    public String getCheckedBy() {
+        return checkedBy;
     }
 
-    public void setExtend1(String extend1) {
-        this.extend1 = extend1 == null ? null : extend1.trim();
+    public void setCheckedBy(String checkedBy) {
+        this.checkedBy = checkedBy;
     }
 
-    public String getExtend2() {
-        return extend2;
+    public String getUpdateBy() {
+        return updateBy;
     }
 
-    public void setExtend2(String extend2) {
-        this.extend2 = extend2 == null ? null : extend2.trim();
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
     }
 
     public String getExtend3() {
@@ -211,12 +261,12 @@ public class XgNeed {
         this.needCheckStatus = needCheckStatus == null ? null : needCheckStatus.trim();
     }
 
-    public String getNeddMode() {
-        return neddMode;
+    public String getNeedMode() {
+        return needMode;
     }
 
-    public void setNeddMode(String neddMode) {
-        this.neddMode = neddMode == null ? null : neddMode.trim();
+    public void setNeedMode(String needMode) {
+        this.needMode = needMode;
     }
 
     public String getDiscount() {

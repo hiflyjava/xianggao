@@ -3,6 +3,7 @@ package cc.mrbird.system.controller;
 import java.util.List;
 import java.util.Map;
 
+import cc.mrbird.system.domain.XgCompany;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,13 +129,13 @@ public class UserController extends BaseController {
 	@RequiresPermissions("user:add")
 	@RequestMapping("user/add")
 	@ResponseBody
-	public ResponseBo addUser(User user, Long[] roles) {
+	public ResponseBo addUser(User user,XgCompany xgCompany, Long[] roles) {
 		try {
 			if ("on".equalsIgnoreCase(user.getStatus()))
 				user.setStatus("1");
 			else
 				user.setStatus("0");
-			this.userService.addUser(user, roles);
+			this.userService.addUser(user, xgCompany,roles);
 			return ResponseBo.ok("新增用户成功！");
 		} catch (Exception e) {
 			e.printStackTrace();

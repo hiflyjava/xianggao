@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 import cc.mrbird.common.util.MyUserUtiles;
+import cc.mrbird.system.dao.XgCompanyMapper;
+import cc.mrbird.system.domain.XgCompany;
+import cc.mrbird.system.utils.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +38,9 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
 	@Autowired
 	private UserRoleService userRoleService;
+
+	@Autowired
+	private XgCompanyMapper companyMapper;
 
 	@Override
 	public User findByName(String userName) {
@@ -95,7 +101,20 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-	public void addUser(User user, Long[] roles) {
+	public void addUser(User user,XgCompany xgCompany, Long[] roles) {
+
+		Long companyId=0l;
+
+		if(xgCompany !=null){//是企业
+			if(StringUtils.notEmptyOrNull(xgCompany.getcName())){
+				xgCompany.setCreateDate(new Date());
+				xgCompany.setCreateBy(MyUserUtiles.getUser().getUsername());
+				int i = companyMapper.insertUseGeneratedKeys(xgCompany);
+              companyId=xgCompany.getId();
+			}
+		}
+
+        user.setCompanyId(companyId);
 		user.setCrateTime(new Date());
 		user.setTheme(User.DEFAULT_THEME);
 		user.setAvatar(User.DEFAULT_AVATAR);

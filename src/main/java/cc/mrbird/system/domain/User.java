@@ -104,8 +104,18 @@ public class User implements Serializable {
 
 	private String extend3;
 
+	private Long companyId;
+
 	private XgCompany companys;//0 是个人；其它是公司
 
+
+	public Long getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
+	}
 
 	public XgCompany getCompanys() {
 		return companys;

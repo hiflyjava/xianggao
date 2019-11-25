@@ -9,10 +9,10 @@ spring:
       # 数据库访问配置, 使用druid数据源 
       type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: com.mysql.jdbc.Driver
-      url: jdbc:mysql://192.168.0.121:3306/yxt_sms?useUnicode=true&characterEncoding=utf8
-      #url: jdbc:mysql://120.79.250.11:3306/xianggao?useUnicode=true&characterEncoding=utf8
+      #url: jdbc:mysql://192.168.0.121:3306/yxt_sms?useUnicode=true&characterEncoding=utf8
+      url: jdbc:mysql://120.79.250.11:3306/xianggao?useUnicode=true&characterEncoding=utf8
       username: root
-      password: x5
+      password: 123456
       # 连接池配置
       initial-size: 5
       min-idle: 5
@@ -94,12 +94,14 @@ pagehelper:
   supportMethodsArguments: true
   params: count=countSql 
   
-logging:
-  level:
-    cc:
-      mrbird:
-        system:
-          dao: warn
+#logging:
+#  level:
+#    cc:
+#      mrbird:
+#        system:
+#          dao: warn
+
+
 sms:
  accesskey: qAWK2aKDAzQzq0rJ
  accessSecret: o24oHc3n54JHb4ipmjrdwT5SwEQ2I7hF
@@ -109,6 +111,12 @@ qiniuyun:
  ACCESS_KEY: UPSO2MA5ZT9YU2rGAp1G_JfHeRJhPuTFDtrFfF7N
  SECRET_KEY: YqBJ-apvJQjVjnYX7f36d6QudybFUN4yjRAPDSWg
  BUCKET_NAME: myzfimgs
+
+febss:
+  showsql: true
+
+
+
 
 
 

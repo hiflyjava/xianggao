@@ -1,15 +1,18 @@
-package com.pg.bean;
+package cc.mrbird.web.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class XgProduction {
+public class XgProduction  implements Serializable {
+
+    private static final long serialVersionUID = -6051593356331868324L;
     private Long id;
 
     private String name;
 
-    private String explain;
+    private String notes;//作品说明
 
-    private String type;
+    private int type;
 
     private String firstImg;
 
@@ -23,7 +26,7 @@ public class XgProduction {
 
     private String updateBy;
 
-    private String extend1;
+    private String checkedBy;
 
     private String extend2;
 
@@ -34,6 +37,67 @@ public class XgProduction {
     private String status;
 
     private Long userId;
+
+    private Date checkedDate;
+
+    private String attributes;//作品属性 作品属性1:原创；2:临摹；3：分享
+
+
+    private String username;
+
+    private String isVip;
+
+    private String companyId;
+
+    private String productionType;
+
+    public String getProductionType() {
+        return productionType;
+    }
+
+    public void setProductionType(String productionType) {
+        this.productionType = productionType;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getIsVip() {
+        return isVip;
+    }
+
+    public void setIsVip(String isVip) {
+        this.isVip = isVip;
+    }
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
+
+    public String getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(String attributes) {
+        this.attributes = attributes;
+    }
+
+    public Date getCheckedDate() {
+        return checkedDate;
+    }
+
+    public void setCheckedDate(Date checkedDate) {
+        this.checkedDate = checkedDate;
+    }
 
     public Long getId() {
         return id;
@@ -51,20 +115,21 @@ public class XgProduction {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getExplain() {
-        return explain;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setExplain(String explain) {
-        this.explain = explain == null ? null : explain.trim();
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
-    public String getType() {
+
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+    public void setType(int type) {
+        this.type = type;
     }
 
     public String getFirstImg() {
@@ -115,12 +180,13 @@ public class XgProduction {
         this.updateBy = updateBy == null ? null : updateBy.trim();
     }
 
-    public String getExtend1() {
-        return extend1;
+
+    public String getCheckedBy() {
+        return checkedBy;
     }
 
-    public void setExtend1(String extend1) {
-        this.extend1 = extend1 == null ? null : extend1.trim();
+    public void setCheckedBy(String checkedBy) {
+        this.checkedBy = checkedBy;
     }
 
     public String getExtend2() {

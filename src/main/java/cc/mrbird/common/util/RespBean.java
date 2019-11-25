@@ -1,4 +1,4 @@
-package com.pg.bean;
+package cc.mrbird.common.util;
 
 public class RespBean {
     private Integer status;

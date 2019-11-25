@@ -47,7 +47,7 @@ public class QiniuUtil {
 //        String localFilePath = "D:\\23912475_130759767000_2.jpg";
         //        String localFilePath = "/home/qiniu/test.png";
         //默认不指定key的情况下，以文件内容的hash值作为文件名
-        String key = "images/"+fileName+"%3FtId="+System.currentTimeMillis();
+        String key = "/images/"+fileName+"%3FtId="+System.currentTimeMillis();
         com.qiniu.util.Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
         String upToken = auth.uploadToken(BUCKET_NAME);
 

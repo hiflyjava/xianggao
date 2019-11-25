@@ -55,7 +55,7 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/mobile/**", "anon");
 		filterChainDefinitionMap.put("/batchAddMobiles", "anon");
 		filterChainDefinitionMap.put("/sys/upImg/**", "anon");
-
+		filterChainDefinitionMap.put("/need/**", "anon");
 		filterChainDefinitionMap.put("/logout", "logout");
 		filterChainDefinitionMap.put("/", "anon");
 		filterChainDefinitionMap.put("/**", "user");

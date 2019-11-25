@@ -1,53 +1,100 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.pg.mapper.XgProductionMapper" >
-  <resultMap id="BaseResultMap" type="com.pg.bean.XgProduction" >
+<mapper namespace="cc.mrbird.web.dao.XgProductionMapper" >
+  <resultMap id="BaseResultMap" type="cc.mrbird.web.domain.XgProduction" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="explain" property="explain" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="notes" property="notes" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
     <result column="first_img" property="firstImg" jdbcType="VARCHAR" />
     <result column="imgs" property="imgs" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     <result column="create_by" property="createBy" jdbcType="VARCHAR" />
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
-    <result column="extend1" property="extend1" jdbcType="VARCHAR" />
+    <result column="checked_by" property="checkedBy" jdbcType="VARCHAR" />
     <result column="extend2" property="extend2" jdbcType="VARCHAR" />
     <result column="extend3" property="extend3" jdbcType="VARCHAR" />
     <result column="label" property="label" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="checked_date" property="checkedDate" jdbcType="TIMESTAMP"></result>
+   <result column="attributes" property="attributes" jdbcType="VARCHAR"/>
+    <result column="isVip" property="isVip" jdbcType="VARCHAR"/>
+    <result column="companyId" property="companyId" jdbcType="VARCHAR"/>
+    <result column="username" property="username" jdbcType="VARCHAR"/>
+    <result column="productionType" property="productionType" jdbcType="VARCHAR"></result>
+
+
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, explain, type, first_img, imgs, create_date, create_by, update_date, update_by, 
-    extend1, extend2, extend3, label, status, user_id
+    id, name, notes, type, first_img, imgs, create_date, create_by, update_date, update_by, 
+    checked_by, extend2, extend3, label, status, user_id,checked_date,attributes
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from xg_production
+
+  <update id="updateProductionById" parameterType="cc.mrbird.web.domain.XgProduction" >
+    update xg_production
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        notes = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="firstImg != null" >
+        first_img = #{firstImg,jdbcType=VARCHAR},
+      </if>
+      <if test="imgs != null" >
+        imgs = #{imgs,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="checkedBy != null" >
+        checked_by = #{checkedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="extend2 != null" >
+        extend2 = #{extend2,jdbcType=VARCHAR},
+      </if>
+      <if test="extend3 != null" >
+        extend3 = #{extend3,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null" >
+        label = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="checkedDate != null" >
+        checked_date = #{checkedDate,jdbcType=TIMESTAMP},
+      </if>
+
+      <if test="attributes != null" >
+        attributes = #{attributes,jdbcType=VARCHAR},
+      </if>
+
+    </set>
     where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from xg_production
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.pg.bean.XgProduction" >
-    insert into xg_production (id, name, explain, 
-      type, first_img, imgs, 
-      create_date, create_by, update_date, 
-      update_by, extend1, extend2, 
-      extend3, label, status, 
-      user_id)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{explain,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{firstImg,jdbcType=VARCHAR}, #{imgs,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
-      #{updateBy,jdbcType=VARCHAR}, #{extend1,jdbcType=VARCHAR}, #{extend2,jdbcType=VARCHAR}, 
-      #{extend3,jdbcType=VARCHAR}, #{label,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=BIGINT})
-  </insert>
-  <insert id="insertSelective" parameterType="com.pg.bean.XgProduction" >
+  </update>
+
+
+
+  <insert id="addProduction" parameterType="cc.mrbird.web.domain.XgProduction" >
     insert into xg_production
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -56,8 +103,8 @@
       <if test="name != null" >
         name,
       </if>
-      <if test="explain != null" >
-        explain,
+      <if test="notes != null" >
+        notes,
       </if>
       <if test="type != null" >
         type,
@@ -80,8 +127,8 @@
       <if test="updateBy != null" >
         update_by,
       </if>
-      <if test="extend1 != null" >
-        extend1,
+      <if test="checkedBy != null" >
+        checked_by,
       </if>
       <if test="extend2 != null" >
         extend2,
@@ -98,6 +145,12 @@
       <if test="userId != null" >
         user_id,
       </if>
+      <if test="checkedDate != null" >
+        checked_date,
+      </if>
+      <if test="attributes != null" >
+        attributes,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -106,11 +159,11 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="explain != null" >
-        #{explain,jdbcType=VARCHAR},
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
       </if>
       <if test="type != null" >
-        #{type,jdbcType=VARCHAR},
+        #{type,jdbcType=INTEGER},
       </if>
       <if test="firstImg != null" >
         #{firstImg,jdbcType=VARCHAR},
@@ -130,8 +183,8 @@
       <if test="updateBy != null" >
         #{updateBy,jdbcType=VARCHAR},
       </if>
-      <if test="extend1 != null" >
-        #{extend1,jdbcType=VARCHAR},
+      <if test="checkedBy != null" >
+        #{checkedBy,jdbcType=VARCHAR},
       </if>
       <if test="extend2 != null" >
         #{extend2,jdbcType=VARCHAR},
@@ -148,76 +201,52 @@
       <if test="userId != null" >
         #{userId,jdbcType=BIGINT},
       </if>
+      <if test="checkedDate != null" >
+        #{checkedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attributes != null" >
+        #{attributes,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pg.bean.XgProduction" >
-    update xg_production
-    <set >
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
+
+
+  <select id="getProductionListByItems" resultMap="BaseResultMap">
+
+
+    select
+    CASE  WHEN tu.is_vip= 'Y' THEN '是'  ELSE '否' END as isVip,
+    tu.USERNAME as username,
+    xt.p_type as productionType,
+    CASE  WHEN tu.company_id= '0' THEN '个人'  ELSE '企业' END as companyId,
+    xp.*
+
+    from xg_production xp LEFT JOIN t_user tu on xp.user_id =tu.USER_ID
+        left  join  xg_production_type xt on xt.id =xp.type
+    <where>
+      <if test="username != null and username != '' ">
+        tu.USERNAME like  '%${username}%'
       </if>
-      <if test="explain != null" >
-        explain = #{explain,jdbcType=VARCHAR},
+
+      <if test="startTime != null and startTime != '' and endTime !=null and endTime != '' ">
+        and xp.create_date  &gt;= #{startTime} and  xp.create_date &lt;= #{endTime}
       </if>
-      <if test="type != null" >
-        type = #{type,jdbcType=VARCHAR},
+      <if test="type != null and type != '' ">
+        and xp.type =#{type}
       </if>
-      <if test="firstImg != null" >
-        first_img = #{firstImg,jdbcType=VARCHAR},
+
+      <if test="status != null and status != '' ">
+        and xp.status =#{status}
       </if>
-      <if test="imgs != null" >
-        imgs = #{imgs,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null" >
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createBy != null" >
-        create_by = #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updateDate != null" >
-        update_date = #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateBy != null" >
-        update_by = #{updateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="extend1 != null" >
-        extend1 = #{extend1,jdbcType=VARCHAR},
-      </if>
-      <if test="extend2 != null" >
-        extend2 = #{extend2,jdbcType=VARCHAR},
-      </if>
-      <if test="extend3 != null" >
-        extend3 = #{extend3,jdbcType=VARCHAR},
-      </if>
-      <if test="label != null" >
-        label = #{label,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=BIGINT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.pg.bean.XgProduction" >
-    update xg_production
-    set name = #{name,jdbcType=VARCHAR},
-      explain = #{explain,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      first_img = #{firstImg,jdbcType=VARCHAR},
-      imgs = #{imgs,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      create_by = #{createBy,jdbcType=VARCHAR},
-      update_date = #{updateDate,jdbcType=TIMESTAMP},
-      update_by = #{updateBy,jdbcType=VARCHAR},
-      extend1 = #{extend1,jdbcType=VARCHAR},
-      extend2 = #{extend2,jdbcType=VARCHAR},
-      extend3 = #{extend3,jdbcType=VARCHAR},
-      label = #{label,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+
+    </where>
+
+
+  </select>
+
+
+
+
+
+
 </mapper>
