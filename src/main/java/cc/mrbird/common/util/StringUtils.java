@@ -49,4 +49,14 @@ public class StringUtils {
 		}
 		return strVal;
 	}
+
+
+	public static boolean isEmptyOrNull(CharSequence str) {
+		return str == null || str.length() == 0 || str.equals("null") || "".equals(str);
+	}
+
+
+	public static boolean notEmptyOrNull(CharSequence str) {
+		return str != null && str.length() != 0 && !str.equals("null") && !"".equals(str);
+	}
 }

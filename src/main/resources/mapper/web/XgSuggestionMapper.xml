@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace=" cc.mrbird.web.dao.XgSuggestionMapper" >
+  <resultMap id="BaseResultMap" type="cc.mrbird.web.domain.XgSuggestion" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="suggest_title" property="suggestTitle" jdbcType="VARCHAR" />
+    <result column="suggest_info" property="suggestInfo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="extend1" property="extend1" jdbcType="VARCHAR" />
+    <result column="extend2" property="extend2" jdbcType="VARCHAR" />
+    <result column="extend3" property="extend3" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, suggest_title, suggest_info, status, user_id, create_by, create_date, update_by, 
+    update_date, extend1, extend2, extend3, type
+  </sql>
+
+  <update id="updateSuggestion" parameterType="cc.mrbird.web.domain.XgSuggestion" >
+    update xg_suggestion
+    <set >
+      <if test="suggestTitle != null" >
+        suggest_title = #{suggestTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="suggestInfo != null" >
+        suggest_info = #{suggestInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extend1 != null" >
+        extend1 = #{extend1,jdbcType=VARCHAR},
+      </if>
+      <if test="extend2 != null" >
+        extend2 = #{extend2,jdbcType=VARCHAR},
+      </if>
+      <if test="extend3 != null" >
+        extend3 = #{extend3,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

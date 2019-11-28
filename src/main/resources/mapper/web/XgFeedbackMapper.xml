@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.mrbird.web.dao.XgFeedbackMapper" >
+  <resultMap id="BaseResultMap" type="cc.mrbird.web.domain.XgFeedback" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="suggest_id" property="suggestId" jdbcType="BIGINT" />
+    <result column="feedback_info" property="feedbackInfo" jdbcType="VARCHAR" />
+    <result column="feedback_title" property="feedbackTitle" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="extend2" property="extend2" jdbcType="VARCHAR" />
+    <result column="extend3" property="extend3" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT"></result>
+
+    <result column="to_username" property="toUsername" jdbcType="VARCHAR"></result>
+    <result column="from_username" property="fromUsername" jdbcType="VARCHAR"></result>
+    <result column="to_user_id" property="toUserId" jdbcType="VARCHAR"></result>
+
+      <result column="suggestTitle" property="suggestTitle" jdbcType="VARCHAR"></result>
+      <result column="suggestInfo" property="suggestInfo" jdbcType="VARCHAR"></result>
+      <result column="sCreateDate" property="sCreateDate" jdbcType="TIMESTAMP"></result>
+      <result column="suggestionUserName" property="suggestionUserName" jdbcType="VARCHAR"></result>
+      <result column="toUserImg" property="toUserImg" jdbcType="VARCHAR"></result>
+      <result column="fromUserImg" property="fromUserImg" jdbcType="VARCHAR"></result>
+
+
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, suggest_id, feedback_info, feedback_title, user_id, create_date, create_by, type, 
+    extend2, extend3,parent_id,to_username,from_username,to_user_id
+  </sql>
+
+
+
+
+
+    <insert id="addFeedback" parameterType="cc.mrbird.web.domain.XgFeedback"  useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into xg_feedback
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="suggestId != null" >
+                suggest_id,
+            </if>
+            <if test="feedbackInfo != null" >
+                feedback_info,
+            </if>
+            <if test="feedbackTitle != null" >
+                feedback_title,
+            </if>
+            <if test="userId != null" >
+                user_id,
+            </if>
+            <if test="createDate != null" >
+                create_date,
+            </if>
+            <if test="createBy != null" >
+                create_by,
+            </if>
+            <if test="type != null" >
+                type,
+            </if>
+            <if test="extend2 != null" >
+                extend2,
+            </if>
+            <if test="extend3 != null" >
+                extend3,
+            </if>
+            <if test="parentId != null" >
+                parent_id,
+            </if>
+            <if test="toUsername != null" >
+                to_username,
+            </if>
+            <if test="fromUsername != null" >
+                from_username,
+            </if>
+            <if test="toUserId != null" >
+                to_user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="suggestId != null" >
+                #{suggestId,jdbcType=BIGINT},
+            </if>
+            <if test="feedbackInfo != null" >
+                #{feedbackInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="feedbackTitle != null" >
+                #{feedbackTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null" >
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="createDate != null" >
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createBy != null" >
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null" >
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="extend2 != null" >
+                #{extend2,jdbcType=VARCHAR},
+            </if>
+            <if test="extend3 != null" >
+                #{extend3,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null" >
+                #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="toUsername != null" >
+                #{toUsername,jdbcType=VARCHAR},
+            </if>
+            <if test="fromUsername != null" >
+                #{fromUsername,jdbcType=VARCHAR},
+            </if>
+            <if test="toUserId != null" >
+                #{toUserId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateFeedback" parameterType="cc.mrbird.web.domain.XgFeedback" >
+        update xg_feedback
+        <set >
+            <if test="suggestId != null" >
+                suggest_id = #{suggestId,jdbcType=BIGINT},
+            </if>
+            <if test="feedbackInfo != null" >
+                feedback_info = #{feedbackInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="feedbackTitle != null" >
+                feedback_title = #{feedbackTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="createDate != null" >
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createBy != null" >
+                create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null" >
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="extend2 != null" >
+                extend2 = #{extend2,jdbcType=VARCHAR},
+            </if>
+            <if test="extend3 != null" >
+                extend3 = #{extend3,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null" >
+                parent_id = #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="toUsername != null" >
+                to_username = #{toUsername,jdbcType=VARCHAR},
+            </if>
+            <if test="fromUsername != null" >
+                from_username = #{fromUsername,jdbcType=VARCHAR},
+            </if>
+            <if test="toUserId != null" >
+                to_user_id = #{toUserId,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    
+    
+    
+
+  
+  
+  <select id="getFeedList" resultMap="BaseResultMap">
+
+
+
+
+/*
+      SELECT
+      ss.suggest_title as suggestTitle,
+      ss.suggest_info as suggestInfo,
+      ss.create_date as sCreateDate,
+      ss.create_by as suggestionUserName,
+      uu.AVATAR as toUserImg,
+      vv.*
+      from
+      (select  u.AVATAR as fromUserImg,xf.*	from
+
+      xg_feedback xf INNER JOIN t_user u on xf.user_id =u.USER_ID) vv
+
+      INNER JOIN t_user uu on uu.USER_ID =vv.to_user_id
+      INNER JOIN xg_suggestion ss on ss.id =vv.suggest_id*/
+
+    SELECT
+    uu.AVATAR as toUserImg,
+
+    vv.*
+
+    from
+
+
+    (select  u.AVATAR as fromUserImg,xf.*	from
+
+    xg_feedback xf INNER JOIN t_user u on xf.user_id =u.USER_ID) vv
+
+    left JOIN t_user uu on uu.USER_ID =vv.to_user_id
+
+
+    <!-- <where>
+       <if test="suggestId!= null and suggestId !=''">
+           suggest_id=#{suggestId}
+       </if>
+
+     </where>-->
+    
+    
+  </select>
+  
+  
+</mapper>
