@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.mrbird.web.dao.XgUserLeaveMessageMapper" >
+  <resultMap id="BaseResultMap" type="cc.mrbird.web.domain.XgUserLeaveMessage" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="reply_info" property="replyInfo" jdbcType="VARCHAR" />
+    <result column="to_user_id" property="toUserId" jdbcType="BIGINT" />
+    <result column="to_username" property="toUsername" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="to_user_img" property="toUserImg" jdbcType="VARCHAR" />
+    <result column="from_username" property="fromUsername" jdbcType="VARCHAR" />
+    <result column="from_user_img" property="fromUserImg" jdbcType="VARCHAR" />
+    <result column="from_user_id" property="fromUserId" jdbcType="BIGINT" />
+    <result column="extend1" property="extend1" jdbcType="VARCHAR" />
+    <result column="extend2" property="extend2" jdbcType="VARCHAR" />
+    <result column="extend3" property="extend3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, reply_info, to_user_id, to_username, create_date, parent_id, to_user_img, from_username, 
+    from_user_img, from_user_id, extend1, extend2, extend3
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from xg_user_leave_message
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from xg_user_leave_message
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cc.mrbird.web.domain.XgUserLeaveMessage" >
+    insert into xg_user_leave_message (id, reply_info, to_user_id, 
+      to_username, create_date, parent_id, 
+      to_user_img, from_username, from_user_img, 
+      from_user_id, extend1, extend2, 
+      extend3)
+    values (#{id,jdbcType=BIGINT}, #{replyInfo,jdbcType=VARCHAR}, #{toUserId,jdbcType=BIGINT}, 
+      #{toUsername,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{parentId,jdbcType=BIGINT}, 
+      #{toUserImg,jdbcType=VARCHAR}, #{fromUsername,jdbcType=VARCHAR}, #{fromUserImg,jdbcType=VARCHAR}, 
+      #{fromUserId,jdbcType=BIGINT}, #{extend1,jdbcType=VARCHAR}, #{extend2,jdbcType=VARCHAR}, 
+      #{extend3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cc.mrbird.web.domain.XgUserLeaveMessage" >
+    insert into xg_user_leave_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="replyInfo != null" >
+        reply_info,
+      </if>
+      <if test="toUserId != null" >
+        to_user_id,
+      </if>
+      <if test="toUsername != null" >
+        to_username,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="toUserImg != null" >
+        to_user_img,
+      </if>
+      <if test="fromUsername != null" >
+        from_username,
+      </if>
+      <if test="fromUserImg != null" >
+        from_user_img,
+      </if>
+      <if test="fromUserId != null" >
+        from_user_id,
+      </if>
+      <if test="extend1 != null" >
+        extend1,
+      </if>
+      <if test="extend2 != null" >
+        extend2,
+      </if>
+      <if test="extend3 != null" >
+        extend3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="replyInfo != null" >
+        #{replyInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="toUserId != null" >
+        #{toUserId,jdbcType=BIGINT},
+      </if>
+      <if test="toUsername != null" >
+        #{toUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="toUserImg != null" >
+        #{toUserImg,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUsername != null" >
+        #{fromUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUserImg != null" >
+        #{fromUserImg,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUserId != null" >
+        #{fromUserId,jdbcType=BIGINT},
+      </if>
+      <if test="extend1 != null" >
+        #{extend1,jdbcType=VARCHAR},
+      </if>
+      <if test="extend2 != null" >
+        #{extend2,jdbcType=VARCHAR},
+      </if>
+      <if test="extend3 != null" >
+        #{extend3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.mrbird.web.domain.XgUserLeaveMessage" >
+    update xg_user_leave_message
+    <set >
+      <if test="replyInfo != null" >
+        reply_info = #{replyInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="toUserId != null" >
+        to_user_id = #{toUserId,jdbcType=BIGINT},
+      </if>
+      <if test="toUsername != null" >
+        to_username = #{toUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="toUserImg != null" >
+        to_user_img = #{toUserImg,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUsername != null" >
+        from_username = #{fromUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUserImg != null" >
+        from_user_img = #{fromUserImg,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUserId != null" >
+        from_user_id = #{fromUserId,jdbcType=BIGINT},
+      </if>
+      <if test="extend1 != null" >
+        extend1 = #{extend1,jdbcType=VARCHAR},
+      </if>
+      <if test="extend2 != null" >
+        extend2 = #{extend2,jdbcType=VARCHAR},
+      </if>
+      <if test="extend3 != null" >
+        extend3 = #{extend3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cc.mrbird.web.domain.XgUserLeaveMessage" >
+    update xg_user_leave_message
+    set reply_info = #{replyInfo,jdbcType=VARCHAR},
+      to_user_id = #{toUserId,jdbcType=BIGINT},
+      to_username = #{toUsername,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      to_user_img = #{toUserImg,jdbcType=VARCHAR},
+      from_username = #{fromUsername,jdbcType=VARCHAR},
+      from_user_img = #{fromUserImg,jdbcType=VARCHAR},
+      from_user_id = #{fromUserId,jdbcType=BIGINT},
+      extend1 = #{extend1,jdbcType=VARCHAR},
+      extend2 = #{extend2,jdbcType=VARCHAR},
+      extend3 = #{extend3,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

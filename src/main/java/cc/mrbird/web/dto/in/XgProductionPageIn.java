@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class XgProductionPageIn implements Serializable {
 
 
-    private  int pageSize=20;
+    private  int pageSize=2000000;
 
     private int currentPage=1;
 
@@ -25,6 +25,18 @@ public class XgProductionPageIn implements Serializable {
     private String type;
 
     private String status;
+
+
+    private Long userId;
+
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public int getPageSize() {
         return pageSize;

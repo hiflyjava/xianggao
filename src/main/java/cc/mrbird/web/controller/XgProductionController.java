@@ -88,7 +88,16 @@ public class XgProductionController extends BaseController {
     }
 
 
+    @RequestMapping("/getProductionListWithAll")
+    public RespBean getProductionListWithAll(@RequestBody XgProductionPageIn productionPageIn){
+        // xgNeed.setUpdateDate(new Date());
+        // xgNeed.setUserId(MyUserUtiles.getUser().getUserId());
 
+        PageInfo<XgProduction> list = productionService.getProductionListByItemsWithAll(productionPageIn);
+        return  RespBean.ok("productionList", list);
+
+
+    }
 
 
 

@@ -25,6 +25,29 @@
     <result column="username" property="username" jdbcType="VARCHAR"/>
     <result column="productionType" property="productionType" jdbcType="VARCHAR"></result>
 
+    <collection property="xgProductionCollections" ofType="cc.mrbird.web.domain.XgProductionCollection">
+      <id property="id" column="cId"></id>
+      <result property="username" column="cusername"></result>
+      <result property="createDate" column="ccreateDate"></result>
+      <result property="userImg" column="cuserImg"></result>
+
+    </collection>
+    <collection property="xgProductionDianzans" ofType="cc.mrbird.web.domain.XgProductionDianzan">
+      <id property="id" column="dId"></id>
+      <result property="username" column="dusername"></result>
+      <result property="createDate" column="dcreateDate"></result>
+      <result property="userImg" column="duserImg"></result>
+
+    </collection>
+
+
+    <collection property="xgProductionShares" ofType="cc.mrbird.web.domain.XgProductionShare">
+      <id property="id" column="sId"></id>
+      <result property="username" column="susername"></result>
+      <result property="createDate" column="screateDate"></result>
+      <result property="usreImg" column="suserImg"></result>
+      <result property="type" column="stype"></result>
+    </collection>
 
   </resultMap>
   <sql id="Base_Column_List" >
@@ -245,6 +268,43 @@
   </select>
 
 
+  <select id="getProductionListByItemsWithAll" resultMap="BaseResultMap">
+
+
+
+  SELECT
+
+tu.USERNAME as username,
+tu.AVATAR as img,
+ps.id as sId,
+ps.username as susername,
+ps.type as stype,
+ps.user_img as suserImg,
+ps.create_date as screateDate,
+
+pd.id as dId,
+pd.username as dusername,
+pd.create_date as dcreateDate,
+pd.user_img  as duserImg,
+
+pc.username as cusername,
+pc.id as cId,
+pc.create_date as ccreateDate,
+pc.user_img as cuserImg,
+pt.p_type as productionType,
+xp.*
+
+from
+t_user tu
+
+INNER JOIN xg_production xp on xp.user_id =tu.USER_ID
+LEFT JOIN xg_production_share ps on ps.p_id =xp.id
+LEFT join xg_production_dianzan pd on pd.p_id =xp.id
+LEFT JOIN xg_production_collection pc on pc.p_id =xp.id
+LEFT join  xg_production_type pt on pt.id =xp.type
+where tu.user_id =#{userId}
+
+  </select>
 
 
 

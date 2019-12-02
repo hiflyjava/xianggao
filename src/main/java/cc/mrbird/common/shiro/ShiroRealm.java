@@ -1,9 +1,18 @@
 package cc.mrbird.common.shiro;
 
+import java.lang.reflect.Method;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import cc.mrbird.common.annotation.Log;
+import cc.mrbird.common.util.AddressUtils;
+import cc.mrbird.common.util.HttpContextUtils;
+import cc.mrbird.common.util.IPUtils;
+import cc.mrbird.system.domain.LoginLog;
+import cc.mrbird.system.service.LoginLogService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -16,6 +25,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cc.mrbird.system.domain.Menu;
@@ -24,6 +34,9 @@ import cc.mrbird.system.domain.User;
 import cc.mrbird.system.service.MenuService;
 import cc.mrbird.system.service.RoleService;
 import cc.mrbird.system.service.UserService;
+import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class ShiroRealm extends AuthorizingRealm {
 
@@ -33,6 +46,12 @@ public class ShiroRealm extends AuthorizingRealm {
 	private RoleService roleService;
 	@Autowired
 	private MenuService menuService;
+
+	@Autowired
+	ObjectMapper mapper;
+
+	@Autowired
+	private LoginLogService logService;
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
@@ -74,6 +93,17 @@ public class ShiroRealm extends AuthorizingRealm {
 			throw new LockedAccountException("账号已被锁定,请联系管理员！");
 		}
 		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());
+
+		LoginLog log = new LoginLog();
+
+	//	LocalVariableTableParameterNameDiscoverer u = new LocalVariableTableParameterNameDiscoverer();
+		HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
+		log.setIp(IPUtils.getIpAddr(request));
+		log.setUsername(user.getUsername());
+		log.setCreateTime(new Date());
+		log.setLocation(AddressUtils.getRealAddressByIP(log.getIp(), mapper));
+		this.logService.save(log);
+
 		return info;
 	}
 

@@ -21,4 +21,5 @@ public interface XgProductionService  extends IService<XgProduction> {
     int addProduction(XgProduction xgProduction);
 
     PageInfo<XgProduction> getProductionListByItems(XgProductionPageIn productionPageIn);
+    PageInfo<XgProduction> getProductionListByItemsWithAll(XgProductionPageIn productionPageIn);
 }

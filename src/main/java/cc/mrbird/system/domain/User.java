@@ -2,6 +2,7 @@ package cc.mrbird.system.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import cc.mrbird.common.annotation.ExportConfig;
+import cc.mrbird.web.domain.XgNeed;
+import cc.mrbird.web.domain.XgProduction;
 
 @Table(name = "t_user")
 public class User implements Serializable {
@@ -89,6 +92,7 @@ public class User implements Serializable {
 	@Transient
 	private String roleName;
 
+	
 
 	private String isVip; //Y:是 N：不是
 
@@ -107,6 +111,13 @@ public class User implements Serializable {
 	private Long companyId;
 
 	private XgCompany companys;//0 是个人；其它是公司
+
+
+//	private List<XgProduction> xgProductions;//作品
+//
+//	private  List<XgNeed> xgNeeds;
+//
+
 
 
 	public Long getCompanyId() {

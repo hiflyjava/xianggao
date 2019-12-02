@@ -11,4 +11,6 @@ public interface XgProductionMapper extends MyMapper<XgProduction> {
     int addProduction(XgProduction xgProduction);
     List<XgProduction> getProductionListByItems(XgProductionPageIn productionPageIn);
 
+    List<XgProduction> getProductionListByItemsWithAll(XgProductionPageIn productionPageIn);
+
 }

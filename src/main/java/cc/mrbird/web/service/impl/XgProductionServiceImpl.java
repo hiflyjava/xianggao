@@ -57,4 +57,12 @@ public class XgProductionServiceImpl extends BaseService<XgProduction> implement
         List<XgProduction> list = productionMapper.getProductionListByItems(productionPageIn);
         return new PageInfo<>(list);
     }
+
+    @Override
+    public PageInfo<XgProduction> getProductionListByItemsWithAll(XgProductionPageIn productionPageIn) {
+        PageHelper.startPage(productionPageIn.getCurrentPage(), productionPageIn.getPageSize());
+         productionPageIn.setUserId(MyUserUtiles.getUser().getUserId());
+        List<XgProduction> list = productionMapper.getProductionListByItemsWithAll(productionPageIn);
+        return new PageInfo<>(list);
+    }
 }

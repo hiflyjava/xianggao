@@ -3,6 +3,7 @@ package cc.mrbird.system.controller;
 import java.util.List;
 import java.util.Map;
 
+import cc.mrbird.common.domain.RespBean;
 import cc.mrbird.system.domain.XgCompany;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -253,4 +254,16 @@ public class UserController extends BaseController {
 			return ResponseBo.error("更新头像失败，请联系网站管理员！");
 		}
 	}
+
+//	@RequestMapping("user/getProductionList")
+////	@ResponseBody
+////	public RespBean getProductionList(String imgName) {
+////
+////
+////
+////
+////	}
+
+
+
 }

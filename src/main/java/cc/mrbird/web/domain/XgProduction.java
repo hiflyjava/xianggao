@@ -2,6 +2,7 @@ package cc.mrbird.web.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class XgProduction  implements Serializable {
 
@@ -50,6 +51,37 @@ public class XgProduction  implements Serializable {
     private String companyId;
 
     private String productionType;
+
+
+    private List<XgProductionDianzan> xgProductionDianzans;//点赞
+
+    private List<XgProductionCollection> xgProductionCollections;//收藏
+
+    private  List<XgProductionShare> xgProductionShares;//分享
+
+    public List<XgProductionDianzan> getXgProductionDianzans() {
+        return xgProductionDianzans;
+    }
+
+    public void setXgProductionDianzans(List<XgProductionDianzan> xgProductionDianzans) {
+        this.xgProductionDianzans = xgProductionDianzans;
+    }
+
+    public List<XgProductionCollection> getXgProductionCollections() {
+        return xgProductionCollections;
+    }
+
+    public void setXgProductionCollections(List<XgProductionCollection> xgProductionCollections) {
+        this.xgProductionCollections = xgProductionCollections;
+    }
+
+    public List<XgProductionShare> getXgProductionShares() {
+        return xgProductionShares;
+    }
+
+    public void setXgProductionShares(List<XgProductionShare> xgProductionShares) {
+        this.xgProductionShares = xgProductionShares;
+    }
 
     public String getProductionType() {
         return productionType;
