@@ -54,8 +54,9 @@ public class DashBoardController extends BaseController {
      */
     @RequestMapping("/loginLog")
     public RespBean addNeed(@RequestBody LoginLogIn LoginLogIn){
-
+        System.out.println("aaaa");
         LoginLogOut loginLogOut = loginLogService.getLoginListByItems(LoginLogIn);
+
         return  RespBean.ok("loginLogOut",loginLogOut);
     }
 

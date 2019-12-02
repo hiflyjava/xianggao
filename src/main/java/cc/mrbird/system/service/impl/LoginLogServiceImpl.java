@@ -68,6 +68,8 @@ public class LoginLogServiceImpl extends BaseService<LoginLog> implements LoginL
 	public LoginLogOut getLoginListByItems(LoginLogIn loginLogIn) {
         LoginLogOut loginLogOut =new LoginLogOut();
 
+
+
 		List<LoginLog> loginList = loginLogMapper.getLoginListByItems(loginLogIn);
 		List<User> users = userMapper.selectAll();
 		if(users !=null && users.size()>=1){
