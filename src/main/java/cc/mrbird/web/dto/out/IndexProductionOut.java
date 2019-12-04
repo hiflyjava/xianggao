@@ -22,6 +22,15 @@ public class IndexProductionOut implements Serializable {
 
     private int fensi;
 
+    private int sixin=1000;
+
+    public int getSixin() {
+        return sixin;
+    }
+
+    public void setSixin(int sixin) {
+        this.sixin = sixin;
+    }
 
     public int getShareNums() {
         return shareNums;

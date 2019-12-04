@@ -88,6 +88,12 @@ public class XgProductionController extends BaseController {
     }
 
 
+    /**
+     *
+     * @param productionPageIn
+     * @return
+     */
+
     @RequestMapping("/getProductionListWithAll")
     public RespBean getProductionListWithAll(@RequestBody XgProductionPageIn productionPageIn){
         // xgNeed.setUpdateDate(new Date());

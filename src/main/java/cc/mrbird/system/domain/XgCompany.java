@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class XgCompany  implements Serializable {
 
-    private static final long serialVersionUID = -4852332617765810959L;
+    private static final long serialVersionUID = -4852732617765810959L;
 
 
     private Long id;

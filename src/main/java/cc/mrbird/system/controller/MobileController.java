@@ -1,28 +1,20 @@
 package cc.mrbird.system.controller;
 
 
-
 import cc.mrbird.common.controller.BaseController;
 import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.job.domain.In.MobilePageIn;
 import cc.mrbird.job.domain.PMobile;
 import cc.mrbird.job.service.PMobileService;
-import cc.mrbird.system.domain.Role;
-import cc.mrbird.system.domain.User;
 import cc.mrbird.system.utils.ImportExcelUtil;
 import com.alibaba.fastjson.JSON;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +27,7 @@ import java.util.*;
 public class MobileController  extends BaseController {
 
 
-    private static  final Logger logger = Logger.getLogger(MobileController.class);
+    //private static  final Logger logger = Logger.getLogger(MobileController.class);
    @Autowired
     PMobileService pMobileService;
 
@@ -74,7 +66,7 @@ public class MobileController  extends BaseController {
 
         } catch (Exception e) {
             //TODO 记录完善的日志和异常处理
-            logger.error("batchAddMobiles()失败,原因为:" + e.getMessage(), e);
+           // logger.error("batchAddMobiles()失败,原因为:" + e.getMessage(), e);
         } finally {
             //处理完后需删除本地文件
             File file2 = new File(path + File.separator + fileName);

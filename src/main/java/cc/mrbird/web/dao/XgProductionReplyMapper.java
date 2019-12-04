@@ -1,18 +1,17 @@
 package cc.mrbird.web.dao;
 
+import cc.mrbird.common.config.MyMapper;
 import cc.mrbird.web.domain.XgProductionReply;
 import cc.mrbird.web.domain.XgProductionReply;
+import cc.mrbird.web.dto.in.XgProductionPageIn;
 
-public interface XgProductionReplyMapper {
-    int deleteByPrimaryKey(Long id);
+import java.util.List;
 
-    int insert(XgProductionReply record);
+public interface XgProductionReplyMapper extends MyMapper<XgProductionReply> {
 
-    int insertSelective(XgProductionReply record);
 
-    XgProductionReply selectByPrimaryKey(Long id);
 
-    int updateByPrimaryKeySelective(XgProductionReply record);
+    List<XgProductionReply> getProductionReplyByItems(XgProductionPageIn xgProductionPageIn);
 
-    int updateByPrimaryKey(XgProductionReply record);
+
 }

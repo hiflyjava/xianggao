@@ -66,7 +66,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 				}
 			}
 			user.setUserId(userId);
-			return  this.userMapper.findMyWithDept(user);
+			return  this.userMapper.findUserWithDept(user);
 
 		} catch (Exception e) {
 			e.printStackTrace();

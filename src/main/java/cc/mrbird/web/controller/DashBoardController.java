@@ -73,6 +73,8 @@ public class DashBoardController extends BaseController {
         return  RespBean.ok("dashboardNums",dashboardNums);
     }
 
+
+
     @RequestMapping("/getAllProductionType")
     public RespBean addNeed(){
 

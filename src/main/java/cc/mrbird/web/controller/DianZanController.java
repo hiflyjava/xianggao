@@ -1,7 +1,10 @@
 package cc.mrbird.web.controller;
 
 import cc.mrbird.common.controller.BaseController;
-import com.sun.xml.internal.rngom.parse.host.Base;
+import cc.mrbird.common.domain.RespBean;
+import cc.mrbird.common.util.MyUserUtiles;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class DianZanController extends BaseController {
 
 
-
+//    @Autowired
+//    private StringRedisTemplate stringRedisTemplate;
+//
+//    @RequestMapping("/test")
+//    public RespBean test(){
+//
+//        System.out.println("点赞===》："+ MyUserUtiles.getUser().getUsername());
+//        stringRedisTemplate.convertAndSend(MyUserUtiles.getUser().getUsername(), MyUserUtiles.getUser().toString());
+//        return  RespBean.ok("success", null);
+//    }
 
 
 }

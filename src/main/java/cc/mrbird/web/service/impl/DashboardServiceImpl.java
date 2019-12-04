@@ -1,10 +1,7 @@
 package cc.mrbird.web.service.impl;
 
 import cc.mrbird.web.dao.*;
-import cc.mrbird.web.domain.XgProductionCollection;
-import cc.mrbird.web.domain.XgProductionDianzan;
-import cc.mrbird.web.domain.XgProductionShare;
-import cc.mrbird.web.domain.XgProductionType;
+import cc.mrbird.web.domain.*;
 import cc.mrbird.web.dto.in.XgProductionPageIn;
 import cc.mrbird.web.dto.out.IndexProductionOut;
 import cc.mrbird.web.service.DashboardService;
@@ -38,6 +35,16 @@ public class DashboardServiceImpl  implements DashboardService {
     XgProductionTypeMapper productionTypeMapper;
 
 
+    @Autowired
+    XgUserFensiMapper fensiMapper;
+
+    @Autowired
+    XgUserLeaveMessageMapper leaveMessageMapper;
+
+    @Autowired
+    XgProductionReplyMapper replyMapper;
+
+
     @Override
     public IndexProductionOut getDashboardNums(XgProductionPageIn xgProductionPageIn) {
 
@@ -45,12 +52,18 @@ public class DashboardServiceImpl  implements DashboardService {
 
           List<XgProductionShare> productionShareByItems = shareMapper.getProductionShareByItems(xgProductionPageIn);
 
-
           List<XgProductionCollection> productionCollectionByItems = collectionMapper.getProductionCollectionByItems(xgProductionPageIn);
           List<XgProductionDianzan> productionDianzanByItems = dianzanMapper.getProductionDianzanByItems(xgProductionPageIn);
+        List<XgUserFensi> userFensiByItems = fensiMapper.getUserFensiByItems(xgProductionPageIn);
+        List<XgUserLeaveMessage> userLeaveMessageByItems = leaveMessageMapper.getUserLeaveMessageByItems(xgProductionPageIn);
+        List<XgProductionReply> productionReplyByItems = replyMapper.getProductionReplyByItems(xgProductionPageIn);
+
            out.setCollectionNums(productionCollectionByItems.size());
            out.setDianzanNums(productionDianzanByItems.size());
            out.setShareNums(productionShareByItems.size());
+           out.setFensi(userFensiByItems.size());
+           out.setLeaveMessageNums(userLeaveMessageByItems.size());
+           out.setReplyNums(productionReplyByItems.size());
         return out;
     }
 

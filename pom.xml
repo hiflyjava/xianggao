@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>cc.mrbird</groupId>
@@ -23,8 +23,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.7</java.version>
 		<thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
-    	<thymeleaf-layout-dialect.version>2.0.1</thymeleaf-layout-dialect.version>
-    	<poi.version>3.17</poi.version>
+		<thymeleaf-layout-dialect.version>2.0.1</thymeleaf-layout-dialect.version>
+		<poi.version>3.17</poi.version>
 	</properties>
 
 	<dependencies>
@@ -32,22 +32,22 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-tomcat</artifactId>
-		    <scope>compile</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>compile</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
-		
+
 		<!-- aop依赖 -->
 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-aop</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 
 		<dependency>
@@ -71,7 +71,41 @@
 		</dependency>
 
 
-<!--查询手机号码归属地-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+			<version>1.5.9.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+
+	<!--	<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.8.2</version>
+		</dependency>
+-->
+
+
+		<!--Swagger 是一个规范和完整的框架，用于生成、描述、调用和可视化 RESTful 风格的 Web 服务-->
+		<!-- http://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+
+		<!-- http://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+
+		<!--查询手机号码归属地-->
 		<dependency>
 			<groupId>com.googlecode.libphonenumber</groupId>
 			<artifactId>geocoder</artifactId>
@@ -128,16 +162,16 @@
 
 		<!-- mybatis -->
 		<dependency>
-		    <groupId>org.mybatis.spring.boot</groupId>
-		    <artifactId>mybatis-spring-boot-starter</artifactId>
-		    <version>1.3.2</version>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.3.2</version>
 		</dependency>
-		
+
 		<!-- 通用mapper -->
 		<!--<dependency>-->
-		    <!--<groupId>tk.mybatis</groupId>-->
-		    <!--<artifactId>mapper-spring-boot-starter</artifactId>-->
-		    <!--<version>1.1.5</version>-->
+		<!--<groupId>tk.mybatis</groupId>-->
+		<!--<artifactId>mapper-spring-boot-starter</artifactId>-->
+		<!--<version>1.1.5</version>-->
 		<!--</dependency>-->
 
 		<dependency>
@@ -149,64 +183,64 @@
 
 		<!-- pagehelper 分页插件 -->
 		<dependency>
-		    <groupId>com.github.pagehelper</groupId>
-		    <artifactId>pagehelper-spring-boot-starter</artifactId>
-		    <version>1.2.3</version>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>1.2.3</version>
 		</dependency>
 
 
 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		
+
 		<!-- shiro-spring -->
 		<dependency>
-		    <groupId>org.apache.shiro</groupId>
-		    <artifactId>shiro-spring</artifactId>
-		    <version>1.4.0</version>
-		</dependency>
-		
-		<!-- shiro ehcache -->
-		<dependency>
-		    <groupId>org.apache.shiro</groupId>
-		    <artifactId>shiro-ehcache</artifactId>
-		    <version>1.3.2</version>
-		</dependency>
-		
-		<!-- ehchache -->
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-cache</artifactId>
-		</dependency>
-		<dependency>
-		    <groupId>net.sf.ehcache</groupId>
-		    <artifactId>ehcache</artifactId>
-		</dependency>
-		
-		<!-- shiro-thymeleaf -->
-		<dependency>
-		    <groupId>com.github.theborakompanioni</groupId>
-		    <artifactId>thymeleaf-extras-shiro</artifactId>
-		    <version>2.0.0</version>
-		</dependency>
-		
-		<!-- fastjson -->
-		<dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.31</version>
-        </dependency>
-		
-		<!-- xss过滤 -->
-		<dependency>
-		    <groupId>org.jsoup</groupId>
-		    <artifactId>jsoup</artifactId>
-		    <version>1.9.2</version>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>1.4.0</version>
 		</dependency>
 
-        <!-- poi -->
-     	<dependency>
+		<!-- shiro ehcache -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+
+		<!-- ehchache -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+		</dependency>
+
+		<!-- shiro-thymeleaf -->
+		<dependency>
+			<groupId>com.github.theborakompanioni</groupId>
+			<artifactId>thymeleaf-extras-shiro</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+
+		<!-- fastjson -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.31</version>
+		</dependency>
+
+		<!-- xss过滤 -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+
+		<!-- poi -->
+		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>${poi.version}</version>
@@ -221,14 +255,14 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>${poi.version}</version>
 		</dependency>
-		
+
 		<!-- csv -->
 		<dependency>
-		    <groupId>net.sourceforge.javacsv</groupId>
-		    <artifactId>javacsv</artifactId>
-		    <version>2.0</version>
+			<groupId>net.sourceforge.javacsv</groupId>
+			<artifactId>javacsv</artifactId>
+			<version>2.0</version>
 		</dependency>
-		
+
 		<!-- quartz -->
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
@@ -241,29 +275,29 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
+
 		<!-- commons -->
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
 		</dependency>
-		
+
 		<!-- MySQL驱动 -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-		
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
 		<!-- druid数据源驱动 -->
 		<dependency>
-		   <groupId>com.alibaba</groupId>
-		   <artifactId>druid-spring-boot-starter</artifactId>
-		   <version>1.1.0</version>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+			<version>1.1.0</version>
 		</dependency>
-		
+
 	</dependencies>
-	
+
 	<repositories>
 		<repository>
 			<id>nexus-aliyun</id>
@@ -278,7 +312,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<!--  
+			<!--
 	        <plugin>
 	            <groupId>org.mybatis.generator</groupId>
 	            <artifactId>mybatis-generator-maven-plugin</artifactId>

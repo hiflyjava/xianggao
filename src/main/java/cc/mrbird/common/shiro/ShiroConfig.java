@@ -44,12 +44,17 @@ public class ShiroConfig {
 		shiroFilterFactoryBean.setSuccessUrl("/index");
 		shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 		LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-		
+		filterChainDefinitionMap.put("/test1", "anon");
+		filterChainDefinitionMap.put("/socket/**", "anon");
+
+		filterChainDefinitionMap.put("/templates/**", "anon");
 		filterChainDefinitionMap.put("/css/**", "anon");
 		filterChainDefinitionMap.put("/js/**", "anon");
 		filterChainDefinitionMap.put("/fonts/**", "anon");
 		filterChainDefinitionMap.put("/img/**", "anon");
+
 		filterChainDefinitionMap.put("/druid/**", "anon");
+
 		filterChainDefinitionMap.put("/user/regist", "anon");
 		filterChainDefinitionMap.put("/gifCode", "anon");
 		filterChainDefinitionMap.put("/mobile/**", "anon");
@@ -59,7 +64,7 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/logout", "logout");
 		filterChainDefinitionMap.put("/", "anon");
 		filterChainDefinitionMap.put("/**", "user");
-		
+
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		
 		return shiroFilterFactoryBean;

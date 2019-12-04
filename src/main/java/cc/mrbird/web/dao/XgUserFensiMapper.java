@@ -1,18 +1,16 @@
 package cc.mrbird.web.dao;
 
+import cc.mrbird.common.config.MyMapper;
 import cc.mrbird.web.domain.XgUserFensi;
 import cc.mrbird.web.domain.XgUserFensi;
+import cc.mrbird.web.dto.in.XgProductionPageIn;
 
-public interface XgUserFensiMapper {
-    int deleteByPrimaryKey(Long id);
+import java.util.List;
 
-    int insert(XgUserFensi record);
+public interface XgUserFensiMapper extends MyMapper<XgUserFensi> {
 
-    int insertSelective(XgUserFensi record);
 
-    XgUserFensi selectByPrimaryKey(Long id);
 
-    int updateByPrimaryKeySelective(XgUserFensi record);
+    List<XgUserFensi> getUserFensiByItems(XgProductionPageIn xgProductionPageIn);
 
-    int updateByPrimaryKey(XgUserFensi record);
 }
