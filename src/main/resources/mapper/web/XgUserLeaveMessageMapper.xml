@@ -20,29 +20,8 @@
     id, reply_info, to_user_id, to_username, create_date, parent_id, to_user_img, from_username, 
     from_user_img, from_user_id, extend1, extend2, extend3
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from xg_user_leave_message
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from xg_user_leave_message
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="cc.mrbird.web.domain.XgUserLeaveMessage" >
-    insert into xg_user_leave_message (id, reply_info, to_user_id, 
-      to_username, create_date, parent_id, 
-      to_user_img, from_username, from_user_img, 
-      from_user_id, extend1, extend2, 
-      extend3)
-    values (#{id,jdbcType=BIGINT}, #{replyInfo,jdbcType=VARCHAR}, #{toUserId,jdbcType=BIGINT}, 
-      #{toUsername,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{parentId,jdbcType=BIGINT}, 
-      #{toUserImg,jdbcType=VARCHAR}, #{fromUsername,jdbcType=VARCHAR}, #{fromUserImg,jdbcType=VARCHAR}, 
-      #{fromUserId,jdbcType=BIGINT}, #{extend1,jdbcType=VARCHAR}, #{extend2,jdbcType=VARCHAR}, 
-      #{extend3,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="cc.mrbird.web.domain.XgUserLeaveMessage" >
+
+  <insert id="addLeaveMessage" parameterType="cc.mrbird.web.domain.XgUserLeaveMessage" >
     insert into xg_user_leave_message
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -127,7 +106,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cc.mrbird.web.domain.XgUserLeaveMessage" >
+  <update id="updateLeaveMessage" parameterType="cc.mrbird.web.domain.XgUserLeaveMessage" >
     update xg_user_leave_message
     <set >
       <if test="replyInfo != null" >
@@ -169,20 +148,5 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cc.mrbird.web.domain.XgUserLeaveMessage" >
-    update xg_user_leave_message
-    set reply_info = #{replyInfo,jdbcType=VARCHAR},
-      to_user_id = #{toUserId,jdbcType=BIGINT},
-      to_username = #{toUsername,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      parent_id = #{parentId,jdbcType=BIGINT},
-      to_user_img = #{toUserImg,jdbcType=VARCHAR},
-      from_username = #{fromUsername,jdbcType=VARCHAR},
-      from_user_img = #{fromUserImg,jdbcType=VARCHAR},
-      from_user_id = #{fromUserId,jdbcType=BIGINT},
-      extend1 = #{extend1,jdbcType=VARCHAR},
-      extend2 = #{extend2,jdbcType=VARCHAR},
-      extend3 = #{extend3,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+
 </mapper>

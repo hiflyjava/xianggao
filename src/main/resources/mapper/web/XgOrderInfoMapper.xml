@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.mrbird.web.dao.XgOrderInfoMapper" >
+  <resultMap id="BaseResultMap" type="cc.mrbird.web.domain.XgOrderInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="need_id" property="needId" jdbcType="BIGINT" />
+    <result column="need_num" property="needNum" jdbcType="VARCHAR" />
+    <result column="need_name" property="needName" jdbcType="VARCHAR" />
+    <result column="need_img" property="needImg" jdbcType="VARCHAR" />
+    <result column="need_amount" property="needAmount" jdbcType="INTEGER" />
+    <result column="extend1" property="extend1" jdbcType="VARCHAR" />
+    <result column="extend2" property="extend2" jdbcType="VARCHAR" />
+    <result column="extend3" property="extend3" jdbcType="VARCHAR" />
+    <result column="extend4" property="extend4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, order_num, need_id, need_num, need_name, need_img, need_amount, extend1, 
+    extend2, extend3, extend4
+  </sql>
+
+  <insert id="addOrderInfo" parameterType="cc.mrbird.web.domain.XgOrderInfo" >
+    insert into xg_order_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="needId != null" >
+        need_id,
+      </if>
+      <if test="needNum != null" >
+        need_num,
+      </if>
+      <if test="needName != null" >
+        need_name,
+      </if>
+      <if test="needImg != null" >
+        need_img,
+      </if>
+      <if test="needAmount != null" >
+        need_amount,
+      </if>
+      <if test="extend1 != null" >
+        extend1,
+      </if>
+      <if test="extend2 != null" >
+        extend2,
+      </if>
+      <if test="extend3 != null" >
+        extend3,
+      </if>
+      <if test="extend4 != null" >
+        extend4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="needId != null" >
+        #{needId,jdbcType=BIGINT},
+      </if>
+      <if test="needNum != null" >
+        #{needNum,jdbcType=VARCHAR},
+      </if>
+      <if test="needName != null" >
+        #{needName,jdbcType=VARCHAR},
+      </if>
+      <if test="needImg != null" >
+        #{needImg,jdbcType=VARCHAR},
+      </if>
+      <if test="needAmount != null" >
+        #{needAmount,jdbcType=INTEGER},
+      </if>
+      <if test="extend1 != null" >
+        #{extend1,jdbcType=VARCHAR},
+      </if>
+      <if test="extend2 != null" >
+        #{extend2,jdbcType=VARCHAR},
+      </if>
+      <if test="extend3 != null" >
+        #{extend3,jdbcType=VARCHAR},
+      </if>
+      <if test="extend4 != null" >
+        #{extend4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateOrderInfo" parameterType="cc.mrbird.web.domain.XgOrderInfo" >
+    update xg_order_info
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="needId != null" >
+        need_id = #{needId,jdbcType=BIGINT},
+      </if>
+      <if test="needNum != null" >
+        need_num = #{needNum,jdbcType=VARCHAR},
+      </if>
+      <if test="needName != null" >
+        need_name = #{needName,jdbcType=VARCHAR},
+      </if>
+      <if test="needImg != null" >
+        need_img = #{needImg,jdbcType=VARCHAR},
+      </if>
+      <if test="needAmount != null" >
+        need_amount = #{needAmount,jdbcType=INTEGER},
+      </if>
+      <if test="extend1 != null" >
+        extend1 = #{extend1,jdbcType=VARCHAR},
+      </if>
+      <if test="extend2 != null" >
+        extend2 = #{extend2,jdbcType=VARCHAR},
+      </if>
+      <if test="extend3 != null" >
+        extend3 = #{extend3,jdbcType=VARCHAR},
+      </if>
+      <if test="extend4 != null" >
+        extend4 = #{extend4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>
