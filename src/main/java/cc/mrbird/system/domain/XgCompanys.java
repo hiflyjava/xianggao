@@ -3,7 +3,7 @@ package cc.mrbird.system.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-public class XgCompany  implements Serializable {
+public class XgCompanys  implements Serializable {
 
     private static final long serialVersionUID = -4852732617765810959L;
 

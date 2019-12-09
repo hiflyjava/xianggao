@@ -2,12 +2,20 @@ package cc.mrbird.web.service.impl;
 
 import cc.mrbird.common.service.impl.BaseService;
 import cc.mrbird.common.util.MyUserUtiles;
+import cc.mrbird.system.domain.User;
+import cc.mrbird.web.dao.XgNeedMapper;
+import cc.mrbird.web.dao.XgOrderMasterVersionMapper;
 import cc.mrbird.web.dao.XgProductionMapper;
 import cc.mrbird.web.domain.XgNeed;
+import cc.mrbird.web.domain.XgOrderMasterVersion;
 import cc.mrbird.web.domain.XgProduction;
+import cc.mrbird.web.domain.XgUserVip;
 import cc.mrbird.web.dto.in.XgProductionPageIn;
+import cc.mrbird.web.dto.out.IndexUserOut;
 import cc.mrbird.web.service.XgNeedService;
 import cc.mrbird.web.service.XgProductionService;
+import cc.mrbird.web.utils.MyDateUtils;
+import cc.mrbird.web.utils.XgCodeUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +24,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: Harden Yan
@@ -30,6 +40,12 @@ public class XgProductionServiceImpl extends BaseService<XgProduction> implement
 
     @Autowired
     XgProductionMapper productionMapper;
+
+    @Autowired
+    XgNeedMapper needMapper;
+
+    @Autowired
+    XgOrderMasterVersionMapper orderMasterVersionMapper;
 
 
     @Override
@@ -65,4 +81,193 @@ public class XgProductionServiceImpl extends BaseService<XgProduction> implement
         List<XgProduction> list = productionMapper.getProductionListByItemsWithAll(productionPageIn);
         return new PageInfo<>(list);
     }
+
+    @Override
+    public Map<String, IndexUserOut> getDashBoardUpProNeedByItems(XgProductionPageIn productionPageIn) {
+        Map<String, IndexUserOut> map =new HashMap<>();
+
+        IndexUserOut indexUserOut =new IndexUserOut();
+        //查询 所有新增用户 st=1;
+        //productionPageIn.setSelectType(1);
+        //得到当天的
+        String startTime = MyDateUtils.getDifferDateByInt(XgCodeUtil.TODAT, productionPageIn.getEndTime());
+        productionPageIn.setStartTime(startTime);
+        List<XgProduction> upProByItemsToday = productionMapper.getDashBoardUpProByItems(productionPageIn);//新增的作品
+        if(upProByItemsToday ==null){
+            indexUserOut.setTodayNum(0);
+        }else {
+            indexUserOut.setTodayNum(upProByItemsToday.size());
+        }
+
+        //得到过去一周的
+        startTime = MyDateUtils.getDifferDateByInt(XgCodeUtil.ONE_WEEK, productionPageIn.getEndTime());
+        productionPageIn.setStartTime(startTime);
+        List<XgProduction> upProByItemsWeek = productionMapper.getDashBoardUpProByItems(productionPageIn);//新增的作品
+        if(upProByItemsWeek ==null){
+            indexUserOut.setWeekNum(0);
+        }else {
+            indexUserOut.setWeekNum(upProByItemsWeek.size());
+        }
+
+        //得到过去一个月的
+        startTime = MyDateUtils.getDifferDateByInt(XgCodeUtil.ONE_MOUTH, productionPageIn.getEndTime());
+        productionPageIn.setStartTime(startTime);
+        List<XgProduction> upProByItemsMouth = productionMapper.getDashBoardUpProByItems(productionPageIn);//新增的作品
+        if(upProByItemsMouth ==null){
+            indexUserOut.setMouthNum(0);
+        }else {
+            indexUserOut.setMouthNum(upProByItemsMouth.size());
+        }
+
+
+        //得到过去半年的
+        startTime = MyDateUtils.getDifferDateByInt(XgCodeUtil.ONE_HELF_YEAR, productionPageIn.getEndTime());
+        productionPageIn.setStartTime(startTime);
+        List<XgProduction> upProByItemsHelfYear = productionMapper.getDashBoardUpProByItems(productionPageIn);//新增的作品
+        if(upProByItemsHelfYear ==null){
+            indexUserOut.setHelfYear(0);
+        }else {
+            indexUserOut.setHelfYear(upProByItemsHelfYear.size());
+        }
+
+
+        //得到过去一年的
+        startTime = MyDateUtils.getDifferDateByInt(XgCodeUtil.ONE_YEAR, productionPageIn.getEndTime());
+        productionPageIn.setStartTime(startTime);
+        List<XgProduction> upProByItemsOneYear = productionMapper.getDashBoardUpProByItems(productionPageIn);//新增的作品
+        if(upProByItemsOneYear ==null){
+            indexUserOut.setOneYear(0);
+        }else {
+            indexUserOut.setOneYear(upProByItemsOneYear.size());
+        }
+
+        map.put("AddProductions",indexUserOut);
+
+
+
+
+        IndexUserOut indexUserOut2 =new IndexUserOut();
+        //查询 所有新增用户 st=1;
+        //productionPageIn.setSelectType(1);
+        //得到当天的
+        startTime = MyDateUtils.getDifferDateByInt(XgCodeUtil.TODAT, productionPageIn.getEndTime());
+        productionPageIn.setStartTime(startTime);
+        List<XgNeed> needByItemsToday = needMapper.getDashBoardUpNeedByItems(productionPageIn);//上传作品量
+        if(needByItemsToday ==null){
+            indexUserOut2.setTodayNum(0);
+        }else {
+            indexUserOut2.setTodayNum(needByItemsToday.size());
+        }
+
+        //得到过去一周的
+        startTime = MyDateUtils.getDifferDateByInt(XgCodeUtil.ONE_WEEK, productionPageIn.getEndTime());
+        productionPageIn.setStartTime(startTime);
+        List<XgNeed> needByItemsWeek = needMapper.getDashBoardUpNeedByItems(productionPageIn);//上传作品量
+        if(needByItemsWeek ==null){
+            indexUserOut2.setWeekNum(0);
+        }else {
+            indexUserOut2.setWeekNum(needByItemsWeek.size());
+        }
+
+        //得到过去一个月的
+        startTime = MyDateUtils.getDifferDateByInt(XgCodeUtil.ONE_MOUTH, productionPageIn.getEndTime());
+        productionPageIn.setStartTime(startTime);
+        List<XgNeed> needByItemsMouth = needMapper.getDashBoardUpNeedByItems(productionPageIn);//上传作品量
+        if(needByItemsMouth ==null){
+            indexUserOut2.setMouthNum(0);
+        }else {
+            indexUserOut2.setMouthNum(needByItemsMouth.size());
+        }
+
+
+        //得到过去半年的
+        startTime = MyDateUtils.getDifferDateByInt(XgCodeUtil.ONE_HELF_YEAR, productionPageIn.getEndTime());
+        productionPageIn.setStartTime(startTime);
+        List<XgNeed> needByItemsHelfYear = needMapper.getDashBoardUpNeedByItems(productionPageIn);//上传作品量
+        if(needByItemsHelfYear ==null){
+            indexUserOut2.setHelfYear(0);
+        }else {
+            indexUserOut2.setHelfYear(needByItemsHelfYear.size());
+        }
+
+
+        //得到过去一年的
+        startTime = MyDateUtils.getDifferDateByInt(XgCodeUtil.ONE_YEAR, productionPageIn.getEndTime());
+        productionPageIn.setStartTime(startTime);
+        List<XgNeed> needByItemsOneYear = needMapper.getDashBoardUpNeedByItems(productionPageIn);//上传作品量
+        if(needByItemsOneYear ==null){
+            indexUserOut2.setOneYear(0);
+        }else {
+            indexUserOut2.setOneYear(needByItemsOneYear.size());
+        }
+
+        map.put("AddNeeds",indexUserOut2);
+
+
+
+
+
+        IndexUserOut indexUserOut3 =new IndexUserOut();
+        //查询 所有新增用户 st=1;
+        //productionPageIn.setSelectType(1);
+        //得到当天的
+        productionPageIn.setStatus(XgCodeUtil.ORDER_STATUS_SUCCESS);
+        startTime = MyDateUtils.getDifferDateByInt(XgCodeUtil.TODAT, productionPageIn.getEndTime());
+        productionPageIn.setStartTime(startTime);
+        List<XgOrderMasterVersion> ordersSuccessToday = orderMasterVersionMapper.getOrderListByItems(productionPageIn);//成交的订单
+        if(ordersSuccessToday ==null){
+            indexUserOut3.setTodayNum(0);
+        }else {
+            indexUserOut3.setTodayNum(ordersSuccessToday.size());
+        }
+
+        //得到过去一周的
+        startTime = MyDateUtils.getDifferDateByInt(XgCodeUtil.ONE_WEEK, productionPageIn.getEndTime());
+        productionPageIn.setStartTime(startTime);
+        List<XgOrderMasterVersion> ordersSuccessWeek = orderMasterVersionMapper.getOrderListByItems(productionPageIn);//成交的订单
+        if(ordersSuccessWeek ==null){
+            indexUserOut3.setWeekNum(0);
+        }else {
+            indexUserOut3.setWeekNum(ordersSuccessWeek.size());
+        }
+
+        //得到过去一个月的
+        startTime = MyDateUtils.getDifferDateByInt(XgCodeUtil.ONE_MOUTH, productionPageIn.getEndTime());
+        productionPageIn.setStartTime(startTime);
+        List<XgOrderMasterVersion> ordersSuccessMouth = orderMasterVersionMapper.getOrderListByItems(productionPageIn);//成交的订单
+        if(ordersSuccessMouth ==null){
+            indexUserOut3.setMouthNum(0);
+        }else {
+            indexUserOut3.setMouthNum(ordersSuccessMouth.size());
+        }
+
+
+        //得到过去半年的
+        startTime = MyDateUtils.getDifferDateByInt(XgCodeUtil.ONE_HELF_YEAR, productionPageIn.getEndTime());
+        productionPageIn.setStartTime(startTime);
+        List<XgOrderMasterVersion> ordersSuccessHelfYear = orderMasterVersionMapper.getOrderListByItems(productionPageIn);//成交的订单
+        if(ordersSuccessHelfYear ==null){
+            indexUserOut3.setHelfYear(0);
+        }else {
+            indexUserOut3.setHelfYear(ordersSuccessHelfYear.size());
+        }
+
+
+        //得到过去一年的
+        startTime = MyDateUtils.getDifferDateByInt(XgCodeUtil.ONE_YEAR, productionPageIn.getEndTime());
+        productionPageIn.setStartTime(startTime);
+        List<XgOrderMasterVersion> ordersSuccessOneYear = orderMasterVersionMapper.getOrderListByItems(productionPageIn);//成交的订单
+        if(ordersSuccessOneYear ==null){
+            indexUserOut3.setOneYear(0);
+        }else {
+            indexUserOut3.setOneYear(ordersSuccessOneYear.size());
+        }
+
+        map.put("SuccessOrders",indexUserOut3);
+
+
+        return map;
+    }
+
+
 }

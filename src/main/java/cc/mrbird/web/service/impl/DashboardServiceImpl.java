@@ -3,7 +3,7 @@ package cc.mrbird.web.service.impl;
 import cc.mrbird.web.dao.*;
 import cc.mrbird.web.domain.*;
 import cc.mrbird.web.dto.in.XgProductionPageIn;
-import cc.mrbird.web.dto.out.IndexProductionOut;
+import cc.mrbird.web.dto.out.IndexProductionOuts;
 import cc.mrbird.web.service.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,9 +46,9 @@ public class DashboardServiceImpl  implements DashboardService {
 
 
     @Override
-    public IndexProductionOut getDashboardNums(XgProductionPageIn xgProductionPageIn) {
+    public IndexProductionOuts getDashboardNums(XgProductionPageIn xgProductionPageIn) {
 
-          IndexProductionOut out =new IndexProductionOut();
+          IndexProductionOuts out =new IndexProductionOuts();
 
           List<XgProductionShare> productionShareByItems = shareMapper.getProductionShareByItems(xgProductionPageIn);
 

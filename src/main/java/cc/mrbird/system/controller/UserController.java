@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import cc.mrbird.common.domain.RespBean;
-import cc.mrbird.system.domain.XgCompany;
+import cc.mrbird.system.domain.XgCompanys;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,7 +130,7 @@ public class UserController extends BaseController {
 	@RequiresPermissions("user:add")
 	@RequestMapping("user/add")
 	@ResponseBody
-	public ResponseBo addUser(User user,XgCompany xgCompany, Long[] roles) {
+	public ResponseBo addUser(User user, XgCompanys xgCompany, Long[] roles) {
 		try {
 			if ("on".equalsIgnoreCase(user.getStatus()))
 				user.setStatus("1");

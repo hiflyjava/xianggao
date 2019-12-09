@@ -110,10 +110,40 @@ public class User implements Serializable {
 
 	private Long companyId;
 
-	private XgCompany companys;//0 是个人；其它是公司
+	private XgCompanys companys;//0 是个人；其它是公司
 
 
-//	private List<XgProduction> xgProductions;//作品
+	private  Date createVipDate;
+
+	private Date downVipDate;
+
+	private Date downDate;
+
+	public Date getDownDate() {
+		return downDate;
+	}
+
+	public void setDownDate(Date downDate) {
+		this.downDate = downDate;
+	}
+
+	public Date getCreateVipDate() {
+		return createVipDate;
+	}
+
+	public void setCreateVipDate(Date createVipDate) {
+		this.createVipDate = createVipDate;
+	}
+
+	public Date getDownVipDate() {
+		return downVipDate;
+	}
+
+	public void setDownVipDate(Date downVipDate) {
+		this.downVipDate = downVipDate;
+	}
+
+	//	private List<XgProduction> xgProductions;//作品
 //
 //	private  List<XgNeed> xgNeeds;
 //
@@ -128,11 +158,11 @@ public class User implements Serializable {
 		this.companyId = companyId;
 	}
 
-	public XgCompany getCompanys() {
+	public XgCompanys getCompanys() {
 		return companys;
 	}
 
-	public void setCompanys(XgCompany companys) {
+	public void setCompanys(XgCompanys companys) {
 		this.companys = companys;
 	}
 

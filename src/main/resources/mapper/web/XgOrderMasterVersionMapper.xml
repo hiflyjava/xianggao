@@ -18,6 +18,7 @@
     <result column="extend2" property="extend2" jdbcType="VARCHAR" />
     <result column="extend3" property="extend3" jdbcType="VARCHAR" />
   </resultMap>
+
   <sql id="Base_Column_List" >
     id, order_num, create_date, user_name, user_id, status, user_img, telephone, pay_status, 
     user_address, update_date, mony, extend1, extend2, extend3
@@ -121,5 +122,28 @@
       </if>
     </trim>
   </insert>
+
+
+  <select id="getOrderListByItems" resultMap="BaseResultMap">
+
+    SELECT ORDER_NUM,CREATE_DATE,STATUS FROM xg_order_master_version
+   <where>
+     <if test="status != null and status != '' ">
+         status = #{status}
+     </if>
+     <if test="startTime != null and startTime != '' and endTime !=null and endTime != '' ">
+       and create_date  &gt;= #{startTime} and  create_date &lt;= #{endTime}
+     </if>
+
+     <if test="orderNum != null and orderNum != '' ">
+      and  order_num = #{orderNum}
+     </if>
+   </where>
+    ORDER BY CREATE_DATE DESC
+
+  </select>
+
+
+
 
 </mapper>

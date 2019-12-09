@@ -1,9 +1,9 @@
 package cc.mrbird.system.dao;
 
 import cc.mrbird.common.config.MyMapper;
-import cc.mrbird.system.domain.XgCompany;
+import cc.mrbird.system.domain.XgCompanys;
 
 
-public interface XgCompanyMapper extends MyMapper<XgCompany> {
+public interface XgCompanyMapper extends MyMapper<XgCompanys> {
 
 }

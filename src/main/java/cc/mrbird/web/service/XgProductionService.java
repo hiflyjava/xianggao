@@ -4,7 +4,10 @@ import cc.mrbird.common.service.IService;
 import cc.mrbird.web.domain.XgNeed;
 import cc.mrbird.web.domain.XgProduction;
 import cc.mrbird.web.dto.in.XgProductionPageIn;
+import cc.mrbird.web.dto.out.IndexUserOut;
 import com.github.pagehelper.PageInfo;
+
+import java.util.Map;
 
 /**
  * @Auther: Harden Yan
@@ -22,4 +25,7 @@ public interface XgProductionService  extends IService<XgProduction> {
 
     PageInfo<XgProduction> getProductionListByItems(XgProductionPageIn productionPageIn);
     PageInfo<XgProduction> getProductionListByItemsWithAll(XgProductionPageIn productionPageIn);
+
+
+    Map<String , IndexUserOut> getDashBoardUpProNeedByItems(XgProductionPageIn productionPageIn);
 }

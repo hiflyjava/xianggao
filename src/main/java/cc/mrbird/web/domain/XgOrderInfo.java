@@ -1,4 +1,5 @@
 package cc.mrbird.web.domain;
+import	java.util.Date;
 import	java.io.Serializable;
 
 public class XgOrderInfo implements Serializable {
@@ -18,13 +19,24 @@ public class XgOrderInfo implements Serializable {
 
     private Integer needAmount;
 
-    private String extend1;
+    private String payType;
 
     private String extend2;
 
     private String extend3;
 
     private String extend4;
+
+    private Date payCreateDate;
+
+
+    public Date getPayCreateDate() {
+        return payCreateDate;
+    }
+
+    public void setPayCreateDate(Date payCreateDate) {
+        this.payCreateDate = payCreateDate;
+    }
 
     public Long getId() {
         return id;
@@ -90,12 +102,13 @@ public class XgOrderInfo implements Serializable {
         this.needAmount = needAmount;
     }
 
-    public String getExtend1() {
-        return extend1;
+
+    public String getPayType() {
+        return payType;
     }
 
-    public void setExtend1(String extend1) {
-        this.extend1 = extend1 == null ? null : extend1.trim();
+    public void setPayType(String payType) {
+        this.payType = payType;
     }
 
     public String getExtend2() {

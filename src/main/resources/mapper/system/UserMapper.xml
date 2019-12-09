@@ -15,6 +15,10 @@
     <result column="CRATE_TIME" jdbcType="TIMESTAMP" property="crateTime" />
     <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
     <result column="LAST_LOGIN_TIME" jdbcType="TIMESTAMP" property="lastLoginTime" />
+
+	  <result column="create_vip_date" jdbcType="TIMESTAMP" property="createVipDate" />
+	  <result column="down_vip_date" jdbcType="TIMESTAMP" property="downVipDate" />
+	  <result column="down_date" jdbcType="TIMESTAMP" property="downDate" />
     <result column="SSEX" jdbcType="CHAR" property="ssex" />
     <result column="THEME" jdbcType="VARCHAR" property="theme" />
     <result column="AVATAR" jdbcType="VARCHAR" property="avatar" />
@@ -34,7 +38,7 @@
 	  <result column="company_id" property="companyId" jdbcType="BIGINT"></result>
 
 
-	 <association property="companys" javaType="cc.mrbird.system.domain.XgCompany">
+	 <association property="companys" javaType="cc.mrbird.system.domain.XgCompanys">
 		 <id column="cid" property="id"></id>
          <result column="cImg" property="cImg"></result>
 		 <result column="cAddress" property="cAddress"></result>
@@ -128,5 +132,47 @@
 		U .dept_id,
 		U.smsnum
   </select>
-  
+<!--1:新增所有用户 2：新增vip用户 3：下降用户；4：下降会员 -->
+	<select id="getDashBoardUsersByItems" resultMap="BaseResultMap">
+
+<!--		SELECT * from t_user-->
+<!--         <where>-->
+<!--			 <if test="selectType == 1  ">-->
+<!--				 crate_time &gt;= #{startTime} AND crate_time &lt;= #{endTime}-->
+<!--			 </if>-->
+
+<!--			 <if test="selectType == 2  ">-->
+<!--				 create_vip_date &gt;= #{startTime} AND create_vip_date &lt;= #{endTime} and is_vip='Y'-->
+<!--			 </if>-->
+<!--			 <if test="selectType == 3  ">-->
+<!--				 down_date &gt;= #{startTime} AND down_date &lt;= #{endTime}-->
+<!--			 </if>-->
+
+<!--			 <if test="selectType == 4  ">-->
+<!--				 down_vip_date &gt;= #{startTime} AND down_vip_date &lt;= #{endTime}-->
+<!--			 </if>-->
+
+<!--		 </where>-->
+
+
+		SELECT * from t_user
+		<where>
+				crate_time &gt;= #{startTime} AND crate_time &lt;= #{endTime}
+
+		</where>
+
+	</select>
+
+
+	<select id="getNotLoginUserByItems" resultMap="BaseResultMap">
+
+
+		SELECT * FROM
+		t_user where  USERNAME not in (
+
+		SELECT username from t_login_log
+		WHERE  create_time &gt;= #{startTime} AND create_time &lt;= #{endTime}    GROUP BY USERNAME)
+	</select>
+
+
 </mapper>

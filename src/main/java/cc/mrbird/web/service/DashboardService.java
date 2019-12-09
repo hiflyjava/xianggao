@@ -2,7 +2,8 @@ package cc.mrbird.web.service;
 
 import cc.mrbird.web.domain.XgProductionType;
 import cc.mrbird.web.dto.in.XgProductionPageIn;
-import cc.mrbird.web.dto.out.IndexProductionOut;
+
+import cc.mrbird.web.dto.out.IndexProductionOuts;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,7 @@ import java.util.List;
 public interface DashboardService   {
 
 
-   IndexProductionOut getDashboardNums(XgProductionPageIn xgProductionPageIn);
+   IndexProductionOuts getDashboardNums(XgProductionPageIn xgProductionPageIn);
 
 
    List<XgProductionType> getAllProductionType();

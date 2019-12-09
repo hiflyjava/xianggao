@@ -29,6 +29,26 @@ public class XgProductionPageIn implements Serializable {
 
     private Long userId;
 
+    private int selectType;
+
+    private String orderNum;//订单号
+
+
+    public String getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(String orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    public int getSelectType() {
+        return selectType;
+    }
+
+    public void setSelectType(int selectType) {
+        this.selectType = selectType;
+    }
 
     public Long getUserId() {
         return userId;

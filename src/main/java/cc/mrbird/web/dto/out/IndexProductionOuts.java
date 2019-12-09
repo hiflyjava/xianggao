@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @Date: 2019/12/2 19:55
  * @Description:
  */
-public class IndexProductionOut implements Serializable {
+public class IndexProductionOuts implements Serializable {
 
 
     private int shareNums;

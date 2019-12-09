@@ -163,6 +163,18 @@
 
   </select>
 
+<select id="getDashBoardUpNeedByItems" resultMap="BaseResultMap">
 
+  select  * from xg_need
+  <where>
+
+    <if test="startTime != null and startTime != '' and endTime !=null and endTime != '' ">
+      and create_date  &gt;= #{startTime} and  create_date &lt;= #{endTime}
+    </if>
+
+  </where>
+
+
+</select>
 
 </mapper>

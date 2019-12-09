@@ -22,12 +22,6 @@
     id, order_num, create_date, user_name, user_id, status, user_img, telephone, pay_status, 
     user_address, update_date, mony, extend1, extend2, extend3
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from xg_order_master
-    where id = #{id,jdbcType=BIGINT}
-  </select>
 
 
   <insert id="addOrderMaster" parameterType="cc.mrbird.web.domain.XgOrderMaster">
