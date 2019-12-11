@@ -10,10 +10,11 @@ spring:
       # 数据库访问配置, 使用druid数据源 
       type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: com.mysql.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/xianggao?useUnicode=true&characterEncoding=utf8
-      #url: jdbc:mysql://120.79.250.11:3306/xianggao?useUnicode=true&characterEncoding=utf8
+      #url: jdbc:mysql://localhost:3306/xianggao?useUnicode=true&characterEncoding=utf8
+      url: jdbc:mysql://120.79.250.11:3306/xianggao?useUnicode=true&characterEncoding=utf8
       username: root
-      password: 12580
+      #password: 12580
+      password: ooxx123456
       # 连接池配置
       initial-size: 5
       min-idle: 5
@@ -109,7 +110,7 @@ sms:
  accessSecret: o24oHc3n54JHb4ipmjrdwT5SwEQ2I7hF
  sendUrl: http://api.1cloudsp.com/api/v2/single_send
 qiniuyun:
- ip: pvurdhj55.bkt.clouddn.com
+ ip: http://cdn.szzfb.club
  ACCESS_KEY: UPSO2MA5ZT9YU2rGAp1G_JfHeRJhPuTFDtrFfF7N
  SECRET_KEY: YqBJ-apvJQjVjnYX7f36d6QudybFUN4yjRAPDSWg
  BUCKET_NAME: myzfimgs
