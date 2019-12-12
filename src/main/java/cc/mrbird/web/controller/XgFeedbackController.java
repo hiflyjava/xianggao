@@ -9,14 +9,17 @@ import cc.mrbird.system.domain.User;
 import cc.mrbird.system.service.UserService;
 import cc.mrbird.web.domain.XgFeedback;
 import cc.mrbird.web.domain.XgSuggestion;
+import cc.mrbird.web.dto.in.XgSysFeedbackIn;
 import cc.mrbird.web.service.XgFeedbackService;
 import cc.mrbird.web.utils.FeedbackTree;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Auther: Harden Yan
@@ -44,14 +47,26 @@ public class XgFeedbackController extends BaseController {
       //  String toUserImg="";
         if(StringUtils.isEmptyOrNull(xgFeedback.getToUsername()+"")){//新增第一条评论
            toUserId=0l;
-           toUsername="";
+           toUsername="Admin";
            xgFeedback.setType("ONE");//第一条
+            xgFeedback.setStatus("N");//初始化，还没被阅读
             xgFeedback.setParentId(parentId);
         }else {
 
 
             User user = userService.findByName(xgFeedback.getToUsername());
-           if(user !=null){
+            List<XgFeedback> feedbacks = xgFeedbackService.getParentFeedbackById(xgFeedback.getParentId());//查询父评论
+            if(feedbacks!=null && feedbacks.size()>0){
+                XgFeedback xgFeedback1 = feedbacks.get(0);
+                xgFeedback.setType(xgFeedback1.getType());
+                xgFeedback.setFeedbackTitle(xgFeedback1.getFeedbackTitle());
+                xgFeedback.setStatus("H");//回复
+                xgFeedback.setfType(xgFeedback1.getfType());
+            }else {
+                return  RespBean.error("没有父反馈");
+            }
+
+            if(user !=null){
                toUserId=user.getUserId();
                toUsername=user.getUsername();
               // toUserImg=user.getAvatar();
@@ -80,13 +95,46 @@ public class XgFeedbackController extends BaseController {
     }
 
 
-    @RequestMapping("/getFeedbackTree")
-    public  RespBean getFeedbackTree(@RequestBody XgFeedback xgFeedback){
-        FeedbackTree<XgFeedback> feedbackTree = xgFeedbackService.getFeedbackTree(xgFeedback);
+    /**
+     * 根据feedback id 查询 评论的所有回复
+     * @param feedbackIn
+     * @return
+     */
+    @RequestMapping("/getFeedbackTreeById")
+    public  RespBean getFeedbackTreeById(@RequestBody XgSysFeedbackIn feedbackIn){
+        if(feedbackIn !=null && StringUtils.isEmptyOrNull( feedbackIn.getId()+"")){
+            return  RespBean.error("please take id");
+        }
+        FeedbackTree<XgFeedback> feedbackTree = xgFeedbackService.getFeedbackTree(feedbackIn);
+        List<FeedbackTree<XgFeedback>> children = feedbackTree.getChildren();
+        for (FeedbackTree<XgFeedback> feeback: children) {
+            String id = feeback.getId();
+            if(feedbackIn.getId().equals(id)){
+                return RespBean.ok("feedbackList",feeback);
+            }
+        }
+        return  RespBean.ok("feedbackList", null);
+    }
 
-         return  RespBean.ok("feedbackTree", feedbackTree);
+    /**
+     * 查询所有评论 第一条
+     * @param feedbackIn
+     * @return
+     */
+    @RequestMapping("/getFeedbackList")
+    public  RespBean getFeedbackList(@RequestBody XgSysFeedbackIn feedbackIn){
+        feedbackIn.setType("ONE");
+        PageInfo<XgFeedback> list = xgFeedbackService.getFeedbackListByItems(feedbackIn);
+        return  RespBean.ok("feedbackList", list);
     }
 
 
+    @RequestMapping("/getFeedbackTree")
+    public  RespBean getFeedbackTree(@RequestBody XgSysFeedbackIn feedbackIn){
+        FeedbackTree<XgFeedback> feedbackTree = xgFeedbackService.getFeedbackTree(feedbackIn);
+
+
+        return  RespBean.ok("feedbackTree", feedbackTree);
+    }
 
 }

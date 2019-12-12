@@ -13,10 +13,15 @@
     <result column="extend2" property="extend2" jdbcType="VARCHAR" />
     <result column="extend3" property="extend3" jdbcType="VARCHAR" />
     <result column="parent_id" property="parentId" jdbcType="BIGINT"></result>
-
+      <result column="f_type" property="fType" jdbcType="VARCHAR" />
     <result column="to_username" property="toUsername" jdbcType="VARCHAR"></result>
     <result column="from_username" property="fromUsername" jdbcType="VARCHAR"></result>
     <result column="to_user_id" property="toUserId" jdbcType="VARCHAR"></result>
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP"></result>
+
+      <result column="update_user_id" property="updateUserId" jdbcType="BIGINT"></result>
+     <result column="status" property="status" jdbcType="VARCHAR"></result>
+
 
       <result column="suggestTitle" property="suggestTitle" jdbcType="VARCHAR"></result>
       <result column="suggestInfo" property="suggestInfo" jdbcType="VARCHAR"></result>
@@ -25,12 +30,13 @@
       <result column="toUserImg" property="toUserImg" jdbcType="VARCHAR"></result>
       <result column="fromUserImg" property="fromUserImg" jdbcType="VARCHAR"></result>
 
-
-
+      <result column="isVip" property="isVip" jdbcType="VARCHAR"></result>
+      <result column="isCompany" property="isCompany" jdbcType="VARCHAR"></result>
+      <result column="username" property="username" jdbcType="VARCHAR"></result>
   </resultMap>
   <sql id="Base_Column_List" >
     id, suggest_id, feedback_info, feedback_title, user_id, create_date, create_by, type, 
-    extend2, extend3,parent_id,to_username,from_username,to_user_id
+    extend2, extend3,parent_id,to_username,from_username,to_user_id,update_date,update_user_id,f_type,status
   </sql>
 
 
@@ -38,7 +44,7 @@
 
 
     <insert id="addFeedback" parameterType="cc.mrbird.web.domain.XgFeedback"  useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        insert into xg_feedback
+        insert into xg_sys_feedback
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="id != null" >
                 id,
@@ -81,6 +87,19 @@
             </if>
             <if test="toUserId != null" >
                 to_user_id,
+            </if>
+            <if test="updateDate != null" >
+                update_date,
+            </if>
+            <if test="updateUserId != null" >
+                update_user_id,
+            </if>
+
+            <if test="fType != null" >
+                f_type,
+            </if>
+            <if test="status != null" >
+                status,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -126,10 +145,23 @@
             <if test="toUserId != null" >
                 #{toUserId,jdbcType=BIGINT},
             </if>
+            <if test="updateDate != null" >
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null" >
+                #{updateUserId,jdbcType=BIGINT},
+            </if>
+
+            <if test="fType != null" >
+                #{fType,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
     <update id="updateFeedback" parameterType="cc.mrbird.web.domain.XgFeedback" >
-        update xg_feedback
+        update xg_sys_feedback
         <set >
             <if test="suggestId != null" >
                 suggest_id = #{suggestId,jdbcType=BIGINT},
@@ -170,6 +202,19 @@
             <if test="toUserId != null" >
                 to_user_id = #{toUserId,jdbcType=BIGINT},
             </if>
+
+            <if test="updateDate != null" >
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null" >
+                update_user_id = #{updateUserId,jdbcType=BIGINT},
+            </if>
+            <if test="fType != null" >
+                f_type = #{fType,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                status = #{status,jdbcType=VARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
@@ -182,48 +227,46 @@
   <select id="getFeedList" resultMap="BaseResultMap">
 
 
-
-
-/*
       SELECT
-      ss.suggest_title as suggestTitle,
-      ss.suggest_info as suggestInfo,
-      ss.create_date as sCreateDate,
-      ss.create_by as suggestionUserName,
       uu.AVATAR as toUserImg,
-      vv.*
+
+      vv.*,
+      uu.username as username,
+      uu.is_vip as isVip,
+      CASE  uu.company_id when '0' then '个人' ELSE '商户' end as isCompany
+
       from
+
+
       (select  u.AVATAR as fromUserImg,xf.*	from
 
-      xg_feedback xf INNER JOIN t_user u on xf.user_id =u.USER_ID) vv
+      xg_sys_feedback xf INNER JOIN t_user u on xf.user_id =u.USER_ID) vv
 
-      INNER JOIN t_user uu on uu.USER_ID =vv.to_user_id
-      INNER JOIN xg_suggestion ss on ss.id =vv.suggest_id*/
+      left JOIN t_user uu on uu.USER_ID =vv.user_id
 
-    SELECT
-    uu.AVATAR as toUserImg,
+  <where>
 
-    vv.*
+      <if test="type != null and type != ''  ">
+          vv.type =#{type}
+      </if>
+      <if test="fType != null and fType != ''  ">
+        and  vv.f_type =#{fType}
+      </if>
+      <if test="fromUsername != null and fromUsername != ''  ">
+          and  vv.from_username like '%${fromUsername}%'
+      </if>
+      <if test="startTime != null and startTime != '' and endTime !=null and endTime != '' ">
+          and vv.create_date  &gt;= #{startTime} and  vv.create_date &lt;= #{endTime}
+      </if>
+  </where>
 
-    from
 
-
-    (select  u.AVATAR as fromUserImg,xf.*	from
-
-    xg_feedback xf INNER JOIN t_user u on xf.user_id =u.USER_ID) vv
-
-    left JOIN t_user uu on uu.USER_ID =vv.to_user_id
-
-
-    <!-- <where>
-       <if test="suggestId!= null and suggestId !=''">
-           suggest_id=#{suggestId}
-       </if>
-
-     </where>-->
-    
-    
   </select>
-  
-  
+
+    <select id="getParentFeedbackById" resultMap="BaseResultMap">
+        SELECT  * FROM xg_sys_feedback where  id = #{parentId}
+
+    </select>
+
+
 </mapper>

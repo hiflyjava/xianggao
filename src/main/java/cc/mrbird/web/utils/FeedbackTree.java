@@ -34,6 +34,8 @@ public class FeedbackTree<T> {
 	private String  type;
 	private String  suggestionUserName;
 
+	private String suggestion;
+
 
 	/**
 	 * 显示节点文本

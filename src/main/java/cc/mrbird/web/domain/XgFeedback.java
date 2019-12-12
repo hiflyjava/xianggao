@@ -41,6 +41,73 @@ public class XgFeedback {
     private Date  sCreateDate;
     private String  suggestionUserName;
 
+    private String fType;
+
+    private Date updateDate;
+
+    private Long updateUserId;
+
+    private String isVip;
+    private String isCompany;
+    private String username;
+
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getIsVip() {
+        return isVip;
+    }
+
+    public void setIsVip(String isVip) {
+        this.isVip = isVip;
+    }
+
+    public String getIsCompany() {
+        return isCompany;
+    }
+
+    public void setIsCompany(String isCompany) {
+        this.isCompany = isCompany;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getfType() {
+        return fType;
+    }
+
+    public void setfType(String fType) {
+        this.fType = fType;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public Long getUpdateUserId() {
+        return updateUserId;
+    }
+
+    public void setUpdateUserId(Long updateUserId) {
+        this.updateUserId = updateUserId;
+    }
 
     public String getSuggestTitle() {
         return suggestTitle;

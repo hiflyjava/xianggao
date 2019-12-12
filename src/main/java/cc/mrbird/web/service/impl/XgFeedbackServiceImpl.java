@@ -7,9 +7,12 @@ import cc.mrbird.common.util.TreeUtils;
 import cc.mrbird.system.domain.Menu;
 import cc.mrbird.web.dao.XgFeedbackMapper;
 import cc.mrbird.web.domain.XgFeedback;
+import cc.mrbird.web.dto.in.XgSysFeedbackIn;
 import cc.mrbird.web.service.XgFeedbackService;
 import cc.mrbird.web.utils.FeedbackTree;
 import cc.mrbird.web.utils.FeedbackTreeUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -34,7 +37,7 @@ public class XgFeedbackServiceImpl extends BaseService<XgFeedback> implements Xg
 
 
     @Override
-    public FeedbackTree<XgFeedback> getFeedbackTree(XgFeedback xgFeedback) {
+    public FeedbackTree<XgFeedback> getFeedbackTree(XgSysFeedbackIn xgFeedback) {
         List<FeedbackTree<XgFeedback>> trees = new ArrayList<FeedbackTree<XgFeedback>>();
 
 
@@ -61,6 +64,13 @@ public class XgFeedbackServiceImpl extends BaseService<XgFeedback> implements Xg
     }
 
     @Override
+    public PageInfo<XgFeedback> getFeedbackListByItems(XgSysFeedbackIn xgSysFeedbackIn) {
+        PageHelper.startPage(xgSysFeedbackIn.getCurrentPage(),xgSysFeedbackIn.getPageSize());
+        List<XgFeedback> feedList = xgFeedbackMapper.getFeedList(xgSysFeedbackIn);
+        return new PageInfo<>(feedList);
+    }
+
+    @Override
     public int addFeedback(XgFeedback feedback) {
         int i = xgFeedbackMapper.addFeedback(feedback);
         if(i>=1){
@@ -73,5 +83,11 @@ public class XgFeedbackServiceImpl extends BaseService<XgFeedback> implements Xg
     public int updateFeedback(XgFeedback feedback) {
 
         return xgFeedbackMapper.updateFeedback(feedback);
+    }
+
+    @Override
+    public List<XgFeedback> getParentFeedbackById(Long parentId) {
+       return xgFeedbackMapper.getParentFeedbackById(parentId);
+
     }
 }
