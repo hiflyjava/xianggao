@@ -29,7 +29,7 @@
 
 
 	  <result column="is_vip" property="isVip" jdbcType="VARCHAR" />
-	  <result column=" profession" property="profession" jdbcType="VARCHAR" />
+	  <result column="profession" property="profession" jdbcType="VARCHAR" />
 	  <result column="school" property="school" jdbcType="VARCHAR" />
 	  <result column="registed_address" property="registedAddress" jdbcType="VARCHAR" />
 	  <result column="extend1" property="extend1" jdbcType="VARCHAR" />
