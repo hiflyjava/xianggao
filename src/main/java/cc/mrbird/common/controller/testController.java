@@ -46,7 +46,7 @@ public class testController {
      * @return
      */
 
-    @RequestMapping("/test1")
+    @RequestMapping("/test2")
     public RespBean teset(@RequestBody XgUserFensi xgUserFensi){
           //请求进来默认是离线的
         String s = redisService.get(XgCodeUtil.WEB_STATUS + xgUserFensi.getExtend1(),String.class);
@@ -94,6 +94,14 @@ public class testController {
         return null;
     }
 
+
+    @RequestMapping("/test1")
+    public void tesetet(){
+
+        redisService.setForever("aaa", "bbbb");
+        long aaa = redisService.getExpire("aaa");
+        System.out.println(aaa);
+    }
 
 
 }

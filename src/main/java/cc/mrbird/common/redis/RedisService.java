@@ -24,6 +24,35 @@ public class RedisService {
 
 
     /**
+     * 44
+     * 根据key 获取过期时间
+     * 45
+     *
+     * @param key 键 不能为null
+     *            46
+     * @return 时间(秒) 返回0代表为永久有效
+     * 47
+     */
+
+    public long getExpire(String key) {
+
+        return redisTemplate.getExpire(key, TimeUnit.SECONDS);
+
+    }
+
+
+    /**
+     * 将 key，value 存放到redis数据库中，默认设置过期时间为一周
+     *
+     * @param key
+     * @param value
+     */
+    public void setForever(String key, Object value) {
+        redisTemplate.opsForValue().set(key, JsonUtil.convertObj2String(value));
+    }
+
+
+    /**
      * 将 key，value 存放到redis数据库中，默认设置过期时间为一周
      *
      * @param key
