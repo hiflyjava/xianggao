@@ -22,4 +22,11 @@ public class XgCodeUtil implements Serializable {
     public static  final  String ORDER_STATUS_SUCCESS="O";//成功
     public static  final  String ORDER_STATUS_CANCLE="C";//取消
 
+
+
+    //浏览器状态；
+    public  static  final  String WEB_STATUS_ON="ON";//连接状态
+    public  static  final  String WEB_STATUS_OFF="OFF";//未连接状态
+
+    public  static  final  String WEB_STATUS="STATUS_";//未连接状态
 }
