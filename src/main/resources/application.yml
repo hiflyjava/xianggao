@@ -10,13 +10,13 @@ spring:
       # 数据库访问配置, 使用druid数据源 
       type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: com.mysql.jdbc.Driver
-      #url: jdbc:mysql://localhost:3306/xianggao?useUnicode=true&characterEncoding=utf8
-      url: jdbc:mysql://localhost:3306/yxt_sms?useUnicode=true&characterEncoding=utf8
+      url: jdbc:mysql://localhost:3306/xianggao?useUnicode=true&characterEncoding=utf8
+      #url: jdbc:mysql://localhost:3306/yxt_sms?useUnicode=true&characterEncoding=utf8
       #url: jdbc:mysql://120.79.250.11:3306/xianggao?useUnicode=true&characterEncoding=utf8
       username: root
-      #password: 12580
+      password: 12580
       #password: ooxx123456
-      password: x5
+      #password: x5
       # 连接池配置
       initial-size: 5
       min-idle: 5
@@ -120,6 +120,18 @@ qiniuyun:
 febss:
   showsql: true
 
+alipay:
+  app_id: 2016101600701324
+  merchant_private_key: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDw4b+acU+BjDqbYvvyhHHnTvdxFco+R7QUzhWshK0AMB5hm9sSjJOydmWovl3G5Doxjo2PNQuro78R3dcSl+W/YqjUs1SbCBz/75UHkHG5r+CsFlM3d29a2Di0U7ZpcIWWNiZXz5da0VcIMfhPgIlfYkPtuJpHBG9V9OtaiNEbBmeNnswCMaIJ2hx0q8nds/GoTCDQDkfMzYT6QPlQ8N7V30h0JFjDzPJs7AjXfovuA4G8c9rOl13HQIk9UUtpg1w4hjPYKjme4CK0y2MQXV4kVuN0K5b/EJDIvZqYP6c/C+fRWkqF6TXOh2SlvRat5aSA+CKAgwzOzSHlpFcj6VWTAgMBAAECggEAdZY96i6WGS9TDLdtNh3hXID32YRBjdWC2wUfH3BE42qZ6hwi/RMSpnOVfKIxNP4ESlzETbwfTlJI23fnnXP4+0w2Dl7cVjHHtkhF/8NLQNHSYy8iwFjVSwtx4tVanm4HSCR24za7M+ItEhsSk/yzEpTthAYxialokBVXLoLLUN0FBPIwNNHxP4i3ERp4i7mXDe2Te0/bSfs2w/Uv4+FUkAKDKE08i7LPYTcy56/e1xJt+gdUpoSwfFvWObW2AJP3udxRe1iQ/YxYKqe2+dGBCMBtYvth1c2ixqAB3m6ZQutJEOpmya2bpNo04LrdKIFuTj1hNKtzeRaBnDtsRw31AQKBgQD8lxGODIXllAHb2zeOaApxocVFLyT3o6BXoHnrnomUNHXnOAiYvGd/d8TSXg6kioyBnn/Xh/EqAUqod1iVJqkEIYLh8P4YjpQ+S0zCdKuheR0B80ydxxRVP4RRQSKsz2Qwo6sLAgITzEmifTL0ivx+4TtgPN8xq5PnnadaHhXNgwKBgQD0IjeMIZGRr5JLRop/I5OVmk19AXwc7u8TXegu2UBdwrUV3Y25TLsT7PhyuOs14XAsou+bNAKFcwZv/yubY1t2QkFjgpY7pTgQyH7Obm5ejBpFmN7vWco7PvFkft0HWvELxiSXgS3T9BxkalmgSPKRHAbk0QOfcDgNxKaw0upqsQKBgQCN/L25hACglRqWZBxOyN1WEwG5ak71hd1UZLkkYfIkhXjhiPYMJZxoYwMY3haNF/TzyA1FMv22BxPYr330Gc9Yqx3PtJChbUSX3+w+QydXlaVgu0uORaKAaTwQEPVU/x/q15YGkhJo3qVl2csS/C4DhMjDyHQOj8yMnmq8lbzb0QKBgQDBE7qoqffNp3Rk8kIgcQuMmr9D6QO2gkU0JOW2/3zHanD6/QDUFtox1Q1c9eCX+VZVBvvG3GhOEH173+wl9XtlWNsMD0AvpehkZZzcODwzrEwu1MsjsvicyJfy6d52rbbLoAZaiACti3dU90Mw3+BvYSIWnzNlSkQap3dJi1V30QKBgDjhs1IUAstR5SVIytIY8wmE3DamWFq/CZw3PH+v4R6js+Tp8RJ7wVYLw27PtFDNMcl2Imeh4P4TrV3RPO+KfMby34AEzOjz00vED84QzVhMZw1eUmUdDZwi/G+9DXCQGZL+Y3Nfuy7xudSzXcOUobnWViAMCPaTybbWcntDTkcJ
+  alipay_public_key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp+55Sup1X9a3YHibpPHbssLlChXKCJxCCWlqGwUczLGCB5Ppt8vUFmqem0VNiiFS9K5tCf1dtjLGhmzKWNJ98qvLqKaeyUqHsIJ/Qwkxe65nDH2/+4YJQbGk9+qQsQtkHFI2+V9bzXOG7ED8olQZshvBWQPjgwJNBqNOl4uIOZCqElvq1qgR1YC5dTbSJjRikgYYMaPjX7LPGybFHsjuu4nO+bMbYUhRDcy1PUBTUJoN4JzFCtzHDI5liXel7IzxXOiKdcmxRhKg6EkBhB+ujcIfT1GaxNXLghGfVag4uL3JG20qK8ugld4Xf1soDvt6SZ/hXQbadbNAbfdqyhmDRwIDAQAB
+  gatewayUrl: https://openapi.alipaydev.com/gateway.do
+  charset: utf-8
+  sign_type: RSA2
+  notify_url: http://qjgp3a.natappfree.cc/alipay/notifyUrl
+  return_url: http://qjgp3a.natappfree.cc
+
+env:
+  status: prod
 
 
 
