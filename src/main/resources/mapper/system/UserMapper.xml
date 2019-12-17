@@ -75,10 +75,12 @@
 	    <if test="status != null and status != ''">
 	        AND u.status = #{status}
 	    </if>
+
+	  <if test="startTime != null and startTime != '' and endTime !=null and endTime != '' ">
+		  and u.crate_time  &gt;= #{startTime} and  u.crate_time &lt;= #{endTime}
+	  </if>
   		order by u.user_id
   </select>
-
-
 
 	<select id="findMyWithDept" resultType="user" parameterType="user">
 		select u.user_id userId,u.username,u.email,u.mobile,u.status,u.crate_time crateTime,u.smsnum,

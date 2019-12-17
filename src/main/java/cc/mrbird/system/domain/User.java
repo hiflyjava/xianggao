@@ -119,6 +119,27 @@ public class User implements Serializable {
 
 	private Date downDate;
 
+	private String startTime; //开始时间入参
+
+	private String endTime;// 结束时间入参
+
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
 	public Date getDownDate() {
 		return downDate;
 	}
