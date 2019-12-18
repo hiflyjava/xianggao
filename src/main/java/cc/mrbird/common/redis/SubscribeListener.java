@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.websocket.Session;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -78,7 +79,12 @@ public class SubscribeListener  implements MessageListener {
     public void onMessage(Message message, byte[] pattern) {
         // 缓存消息是序列化的，需要反序列化。然而new String()可以反序列化，但静态方法valueOf()不可以
         String pannel=new String(pattern);//管道
-        String messages=new String(message.getBody());//消息
+        String messages= null;//消息
+        try {
+            messages = new String(message.getBody(),"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         System.out.println(pannel + "主题发布fafaf：" + messages);
 
         if(null !=session && session.isOpen()){

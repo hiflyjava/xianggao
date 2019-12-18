@@ -10,4 +10,6 @@ public interface XgProductionShareMapper {
 
     List<XgProductionShare> getProductionShareByItems(XgProductionPageIn xgProductionPageIn);
 
+    int insertSelective(XgProductionShare record);
+
 }

@@ -45,7 +45,7 @@
       <id property="id" column="sId"></id>
       <result property="username" column="susername"></result>
       <result property="createDate" column="screateDate"></result>
-      <result property="usreImg" column="suserImg"></result>
+      <result property="userImg" column="suserImg"></result>
       <result property="type" column="stype"></result>
     </collection>
 
@@ -299,7 +299,7 @@ t_user tu
 
 INNER JOIN xg_production xp on xp.user_id =tu.USER_ID
 LEFT JOIN xg_production_share ps on ps.p_id =xp.id
-LEFT join xg_production_dianzan pd on pd.p_id =xp.id
+LEFT join xg_production_dz pd on pd.p_id =xp.id
 LEFT JOIN xg_production_collection pc on pc.p_id =xp.id
 LEFT join  xg_production_type pt on pt.id =xp.type
 where tu.user_id =#{userId}
@@ -320,6 +320,30 @@ where tu.user_id =#{userId}
 
   </select>
 
+
+  <select id="getPcWebPdList" resultMap="BaseResultMap">
+
+          select
+      xpt.p_type as productionType,
+      tu.USERNAME as username,
+      xp.*
+      from
+      xg_production xp
+      LEFT join xg_production_type xpt on xp.type =xpt.id
+      INNER JOIN t_user tu on  tu.USER_ID =xp.user_id
+      <where>
+        <if test="type != null and type != '' ">
+          xp.type= #{type}
+        </if>
+        <if test="status != null and status != '' ">
+         and xp.status= #{status}
+        </if>
+        <if test="id != null and id != '' ">
+          and xp.id= #{id}
+        </if>
+      </where>
+      ORDER BY xp.create_date desc
+  </select>
 
 
 

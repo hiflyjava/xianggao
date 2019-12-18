@@ -33,6 +33,16 @@ public class XgProductionPageIn implements Serializable {
 
     private String orderNum;//订单号
 
+    private Long id;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getOrderNum() {
         return orderNum;

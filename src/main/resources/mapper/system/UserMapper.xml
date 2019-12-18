@@ -47,6 +47,21 @@
 		 <result column="cCreateDate " property="createDate"></result>
 	 </association>
 
+	  <collection property="fensis" ofType="cc.mrbird.web.domain.XgUserFensi">
+		  <id column="fsid" property="id"></id>
+		  <result column="fsUsername" property="fromUserImg"></result>
+		  <result column="fsUserImg" property="fromUserImg"></result>
+		  <result column="fsUserId" property="fromUserId"></result>
+	  </collection>
+      <collection property="productions" ofType="cc.mrbird.web.domain.XgProduction">
+		  <id column="pid" property="id"></id>
+		  <result column="ptype" property="type"></result>
+		  <result column="pcreateDate" property="createDate"></result>
+			  <result column="pfirstImg" property="firstImg"></result>
+		      <result column="pimgs" property="imgs"></result>
+  	  </collection>
+
+
   </resultMap>
   
   <select id="findUserWithDept" resultMap="BaseResultMap" parameterType="user">
@@ -175,6 +190,29 @@
 		SELECT username from t_login_log
 		WHERE  create_time &gt;= #{startTime} AND create_time &lt;= #{endTime}    GROUP BY USERNAME)
 	</select>
+
+
+	<select id="getUserInfoById" resultMap="BaseResultMap">
+
+
+           SELECT
+
+				xp.id as pid,
+				xp.first_img as pfirstImg,
+                xp.imgs as pimgs
+				xuf.id as fsid,
+				xuf.from_user_id as fsUserId,
+				tu.*
+				from t_user tu
+
+				LEFT JOIN xg_production xp on tu.USER_ID = xp.user_id
+
+				LEFT JOIN xg_user_fensi xuf on xuf.to_user_id =tu.USER_ID
+
+				where tu.USER_ID =#{userId}
+
+	</select>
+
 
 
 </mapper>

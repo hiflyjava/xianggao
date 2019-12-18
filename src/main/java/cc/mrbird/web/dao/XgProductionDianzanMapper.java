@@ -11,4 +11,16 @@ public interface XgProductionDianzanMapper {
 
     List<XgProductionDianzan> getProductionDianzanByItems(XgProductionPageIn xgProductionPageIn);
 
+
+
+    List<XgProductionDianzan>  getPdDzsByPid(Long pid);
+
+
+    int insertSelective(XgProductionDianzan record);
+
+    XgProductionDianzan selectByPrimaryKey(Long id);
+
+    int updateByPrimaryKeySelective(XgProductionDianzan record);
+
+    int updateByPrimaryKey(XgProductionDianzan record);
 }

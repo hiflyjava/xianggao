@@ -26,6 +26,9 @@ public interface XgProductionService  extends IService<XgProduction> {
     PageInfo<XgProduction> getProductionListByItems(XgProductionPageIn productionPageIn);
     PageInfo<XgProduction> getProductionListByItemsWithAll(XgProductionPageIn productionPageIn);
 
+    PageInfo<XgProduction> getPcWebPdList(XgProductionPageIn productionPageIn);
+
+    XgProduction getProductionInfoById(XgProductionPageIn productionPageIn);
 
     Map<String , IndexUserOut> getDashBoardUpProNeedByItems(XgProductionPageIn productionPageIn);
 }

@@ -13,6 +13,7 @@ import javax.persistence.Transient;
 import cc.mrbird.common.annotation.ExportConfig;
 import cc.mrbird.web.domain.XgNeed;
 import cc.mrbird.web.domain.XgProduction;
+import cc.mrbird.web.domain.XgUserFensi;
 
 @Table(name = "t_user")
 public class User implements Serializable {
@@ -118,11 +119,52 @@ public class User implements Serializable {
 	private Date downVipDate;
 
 	private Date downDate;
-
+    @Transient
 	private String startTime; //开始时间入参
-
+    @Transient
 	private String endTime;// 结束时间入参
 
+
+	private List<XgUserFensi> fensis;//粉丝数
+
+	private List<XgProduction> productions;//作品数
+
+
+	private int fensiCount;
+
+	private int productionCount;
+
+	public int getFensiCount() {
+		return fensiCount;
+	}
+
+	public void setFensiCount(int fensiCount) {
+		this.fensiCount = fensiCount;
+	}
+
+	public int getProductionCount() {
+		return productionCount;
+	}
+
+	public void setProductionCount(int productionCount) {
+		this.productionCount = productionCount;
+	}
+
+	public List<XgUserFensi> getFensis() {
+		return fensis;
+	}
+
+	public void setFensis(List<XgUserFensi> fensis) {
+		this.fensis = fensis;
+	}
+
+	public List<XgProduction> getProductions() {
+		return productions;
+	}
+
+	public void setProductions(List<XgProduction> productions) {
+		this.productions = productions;
+	}
 
 	public String getStartTime() {
 		return startTime;

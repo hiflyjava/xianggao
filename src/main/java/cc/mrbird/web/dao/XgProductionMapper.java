@@ -14,5 +14,6 @@ public interface XgProductionMapper extends MyMapper<XgProduction> {
     List<XgProduction> getProductionListByItemsWithAll(XgProductionPageIn productionPageIn);
     List<XgProduction> getDashBoardUpProByItems(XgProductionPageIn productionPageIn);
 
+   List<XgProduction> getPcWebPdList(XgProductionPageIn xgProductionPageIn);
 
 }

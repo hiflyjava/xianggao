@@ -10,4 +10,6 @@ public interface XgProductionCollectionMapper {
 
     List<XgProductionCollection> getProductionCollectionByItems(XgProductionPageIn xgProductionPageIn);
 
+    int insertSelective(XgProductionCollection record);
+
 }

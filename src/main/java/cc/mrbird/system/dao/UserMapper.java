@@ -22,4 +22,6 @@ public interface UserMapper extends MyMapper<User> {
 	List <User> getDashBoardUsersByItems(XgProductionPageIn xgProductionPageIn);
 
 	List <User> getNotLoginUserByItems(XgProductionPageIn xgProductionPageIn);
+
+	User getUserInfoById(Long userId);
 }

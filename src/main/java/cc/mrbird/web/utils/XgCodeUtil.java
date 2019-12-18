@@ -29,4 +29,15 @@ public class XgCodeUtil implements Serializable {
     public  static  final  String WEB_STATUS_OFF="OFF";//未连接状态
 
     public  static  final  String WEB_STATUS="STATUS_";//未连接状态
+
+    // 作品状态:A:正常；B:首推；C：符合违反国家；D:涉黄；E:黑名单；I初始化状态
+    public  static  final  String PRODUCTION_STATUS_A="A";//正常
+
+    public  static  final  String PRODUCTION_STATUS_B="B";//首推
+    public  static  final  String PRODUCTION_STATUS_C="C";//不符合违反国家
+    public  static  final  String PRODUCTION_STATUS_D="D";//涉黄
+    public  static  final  String PRODUCTION_STATUS_E="E";//黑名单
+    public  static  final  String PRODUCTION_STATUS_I="I";//I初始化状态
+
+
 }

@@ -1,5 +1,7 @@
 package cc.mrbird.web.domain;
 
+import cc.mrbird.system.domain.User;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -52,12 +54,36 @@ public class XgProduction  implements Serializable {
 
     private String productionType;
 
+    private int pdzCount;//点赞总数；
 
     private List<XgProductionDianzan> xgProductionDianzans;//点赞
 
     private List<XgProductionCollection> xgProductionCollections;//收藏
 
     private  List<XgProductionShare> xgProductionShares;//分享
+
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getPdzCount() {
+        return pdzCount;
+    }
+
+    public void setPdzCount(int pdzCount) {
+        this.pdzCount = pdzCount;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
 
     public List<XgProductionDianzan> getXgProductionDianzans() {
         return xgProductionDianzans;

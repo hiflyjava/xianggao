@@ -2,17 +2,18 @@ package cc.mrbird.web.service.impl;
 
 import cc.mrbird.common.service.impl.BaseService;
 import cc.mrbird.common.util.MyUserUtiles;
+import cc.mrbird.system.dao.UserMapper;
 import cc.mrbird.system.domain.User;
 import cc.mrbird.web.dao.XgNeedMapper;
 import cc.mrbird.web.dao.XgOrderMasterVersionMapper;
+import cc.mrbird.web.dao.XgProductionDianzanMapper;
 import cc.mrbird.web.dao.XgProductionMapper;
 import cc.mrbird.web.domain.XgNeed;
 import cc.mrbird.web.domain.XgOrderMasterVersion;
 import cc.mrbird.web.domain.XgProduction;
-import cc.mrbird.web.domain.XgUserVip;
+import cc.mrbird.web.domain.XgProductionDianzan;
 import cc.mrbird.web.dto.in.XgProductionPageIn;
 import cc.mrbird.web.dto.out.IndexUserOut;
-import cc.mrbird.web.service.XgNeedService;
 import cc.mrbird.web.service.XgProductionService;
 import cc.mrbird.web.utils.MyDateUtils;
 import cc.mrbird.web.utils.XgCodeUtil;
@@ -47,6 +48,11 @@ public class XgProductionServiceImpl extends BaseService<XgProduction> implement
     @Autowired
     XgOrderMasterVersionMapper orderMasterVersionMapper;
 
+   @Autowired
+    XgProductionDianzanMapper productionDianzanMapper;
+
+   @Autowired
+    UserMapper userMapper;
 
     @Override
     public int updateProductionById(XgProduction xgProduction) {
@@ -80,6 +86,55 @@ public class XgProductionServiceImpl extends BaseService<XgProduction> implement
          productionPageIn.setUserId(MyUserUtiles.getUser().getUserId());
         List<XgProduction> list = productionMapper.getProductionListByItemsWithAll(productionPageIn);
         return new PageInfo<>(list);
+    }
+
+    @Override
+    public PageInfo<XgProduction> getPcWebPdList(XgProductionPageIn productionPageIn) {
+
+        PageHelper.startPage(productionPageIn.getCurrentPage(), productionPageIn.getPageSize());
+        //得到产品的点赞数；
+        List<XgProduction> pdList = productionMapper.getPcWebPdList(productionPageIn);
+        for (XgProduction xgProduction:pdList){
+            List<XgProductionDianzan> dzs = productionDianzanMapper.getPdDzsByPid(xgProduction.getId());
+              if(dzs !=null && dzs.size()>0){
+                  xgProduction.setPdzCount(dzs.size());
+              }else {
+                  xgProduction.setPdzCount(0);
+              }
+        }
+
+        //得到产品的评论数;
+        //得到产品的阅读量；
+
+        return new PageInfo<>(pdList);
+    }
+
+    @Override
+    public XgProduction getProductionInfoById(XgProductionPageIn productionPageIn) {
+
+        List<XgProduction> pdList = productionMapper.getPcWebPdList(productionPageIn);
+        XgProduction xgProduction = pdList.get(0);
+        List<XgProductionDianzan> dzs = productionDianzanMapper.getPdDzsByPid(productionPageIn.getId());
+        if(dzs !=null && dzs.size()>0){
+            xgProduction.setPdzCount(dzs.size());
+        }else {
+            xgProduction.setPdzCount(0);
+        }
+
+               //查询个人信息；
+        User user = userMapper.getUserInfoById(xgProduction.getUserId());
+        int fensiSize = user.getFensis().size();
+        int productionSzize = user.getProductions().size();
+        user.setFensiCount(fensiSize);
+        user.setProductionCount(productionSzize);
+        user.setPassword(null);
+        user.setFensis(null);
+        //user.setProductions(null);
+        xgProduction.setUser(user);
+        //得到产品的评论数;
+        //得到产品的阅读量；
+
+        return xgProduction;
     }
 
     @Override
