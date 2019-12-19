@@ -17,11 +17,14 @@
     <result column="extend1" property="extend1" jdbcType="VARCHAR" />
     <result column="extend2" property="extend2" jdbcType="VARCHAR" />
     <result column="extend3" property="extend3" jdbcType="VARCHAR" />
+
+    <result column="need_id" property="needId" jdbcType="BIGINT" />
+    <result column="design_user_id" property="designUserId" jdbcType="BIGINT" />
   </resultMap>
 
   <sql id="Base_Column_List" >
     id, order_num, create_date, user_name, user_id, status, user_img, telephone, pay_status, 
-    user_address, update_date, mony, extend1, extend2, extend3
+    user_address, update_date, mony, extend1, extend2, extend3,need_id,design_user_id
   </sql>
 
 
@@ -73,6 +76,14 @@
       <if test="extend3 != null" >
         extend3,
       </if>
+
+      <if test="needId != null" >
+        need_id,
+      </if>
+      <if test="designUserId != null" >
+        design_user_id,
+      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -120,6 +131,14 @@
       <if test="extend3 != null" >
         #{extend3,jdbcType=VARCHAR},
       </if>
+
+      <if test="needId != null" >
+        #{needId,jdbcType=BIGINT},
+      </if>
+      <if test="designUserId != null" >
+        #{designUserId,jdbcType=BIGINT},
+      </if>
+
     </trim>
   </insert>
 

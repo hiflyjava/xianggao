@@ -17,10 +17,13 @@
     <result column="extend1" jdbcType="VARCHAR" property="extend1" />
     <result column="extend2" jdbcType="VARCHAR" property="extend2" />
     <result column="extend3" jdbcType="VARCHAR" property="extend3" />
+    <result column="need_id" property="needId" jdbcType="BIGINT" />
+    <result column="design_user_id" property="designUserId" jdbcType="BIGINT" />
+
   </resultMap>
   <sql id="Base_Column_List">
     id, order_num, create_date, user_name, user_id, status, user_img, telephone, pay_status, 
-    user_address, update_date, mony, extend1, extend2, extend3
+    user_address, update_date, mony, extend1, extend2, extend3,need_id,design_user_id
   </sql>
 
 
@@ -72,6 +75,13 @@
       <if test="extend3 != null">
         extend3,
       </if>
+      <if test="needId != null" >
+        need_id,
+      </if>
+      <if test="designUserId != null" >
+        design_user_id,
+      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -119,6 +129,14 @@
       <if test="extend3 != null">
         #{extend3,jdbcType=VARCHAR},
       </if>
+
+      <if test="needId != null" >
+        #{needId,jdbcType=BIGINT},
+      </if>
+      <if test="designUserId != null" >
+        #{designUserId,jdbcType=BIGINT},
+      </if>
+
     </trim>
   </insert>
   <update id="updateOrderMaster" parameterType="cc.mrbird.web.domain.XgOrderMaster">
@@ -166,6 +184,14 @@
       <if test="extend3 != null">
         extend3 = #{extend3,jdbcType=VARCHAR},
       </if>
+
+      <if test="needId != null" >
+        need_id = #{needId,jdbcType=BIGINT},
+      </if>
+      <if test="designUserId != null" >
+        design_user_id = #{designUserId,jdbcType=BIGINT},
+      </if>
+
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>

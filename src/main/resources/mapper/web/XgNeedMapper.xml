@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="INTEGER" />
-    <result column="budget" property="budget" jdbcType="VARCHAR" />
+    <result column="budget" property="budget" jdbcType="BIGINT" />
     <result column="is_home" property="isHome" jdbcType="VARCHAR" />
     <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
     <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
@@ -34,13 +34,301 @@
     <result column="username" property="username" jdbcType="VARCHAR"></result>
     <result column="signName" property="signName" jdbcType="VARCHAR"></result>
     <result column="needType" property="needType" jdbcType="VARCHAR"></result>
+
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="detail_count" property="detailCount" jdbcType="VARCHAR" />
+    <result column="detail_mony" property="detailMony" jdbcType="VARCHAR" />
+    <result column="need_pay_status" property="needPayStatus" jdbcType="VARCHAR" />
+    <result column="need_validity_start_time" jdbcType="TIMESTAMP" property="needValidityStartTime" />
+    <result column="need_validity_days" jdbcType="INTEGER" property="needValidityDays" />
+    <result column="need_validity_end_time" jdbcType="TIMESTAMP" property="needValidityEndTime" />
+
+
   </resultMap>
   <sql id="Base_Column_List" >
     id, title, type, budget, is_home, start_time, end_time, pay_type, first_pay_time, 
     second_pay_time, thirdly_pay_time, fourthly_pay_time, fifth_pay_time, user_id, checked_by, 
     update_by, extend3, need_info, need_check_status, nedd_mode, " discount", hosting_state, 
-    need_user_type, need_pay_address, create_date, update_date, need_days, need_imgs,checked_date
+    need_user_type, need_pay_address, create_date, update_date, need_days, need_imgs,checked_date,telephone, detail_count, detail_mony,need_pay_status,
+    need_validity_start_time,need_validity_days,need_validity_end_time
   </sql>
+
+
+  <select id="getNeedList" resultMap="BaseResultMap">
+
+  SELECT
+    tu.USERNAME as username,
+    tu.EMAIL as signName,
+    xt.p_type as needType,
+    xn.*
+  FROM xg_need xn LEFT JOIN t_user tu on tu.USER_ID =xn.user_id
+  left  join  xg_production_type xt on xt.id =xn.type
+    <where>
+      <if test="username != null and username != '' ">
+        tu.USERNAME like '%${username}%'
+      </if>
+
+      <if test="startTime != null and startTime != '' and endTime !=null and endTime != '' ">
+        and xn.create_date  &gt;= #{startTime} and  xn.create_date &lt;= #{endTime}
+      </if>
+      <if test="type != null and type != '' ">
+        and  xn.type = #{type}
+      </if>
+
+    </where>
+
+  </select>
+
+<select id="getDashBoardUpNeedByItems" resultMap="BaseResultMap">
+
+  select  * from xg_need
+  <where>
+
+    <if test="startTime != null and startTime != '' and endTime !=null and endTime != '' ">
+      and create_date  &gt;= #{startTime} and  create_date &lt;= #{endTime}
+    </if>
+
+  </where>
+
+
+</select>
+
+
+
+  <insert id="addNeed" parameterType="cc.mrbird.web.domain.XgNeed"  keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+    insert into xg_need
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="budget != null" >
+        budget,
+      </if>
+      <if test="isHome != null" >
+        is_home,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="firstPayTime != null" >
+        first_pay_time,
+      </if>
+      <if test="secondPayTime != null" >
+        second_pay_time,
+      </if>
+      <if test="thirdlyPayTime != null" >
+        thirdly_pay_time,
+      </if>
+      <if test="fourthlyPayTime != null" >
+        fourthly_pay_time,
+      </if>
+      <if test="fifthPayTime != null" >
+        fifth_pay_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="checkedBy != null" >
+        checked_by,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="extend3 != null" >
+        extend3,
+      </if>
+      <if test="needInfo != null" >
+        need_info,
+      </if>
+      <if test="needCheckStatus != null" >
+        need_check_status,
+      </if>
+      <if test="needMode != null" >
+        need_mode,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="hostingState != null" >
+        hosting_state,
+      </if>
+      <if test="needUserType != null" >
+        need_user_type,
+      </if>
+      <if test="needPayAddress != null" >
+        need_pay_address,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="needDays != null" >
+        need_days,
+      </if>
+      <if test="needImgs != null" >
+        need_imgs,
+      </if>
+      <if test="checkedDate != null" >
+        checked_date,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="detailCount != null" >
+        detail_count,
+      </if>
+      <if test="detailMony != null" >
+        detail_mony,
+      </if>
+      <if test="needPayStatus != null" >
+        need_pay_status,
+      </if>
+
+      <if test="needValidityStartTime != null">
+        need_validity_start_time,
+      </if>
+      <if test="needValidityDays != null">
+        need_validity_days,
+      </if>
+      <if test="needValidityEndTime != null">
+        need_validity_end_time,
+      </if>
+
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="budget != null" >
+        #{budget,jdbcType=BIGINT},
+      </if>
+      <if test="isHome != null" >
+        #{isHome,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="firstPayTime != null" >
+        #{firstPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="secondPayTime != null" >
+        #{secondPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thirdlyPayTime != null" >
+        #{thirdlyPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fourthlyPayTime != null" >
+        #{fourthlyPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fifthPayTime != null" >
+        #{fifthPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="checkedBy != null" >
+        #{checkedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="extend3 != null" >
+        #{extend3,jdbcType=VARCHAR},
+      </if>
+      <if test="needInfo != null" >
+        #{needInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="needCheckStatus != null" >
+        #{needCheckStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="needMode != null" >
+        #{needMode,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=VARCHAR},
+      </if>
+      <if test="hostingState != null" >
+        #{hostingState,jdbcType=VARCHAR},
+      </if>
+      <if test="needUserType != null" >
+        #{needUserType,jdbcType=VARCHAR},
+      </if>
+      <if test="needPayAddress != null" >
+        #{needPayAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="needDays != null" >
+        #{needDays,jdbcType=INTEGER},
+      </if>
+      <if test="needImgs != null" >
+        #{needImgs,jdbcType=VARCHAR},
+      </if>
+      <if test="checkedDate != null" >
+        #{checkedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="detailCount != null" >
+        #{detailCount,jdbcType=VARCHAR},
+      </if>
+      <if test="detailMony != null" >
+        #{detailMony,jdbcType=VARCHAR},
+      </if>
+
+      <if test="needPayStatus != null" >
+        #{needPayStatus,jdbcType=VARCHAR},
+      </if>
+
+
+
+      <if test="needValidityStartTime != null">
+        #{needValidityStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="needValidityDays != null">
+        #{needValidityDays,jdbcType=INTEGER},
+      </if>
+      <if test="needValidityEndTime != null">
+        #{needValidityEndTime,jdbcType=TIMESTAMP},
+      </if>
+
+
+
+    </trim>
+  </insert>
+
 
 
 
@@ -54,7 +342,7 @@
         type = #{type,jdbcType=INTEGER},
       </if>
       <if test="budget != null" >
-        budget = #{budget,jdbcType=VARCHAR},
+        budget = #{budget,jdbcType=BIGINT},
       </if>
       <if test="isHome != null" >
         is_home = #{isHome,jdbcType=VARCHAR},
@@ -105,7 +393,7 @@
         need_mode = #{needMode,jdbcType=VARCHAR},
       </if>
       <if test="discount != null" >
-        " discount" = #{discount,jdbcType=VARCHAR},
+        discount = #{discount,jdbcType=VARCHAR},
       </if>
       <if test="hostingState != null" >
         hosting_state = #{hostingState,jdbcType=VARCHAR},
@@ -131,6 +419,28 @@
       <if test="checkedDate != null" >
         checked_date = #{checkedDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="detailCount != null" >
+        detail_count = #{detailCount,jdbcType=VARCHAR},
+      </if>
+      <if test="detailMony != null" >
+        detail_mony = #{detailMony,jdbcType=VARCHAR},
+      </if>
+      <if test="needPayStatus != null" >
+        needPayStatus = #{needPayStatus,jdbcType=VARCHAR},
+      </if>
+
+      <if test="needValidityStartTime != null">
+        need_validity_start_time = #{needValidityStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="needValidityDays != null">
+        need_validity_days = #{needValidityDays,jdbcType=INTEGER},
+      </if>
+      <if test="needValidityEndTime != null">
+        need_validity_end_time = #{needValidityEndTime,jdbcType=TIMESTAMP},
+      </if>
 
 
     </set>
@@ -138,43 +448,57 @@
   </update>
 
 
-  <select id="getNeedList" resultMap="BaseResultMap">
 
-  SELECT
+  <select id="getPcWebNeedListByItems" resultMap="BaseResultMap">
+
+    SELECT
     tu.USERNAME as username,
     tu.EMAIL as signName,
     xt.p_type as needType,
     xn.*
-  FROM xg_need xn LEFT JOIN t_user tu on tu.USER_ID =xn.user_id
-  left  join  xg_production_type xt on xt.id =xn.type
+    FROM xg_need xn LEFT JOIN t_user tu on tu.USER_ID =xn.user_id
+    left  join  xg_production_type xt on xt.id =xn.type
     <where>
+
+       xn.need_check_status='A'
+       and xn.need_pay_status !='I'
       <if test="username != null and username != '' ">
-        tu.USERNAME like '%${username}%'
+        and  tu.USERNAME like '%${username}%'
       </if>
 
-      <if test="startTime != null and startTime != '' and endTime !=null and endTime != '' ">
-        and xn.create_date  &gt;= #{startTime} and  xn.create_date &lt;= #{endTime}
+      <if test="startMony != null and startMony != '' and endMony !=null and endMony != '' ">
+        and xn.budget  &gt;= #{startMony} and  xn.budget &lt;= #{endMony}
       </if>
       <if test="type != null and type != '' ">
         and  xn.type = #{type}
+      </if>
+
+      <if test="hostingState != null and hostingState != '' ">
+        and  xn.hosting_state = #{hostingState}
+      </if>
+
+      <if test="needPayStatus != null and needPayStatus != '' ">
+        and  xn.need_pay_status = #{needPayStatus}
+      </if>
+      <if test="needPayAddress != null and needPayAddress != '' ">
+        and  xn.need_pay_address = #{needPayAddress}
+      </if>
+
+      <if test="needUserType != null and needUserType != '' ">
+        and  xn.need_user_type  = #{needUserType}
+      </if>
+
+      <if test="needMode != null and needMode != '' ">
+        and  xn.need_mode  = #{needMode}
+      </if>
+
+      <if test="validityDays != null and validityDays != '' ">
+        and  TIMESTAMPDIFF( DAY,#{nowTime},xn.need_validity_end_time) &lt;= #{validityDays} and TIMESTAMPDIFF( DAY,#{nowTime},xn.need_validity_end_time) &gt;=0
       </if>
 
     </where>
 
   </select>
 
-<select id="getDashBoardUpNeedByItems" resultMap="BaseResultMap">
-
-  select  * from xg_need
-  <where>
-
-    <if test="startTime != null and startTime != '' and endTime !=null and endTime != '' ">
-      and create_date  &gt;= #{startTime} and  create_date &lt;= #{endTime}
-    </if>
-
-  </where>
-
-
-</select>
 
 </mapper>

@@ -199,7 +199,7 @@
 
 				xp.id as pid,
 				xp.first_img as pfirstImg,
-                xp.imgs as pimgs
+                xp.imgs as pimgs,
 				xuf.id as fsid,
 				xuf.from_user_id as fsUserId,
 				tu.*

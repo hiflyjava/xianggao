@@ -14,7 +14,7 @@ public class XgNeed  implements Serializable {
 
     private int type;
 
-    private String budget;
+    private Long budget;
 
     private String isHome;
 
@@ -65,7 +65,11 @@ public class XgNeed  implements Serializable {
     private String needImgs;
 
     private Date checkedDate;
+    private String telephone;
 
+    private String detailCount;//计费
+
+    private String detailMony;//计费金额
 
 
     private String username;//账号
@@ -74,6 +78,82 @@ public class XgNeed  implements Serializable {
 
     private String needType;
 
+
+    private Long designUserId;//设计师id
+
+    private String needPayStatus;//需求交易状态
+
+
+    private Date needValidityStartTime;
+
+    private Integer needValidityDays;
+
+    private Date needValidityEndTime;
+
+
+    public Date getNeedValidityStartTime() {
+        return needValidityStartTime;
+    }
+
+    public void setNeedValidityStartTime(Date needValidityStartTime) {
+        this.needValidityStartTime = needValidityStartTime;
+    }
+
+    public Date getNeedValidityEndTime() {
+        return needValidityEndTime;
+    }
+
+    public void setNeedValidityEndTime(Date needValidityEndTime) {
+        this.needValidityEndTime = needValidityEndTime;
+    }
+
+    public Integer getNeedValidityDays() {
+        return needValidityDays;
+    }
+
+    public void setNeedValidityDays(Integer needValidityDays) {
+        this.needValidityDays = needValidityDays;
+    }
+
+    public String getNeedPayStatus() {
+        return needPayStatus;
+    }
+
+    public void setNeedPayStatus(String needPayStatus) {
+        this.needPayStatus = needPayStatus;
+    }
+
+    public Long getDesignUserId() {
+        return designUserId;
+    }
+
+    public void setDesignUserId(Long designUserId) {
+        this.designUserId = designUserId;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getDetailCount() {
+        return detailCount;
+    }
+
+    public void setDetailCount(String detailCount) {
+        this.detailCount = detailCount;
+    }
+
+    public String getDetailMony() {
+        return detailMony;
+    }
+
+    public void setDetailMony(String detailMony) {
+        this.detailMony = detailMony;
+    }
 
     public void setType(int type) {
         this.type = type;
@@ -132,12 +212,13 @@ public class XgNeed  implements Serializable {
         return type;
     }
 
-    public String getBudget() {
+
+    public Long getBudget() {
         return budget;
     }
 
-    public void setBudget(String budget) {
-        this.budget = budget == null ? null : budget.trim();
+    public void setBudget(Long budget) {
+        this.budget = budget;
     }
 
     public String getIsHome() {

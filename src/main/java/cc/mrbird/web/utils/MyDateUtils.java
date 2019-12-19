@@ -85,12 +85,69 @@ public class MyDateUtils implements Serializable {
     }
 
 
-    public static void main(String[] args) {
-        String date = getDifferDateByInt(XgCodeUtil.TODAT,"2019-11-12 00:00:00");
-        System.out.println(date);
+    //得到两个日期的相差天数
+    public static long getDaySub(String beginDateStr,String endDateStr)
+    {
+        long day=0;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date beginDate;
+        Date endDate;
+        try
+        {
+            beginDate = format.parse(beginDateStr);
+            endDate= format.parse(endDateStr);
+            day=(endDate.getTime()-beginDate.getTime())/(24*60*60*1000);
+            //System.out.println("相隔的天数="+day);
+        } catch (ParseException e)
+        {
+            // TODO 自动生成 catch 块
+            e.printStackTrace();
+        }
+        return day;
     }
 
 
+//    public static void main(String[] args) {
+//        String date = getDifferDateByInt(XgCodeUtil.TODAT,"2019-11-12 00:00:00");
+//        System.out.println(date);
+//    }
+
+
+    public static  String getStringDate(Date date){
+        SimpleDateFormat s =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = s.format(date);
+        // 时间戳转换日期
+        return format;
+    }
+
+
+    //得到今天的零时时间
+    public static String  getTodayZeroTime (){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        Date zero = calendar.getTime();
+        SimpleDateFormat s =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = s.format(zero);
+        return  format;
+    }
+    //得到今天23点时间
+    public static  String getTodayEndTime(){
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTime(new Date());
+        calendar1.set(Calendar.HOUR_OF_DAY, 23);
+        calendar1.set(Calendar.MINUTE, 59);
+        calendar1.set(Calendar.SECOND, 59);
+        Date zero1 = calendar1.getTime();
+        SimpleDateFormat s =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = s.format(zero1);
+        // 时间戳转换日期
+        return format;
+
+       // return zero1;
+    }
 
 
 }

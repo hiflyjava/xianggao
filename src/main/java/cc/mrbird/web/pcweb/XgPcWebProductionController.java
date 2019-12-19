@@ -256,8 +256,6 @@ public class XgPcWebProductionController extends BaseController {
             return  RespBean.error("collection failed");
         }
 
-
-
     }
 
 }

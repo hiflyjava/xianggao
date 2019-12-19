@@ -34,6 +34,27 @@ public class XgOrderMasterVersion  implements Serializable {
 
     private String extend3;
 
+    private Long needId;
+
+    private Long designUserId;
+
+
+    public Long getNeedId() {
+        return needId;
+    }
+
+    public void setNeedId(Long needId) {
+        this.needId = needId;
+    }
+
+    public Long getDesignUserId() {
+        return designUserId;
+    }
+
+    public void setDesignUserId(Long designUserId) {
+        this.designUserId = designUserId;
+    }
+
     public Long getId() {
         return id;
     }

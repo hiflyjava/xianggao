@@ -24,6 +24,90 @@ public class XgNeedPageIn implements Serializable {
 
     private Integer type;
 
+    private Integer validityDays; //几天内到期
+
+    private  String nowTime; //今天时间
+    private  String needUserType; //ONE COMPANY
+    private  String needPayAddress; //
+    private  String needPayStatus; //需求支付状态
+    private  String hostingState;  //是否驻场
+    private  Long startMony;   //开始金额
+    private  Long endMony;     //结束金额
+    private  String needMode;  //需求模式
+
+
+    public Integer getValidityDays() {
+        return validityDays;
+    }
+
+    public void setValidityDays(Integer validityDays) {
+        this.validityDays = validityDays;
+    }
+
+    public String getNowTime() {
+        return nowTime;
+    }
+
+    public void setNowTime(String nowTime) {
+        this.nowTime = nowTime;
+    }
+
+    public String getNeedUserType() {
+        return needUserType;
+    }
+
+    public void setNeedUserType(String needUserType) {
+        this.needUserType = needUserType;
+    }
+
+    public String getNeedPayAddress() {
+        return needPayAddress;
+    }
+
+    public void setNeedPayAddress(String needPayAddress) {
+        this.needPayAddress = needPayAddress;
+    }
+
+    public String getNeedPayStatus() {
+        return needPayStatus;
+    }
+
+    public void setNeedPayStatus(String needPayStatus) {
+        this.needPayStatus = needPayStatus;
+    }
+
+    public String getHostingState() {
+        return hostingState;
+    }
+
+    public void setHostingState(String hostingState) {
+        this.hostingState = hostingState;
+    }
+
+    public Long getStartMony() {
+        return startMony;
+    }
+
+    public void setStartMony(Long startMony) {
+        this.startMony = startMony;
+    }
+
+    public Long getEndMony() {
+        return endMony;
+    }
+
+    public void setEndMony(Long endMony) {
+        this.endMony = endMony;
+    }
+
+    public String getNeedMode() {
+        return needMode;
+    }
+
+    public void setNeedMode(String needMode) {
+        this.needMode = needMode;
+    }
+
     public Integer getType() {
         return type;
     }

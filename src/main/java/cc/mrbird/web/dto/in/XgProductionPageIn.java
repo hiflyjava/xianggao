@@ -35,6 +35,16 @@ public class XgProductionPageIn implements Serializable {
 
     private Long id;
 
+    private  Long toUserId;//给谁点赞
+
+
+    public Long getToUserId() {
+        return toUserId;
+    }
+
+    public void setToUserId(Long toUserId) {
+        this.toUserId = toUserId;
+    }
 
     public Long getId() {
         return id;

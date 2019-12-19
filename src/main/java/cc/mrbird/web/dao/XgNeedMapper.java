@@ -16,8 +16,12 @@ public interface XgNeedMapper extends MyMapper<XgNeed> {
 
     int updateNeedById(XgNeed xgNeed);
 
+    int addNeed(XgNeed xgNeed);
+
     List<XgNeed> getNeedList(XgNeedPageIn needPageIn);
 
+
+    List<XgNeed> getPcWebNeedListByItems(XgNeedPageIn needPageIn);
 
     List<XgNeed> getDashBoardUpNeedByItems(XgProductionPageIn productionPageIn);
 

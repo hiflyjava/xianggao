@@ -21,4 +21,8 @@ public interface XgNeedService extends IService<XgNeed> {
 
     PageInfo<XgNeed> getNeedList(XgNeedPageIn xgNeedPageIn);
 
+
+    PageInfo<XgNeed> getPcWebNeedListByItems (XgNeedPageIn xgNeedPageIn);
+    int addNeed(XgNeed xgNeed);
+
 }

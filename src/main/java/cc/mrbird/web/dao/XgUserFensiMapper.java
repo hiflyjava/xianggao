@@ -13,4 +13,11 @@ public interface XgUserFensiMapper extends MyMapper<XgUserFensi> {
 
     List<XgUserFensi> getUserFensiByItems(XgProductionPageIn xgProductionPageIn);
 
+
+    int addUserFensi(XgUserFensi record);
+
+    XgUserFensi getUserFensiById(Long id);
+
+    int updateUserFensi(XgUserFensi record);
+
 }
