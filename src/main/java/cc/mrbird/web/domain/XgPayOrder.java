@@ -5,14 +5,14 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class XgPayOrder implements Serializable {
-    private BigDecimal id;
+    private Long id;
 
     private String orderNo;
 
-    private BigDecimal userId;
+    private Long userId;
     
 
-    private BigDecimal payType;
+    private String payType;
 
     private BigDecimal balance;
 
@@ -24,13 +24,13 @@ public class XgPayOrder implements Serializable {
 
     private Date updateTime;
 
-    private BigDecimal status;
+    private String status;
 
-    public BigDecimal getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -42,20 +42,12 @@ public class XgPayOrder implements Serializable {
         this.orderNo = orderNo == null ? null : orderNo.trim();
     }
 
-    public BigDecimal getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(BigDecimal userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public BigDecimal getPayType() {
-        return payType;
-    }
-
-    public void setPayType(BigDecimal payType) {
-        this.payType = payType;
     }
 
     public BigDecimal getBalance() {
@@ -98,11 +90,20 @@ public class XgPayOrder implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public BigDecimal getStatus() {
+
+    public String getPayType() {
+        return payType;
+    }
+
+    public void setPayType(String payType) {
+        this.payType = payType;
+    }
+
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(BigDecimal status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

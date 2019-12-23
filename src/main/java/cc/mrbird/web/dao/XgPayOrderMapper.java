@@ -12,4 +12,6 @@ public interface XgPayOrderMapper  extends MyMapper<XgPayOrder> {
 
     XgPayOrder getPayOrderByOrderNo(String orderNo);
 
+    int addPayOrder(XgPayOrder record);
+
 }

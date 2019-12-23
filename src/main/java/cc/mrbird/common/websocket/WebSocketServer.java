@@ -1,11 +1,16 @@
 package cc.mrbird.common.websocket;
 
+import cc.mrbird.common.redis.PublishService;
 import cc.mrbird.common.redis.RedisService;
 import cc.mrbird.common.redis.SubscribeListener;
+import cc.mrbird.common.util.DateUtil;
+import cc.mrbird.common.util.StringUtils;
 import cc.mrbird.web.utils.XgCodeUtil;
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.listener.ChannelTopic;
+import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +18,8 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -49,6 +56,7 @@ public class WebSocketServer {
 
     private SubscribeListener subscribeListener =SpringUtils.getBean(SubscribeListener.class);
 
+    private PublishService publishService =SpringUtils.getBean(PublishService.class);
 
     private RedisService redisService =SpringUtils.getBean(RedisService.class);
     /**
@@ -130,27 +138,76 @@ public class WebSocketServer {
 
     @OnMessage
 
-    public void onMessage(String message, Session session) {
+    public void onMessage(String message, Session session,@PathParam("userId") Long userId, @PathParam("topic") String topic) {
 
         System.out.println("来自客户端的消息:" + message);
 
-        //群发消息
 
-        for(WebSocketServer item: webSocketSet){
 
-            try {
+        String s = redisService.get(XgCodeUtil.WEB_STATUS + topic,String.class);
+        System.out.println(s);
+        if(StringUtils.isEmptyOrNull(s)) {//离线状态
+            List<JSONObject> jsonObjects = new ArrayList<>();
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("fromUsername", topic);
+            jsonObject.put("message", message);
+            jsonObject.put("createDate", DateUtil.getDateTime());
+            jsonObjects.add(jsonObject);
+            if (redisService.exists(topic)) {//有老消息
+                List<JSONObject> list = redisService.get(topic, List.class);
+                // list.add(jsonObject);
+                jsonObjects.addAll(list);
+            }
+            redisService.set(topic, jsonObjects);
 
-                item.sendMessage(message);
 
-            } catch (IOException e) {
+            subscribeListener.setUserId(userId);
+            subscribeListener.setTopic(topic);
 
-                e.printStackTrace();
-
-                continue;
-
+        } else if(XgCodeUtil.WEB_STATUS_OFF.equals(s)){//离线的
+            List<JSONObject> jsonObjects =new ArrayList<>();
+            JSONObject jsonObject =new JSONObject();
+            jsonObject.put("fromUsername", topic);
+            jsonObject.put("message", message);
+            jsonObject.put("createDate", DateUtil.getDateTime());
+            jsonObjects.add(jsonObject);
+            if(redisService.exists(topic)){//有老消息
+                List<JSONObject> list = redisService.get(topic, List.class);
+                // list.add(jsonObject);
+                jsonObjects.addAll(list);
             }
 
+            redisService.set(topic, jsonObjects);
+            // redisMessageListenerContainer.addMessageListener(new SubscribeListener(), new PatternTopic(xgUserFensi.getExtend1()));
+        }else {
         }
+
+
+        if("sys".equals(topic)){
+            //群发消息
+            for(WebSocketServer item: webSocketSet){
+
+                try {
+
+                    item.sendMessage(message);
+
+                } catch (IOException e) {
+
+                    e.printStackTrace();
+
+                    continue;
+
+                }
+
+            }
+        }else {
+            subscribeListener.setTopic(topic);
+            subscribeListener.setUserId(userId);
+            publishService.publish(topic, message);
+           // redisMessageListenerContainer.addMessageListener(new SubscribeListener(), new PatternTopic(topic));
+
+        }
+
 
     }
 

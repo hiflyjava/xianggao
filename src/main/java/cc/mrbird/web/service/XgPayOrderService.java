@@ -8,4 +8,6 @@ public interface XgPayOrderService  extends IService<XgPayOrder> {
 
     XgPayOrder getPayOrderByOrderNo(String orderNo);
     int updatePayOrder(XgPayOrder payOrder);
+
+    int addPayOrder(XgPayOrder payOrder);
 }

@@ -27,6 +27,13 @@ public class XgCodeUtil implements Serializable {
     public static  final  String ORDER_PAY_STATUS_YES="Y";//已经支付
     public static  final  String ORDER_PAY_STATUS_NO="N";//未支付
 
+    //真正支付状态
+    public static  final  String PAY_ORDER_PAY_STATUS_YES="Y";//已经支付
+    public static  final  String PAY_ORDER_PAY_STATUS_NO="N";//未支付
+
+    //支付方式
+    public static  final  String PAY_TYPE_WX="WX";//微信
+    public static  final  String PAY_TYPE_ZFB="ZFB";//支付宝
 
     //浏览器状态；
     public  static  final  String WEB_STATUS_ON="ON";//连接状态

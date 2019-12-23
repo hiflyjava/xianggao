@@ -36,6 +36,33 @@ public class XgOrderMaster implements Serializable {
     private Long designUserId;//设计师id
     private Long needId;//需求id
 
+    private String designUserName;//设计师账号
+    private String  title;//需求名称
+    private String needType;//需求类型
+
+    public String getDesignUserName() {
+        return designUserName;
+    }
+
+    public void setDesignUserName(String designUserName) {
+        this.designUserName = designUserName;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getNeedType() {
+        return needType;
+    }
+
+    public void setNeedType(String needType) {
+        this.needType = needType;
+    }
 
     public Long getDesignUserId() {
         return designUserId;

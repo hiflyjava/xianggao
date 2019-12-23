@@ -19,6 +19,9 @@
     <result column="extend3" jdbcType="VARCHAR" property="extend3" />
     <result column="need_id" property="needId" jdbcType="BIGINT" />
     <result column="design_user_id" property="designUserId" jdbcType="BIGINT" />
+      <result column="title" property="title" jdbcType="VARCHAR"></result>
+    <result column="needType" property="needType" jdbcType="VARCHAR"></result>
+    <result column="designUserName" property="designUserName" jdbcType="VARCHAR"></result>
 
   </resultMap>
   <sql id="Base_Column_List">
@@ -195,6 +198,125 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
+  <update id="updateOrderMasterByOrderNo" parameterType="cc.mrbird.web.domain.XgOrderMaster">
+    update xg_order_master
+    <set>
+      <if test="orderNum != null">
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="userImg != null">
+        user_img = #{userImg,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null">
+        pay_status = #{payStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddress != null">
+        user_address = #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mony != null">
+        mony = #{mony,jdbcType=DECIMAL},
+      </if>
+      <if test="extend1 != null">
+        extend1 = #{extend1,jdbcType=VARCHAR},
+      </if>
+      <if test="extend2 != null">
+        extend2 = #{extend2,jdbcType=VARCHAR},
+      </if>
+      <if test="extend3 != null">
+        extend3 = #{extend3,jdbcType=VARCHAR},
+      </if>
+
+      <if test="needId != null" >
+        need_id = #{needId,jdbcType=BIGINT},
+      </if>
+      <if test="designUserId != null" >
+        design_user_id = #{designUserId,jdbcType=BIGINT},
+      </if>
+
+    </set>
+    where order_num = #{orderNum,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getMyOrderListByUserId" resultMap="BaseResultMap">
+
+    SELECT
+    xg.title,
+    pt.p_type as needType,
+    om.*
+
+    from xg_order_master om
+
+    LEFT JOIN xg_need xg on xg.id =om.need_id
+    LEFT JOIN xg_production_type pt on xg.type =pt.id
+
+    <where>
+      <if test="designUserId != null and designUserId != '' ">
+        om.design_user_id =#{designUserId}
+      </if>
+      <if test="needUserId != null and needUserId != '' ">
+        om.user_id =#{needUserId}
+      </if>
+
+      <if test="status != null and status != '' ">
+        om.status =#{status}
+      </if>
+    </where>
+    ORDER BY om.create_date DESC
+
+  </select>
+  <select id="getMyNeedListByUserId" resultMap="BaseResultMap">
+
+    SELECT
+    xg.title,
+    pt.p_type as needType,
+    tu.USERNAME as designUserName,
+    om.*
+
+    from xg_order_master om
+    LEFT JOIN t_user tu on tu.USER_ID = om.design_user_id
+    LEFT JOIN xg_need xg on xg.id =om.need_id
+    LEFT JOIN xg_production_type pt on xg.type =pt.id
+
+    <where>
+      <if test="designUserId != null and designUserId != '' ">
+        om.design_user_id =#{designUserId}
+      </if>
+      <if test="needUserId != null and needUserId != '' ">
+        om.user_id =#{needUserId}
+      </if>
+
+      <if test="status != null and status != '' ">
+        om.status =#{status}
+      </if>
+    </where>
+    ORDER BY om.create_date DESC
+
+  </select>
+
+  <select id="getOrderMasterByOrderNum" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select  * from xg_order_master where order_num =#{orderNum}
+
+  </select>
 
 
 </mapper>

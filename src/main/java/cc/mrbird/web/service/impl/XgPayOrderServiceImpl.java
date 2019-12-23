@@ -4,11 +4,13 @@ import java.util.Date;
 
 
 import cc.mrbird.common.service.impl.BaseService;
+import cc.mrbird.common.util.MyUserUtiles;
 import cc.mrbird.web.dao.XgPayOrderMapper;
 import cc.mrbird.web.domain.XgPayOrder;
 import cc.mrbird.web.domain.XgProduction;
 import cc.mrbird.web.service.XgPayOrderService;
 import cc.mrbird.web.service.XgProductionService;
+import cc.mrbird.web.utils.XgCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -31,5 +33,15 @@ public class XgPayOrderServiceImpl  extends BaseService<XgPayOrder> implements X
     public int updatePayOrder(XgPayOrder payOrder) {
         payOrder.setUpdateTime(new Date());
         return payOrderMapper.updatePayOrder(payOrder);
+    }
+
+    @Override
+    public int addPayOrder(XgPayOrder payOrder) {
+
+        payOrder.setCreateTime(new Date());
+        payOrder.setUserId(MyUserUtiles.getUser().getUserId());
+
+       return payOrderMapper.addPayOrder(payOrder);
+
     }
 }

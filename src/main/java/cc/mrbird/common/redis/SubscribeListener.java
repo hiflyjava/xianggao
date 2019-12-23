@@ -78,7 +78,7 @@ public class SubscribeListener  implements MessageListener {
     @Override
     public void onMessage(Message message, byte[] pattern) {
         // 缓存消息是序列化的，需要反序列化。然而new String()可以反序列化，但静态方法valueOf()不可以
-        String pannel=new String(pattern);//管道
+            String pannel=new String(pattern);//管道
         String messages= null;//消息
         try {
             messages = new String(message.getBody(),"utf-8");

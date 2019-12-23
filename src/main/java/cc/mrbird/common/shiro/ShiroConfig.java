@@ -45,6 +45,7 @@ public class ShiroConfig {
 		shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 		LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 		filterChainDefinitionMap.put("/test1", "anon");
+		filterChainDefinitionMap.put("/test2", "anon");
 		filterChainDefinitionMap.put("/sys/upVideo/**", "anon");
 
 		filterChainDefinitionMap.put("/alipay/**", "anon");

@@ -14,8 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import cc.mrbird.common.domain.RespBean;
 import cc.mrbird.common.util.StringUtils;
+import cc.mrbird.web.domain.XgOrderMaster;
 import cc.mrbird.web.domain.XgPayOrder;
+import cc.mrbird.web.service.XgOrderMasterService;
 import cc.mrbird.web.service.XgPayOrderService;
+import cc.mrbird.web.utils.XgCodeUtil;
 import com.alipay.api.request.*;
 import com.alipay.api.response.AlipayEbppInvoiceTitleListGetResponse;
 import com.alipay.api.response.AlipayOpenAuthTokenAppQueryResponse;
@@ -45,6 +48,9 @@ public class AliPayController {
 	private AlipayConfig alipayConfig;
 	@Autowired
 	private XgPayOrderService orderService;
+
+	@Autowired
+	private XgOrderMasterService orderMasterService;
 //	@Autowired
 ////	private MerchantService merchantService;
 	@Value("${env.status}")  
@@ -89,11 +95,12 @@ public class AliPayController {
 
 		XgPayOrder order = orderService.getPayOrderByOrderNo(orderNo);
 		if(order!=null) {
-			if(order.getStatus().compareTo(BigDecimal.ZERO)!=0) {
-
+			if(XgCodeUtil.PAY_ORDER_PAY_STATUS_YES.equals( order.getStatus())) {
 				return RespBean.error("该订单已经支付过了") ;
 		}
 		//判断订单的支付状态是否为待付款,如果为其他状态则直接返回
+		}else {
+			return RespBean.error("请提供正确的订单号");
 		}
 		// 付款金额，必填
 		String total_amount = "";
@@ -273,10 +280,14 @@ public class AliPayController {
 					// 注意：
 					// 付款完成后，支付宝系统发送该交易状态通知
 					// 修改订单状态为待发货
-					order.setStatus(BigDecimal.ONE);//支付成功
+					order.setStatus(XgCodeUtil.PAY_ORDER_PAY_STATUS_YES);//支付成功
 					order.setPayTime(new Date());
-					order.setPayType(BigDecimal.ONE);//支付宝
+					order.setPayType(XgCodeUtil.PAY_TYPE_ZFB);//支付宝
 					orderService.updatePayOrder(order);
+					XgOrderMaster orderMaster =new XgOrderMaster();
+					orderMaster.setOrderNum(out_trade_no);
+					orderMaster.setPayStatus(XgCodeUtil.PAY_ORDER_PAY_STATUS_YES);
+					orderMasterService.updateOrderMatder(orderMaster);
 					//添加支付流水
 //				PayFlow payFlow=new PayFlow();
 //				payFlow.setCreateTime(order.getPayTime());
