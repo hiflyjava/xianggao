@@ -31,4 +31,6 @@ public interface XgProductionService  extends IService<XgProduction> {
     XgProduction getProductionInfoById(XgProductionPageIn productionPageIn);
 
     Map<String , IndexUserOut> getDashBoardUpProNeedByItems(XgProductionPageIn productionPageIn);
+
+    PageInfo<XgProduction> myCollectionProductions(XgProductionPageIn productionPageIn);
 }

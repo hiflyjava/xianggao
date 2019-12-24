@@ -94,6 +94,10 @@ public class XgProductionServiceImpl extends BaseService<XgProduction> implement
         PageHelper.startPage(productionPageIn.getCurrentPage(), productionPageIn.getPageSize());
         //得到产品的点赞数；
         List<XgProduction> pdList = productionMapper.getPcWebPdList(productionPageIn);
+        if(pdList==null || pdList.size()==0){
+            return new PageInfo<>(null);
+        }
+
         for (XgProduction xgProduction:pdList){
             List<XgProductionDianzan> dzs = productionDianzanMapper.getPdDzsByPid(xgProduction.getId());
               if(dzs !=null && dzs.size()>0){
@@ -322,6 +326,31 @@ public class XgProductionServiceImpl extends BaseService<XgProduction> implement
 
 
         return map;
+    }
+
+    @Override
+    public PageInfo<XgProduction> myCollectionProductions(XgProductionPageIn productionPageIn) {
+        PageHelper.startPage(productionPageIn.getCurrentPage(),productionPageIn.getPageSize());
+        productionPageIn.setUserId(MyUserUtiles.getUser().getUserId());
+        List<XgProduction> myCollectionProductions = productionMapper.myCollectionProductions(productionPageIn);
+
+        //得到产品的点赞数；
+        if(myCollectionProductions ==null || myCollectionProductions.size()==0){
+            return new PageInfo<>(null);
+        }
+        for (XgProduction xgProduction:myCollectionProductions){
+            List<XgProductionDianzan> dzs = productionDianzanMapper.getPdDzsByPid(xgProduction.getId());
+            if(dzs !=null && dzs.size()>0){
+                xgProduction.setPdzCount(dzs.size());
+            }else {
+                xgProduction.setPdzCount(0);
+            }
+        }
+
+        //得到产品的评论数;
+        //得到产品的阅读量；
+
+        return new PageInfo<>(myCollectionProductions);
     }
 
 

@@ -32,7 +32,7 @@ public class XgPcWebDesignUserController  extends BaseController {
 
 
     /**
-     * 得到首页需求列表
+     * 得到首页设计师列表
      * @param
      * @return
      */

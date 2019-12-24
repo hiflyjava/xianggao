@@ -152,6 +152,33 @@ public class XgPcWebProductionController extends BaseController {
 
 
     /**
+     *查询自己的作品的列表
+     * @param
+     * @return
+     */
+
+    @RequestMapping("/getPcWebPdListByOwn")
+    public RespBean getPcWebPdListByOwn(@RequestBody XgProductionPageIn productionPageIn){
+
+        if(StringUtils.isEmptyOrNull(productionPageIn.getStatus())){
+            productionPageIn.setStatus(XgCodeUtil.PRODUCTION_STATUS_A);
+        }else {
+
+            if(!XgCodeUtil.PRODUCTION_STATUS_B.equals( productionPageIn.getStatus())){
+                return  RespBean.error("please up right status B");
+            }
+
+        }
+          productionPageIn.setUserId(MyUserUtiles.getUser().getUserId());
+        PageInfo<XgProduction> list = productionService.getPcWebPdList(productionPageIn);
+        return  RespBean.ok("productionList", list);
+
+
+    }
+
+
+
+    /**
      *查询作品的详情
      * @param
      * @return
@@ -257,5 +284,33 @@ public class XgPcWebProductionController extends BaseController {
         }
 
     }
+
+
+
+    /**
+     *我的收藏作品
+     * @param
+     * @return
+     */
+
+    @RequestMapping("/myCollectionProductions")
+    public RespBean myCollectionProductions(@RequestBody XgProductionPageIn productionPageIn){
+
+        if(StringUtils.isEmptyOrNull(productionPageIn.getStatus())){
+            productionPageIn.setStatus(XgCodeUtil.PRODUCTION_STATUS_A);
+        }else {
+
+            if(!XgCodeUtil.PRODUCTION_STATUS_B.equals( productionPageIn.getStatus())){
+                return  RespBean.error("please up right status B");
+            }
+
+        }
+
+        PageInfo<XgProduction> xgProductionPageInfo = productionService.myCollectionProductions(productionPageIn);
+
+        return  RespBean.ok("myCollectionProductions",xgProductionPageInfo);
+
+    }
+
 
 }

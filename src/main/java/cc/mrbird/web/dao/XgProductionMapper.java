@@ -18,4 +18,6 @@ public interface XgProductionMapper extends MyMapper<XgProduction> {
 
    List<XgProduction> getDesignUserProductionList(Long userId);
 
+    List<XgProduction>  myCollectionProductions(XgProductionPageIn xgProductionPageIn);
+
 }
