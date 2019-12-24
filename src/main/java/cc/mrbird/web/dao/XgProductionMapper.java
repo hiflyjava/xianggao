@@ -16,4 +16,6 @@ public interface XgProductionMapper extends MyMapper<XgProduction> {
 
    List<XgProduction> getPcWebPdList(XgProductionPageIn xgProductionPageIn);
 
+   List<XgProduction> getDesignUserProductionList(Long userId);
+
 }

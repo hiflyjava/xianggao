@@ -79,8 +79,8 @@ public class User implements Serializable {
 	@ExportConfig(value = "性别", convert = "s:0=男,1=女,2=保密")
 	private String ssex;
 
-	@Column(name = "THEME")
-	private String theme;
+	@Column(name = "nick_name")
+	private String nickName;
 
 	@Column(name = "AVATAR")
 	private String avatar;
@@ -105,9 +105,9 @@ public class User implements Serializable {
 
 	private String extend1;
 
-	private String extend2;
+	private String workType;
 
-	private String extend3;
+	private String experienceLevel;
 
 	private Long companyId;
 
@@ -119,7 +119,101 @@ public class User implements Serializable {
 	private Date downVipDate;
 
 	private Date downDate;
+
+
+	private String rightName;
+
+	private String idCard;
+
+	private String cardOnImg;
+
+	private String cardOffImg;
+
+	private Date cardOffTime;
+
+	private String familyAddress;
+
+	private Long monyHour;
+
+	private Long monyMouth;
+
     @Transient
+	private String theme;
+
+
+	public String getTheme() {
+		return theme;
+	}
+
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+
+	public Long getMonyHour() {
+		return monyHour;
+	}
+
+	public void setMonyHour(Long monyHour) {
+		this.monyHour = monyHour;
+	}
+
+	public Long getMonyMouth() {
+		return monyMouth;
+	}
+
+	public void setMonyMouth(Long monyMouth) {
+		this.monyMouth = monyMouth;
+	}
+
+	public String getRightName() {
+		return rightName;
+	}
+
+	public void setRightName(String rightName) {
+		this.rightName = rightName;
+	}
+
+	public String getIdCard() {
+		return idCard;
+	}
+
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
+	}
+
+	public String getCardOnImg() {
+		return cardOnImg;
+	}
+
+	public void setCardOnImg(String cardOnImg) {
+		this.cardOnImg = cardOnImg;
+	}
+
+	public String getCardOffImg() {
+		return cardOffImg;
+	}
+
+	public void setCardOffImg(String cardOffImg) {
+		this.cardOffImg = cardOffImg;
+	}
+
+	public Date getCardOffTime() {
+		return cardOffTime;
+	}
+
+	public void setCardOffTime(Date cardOffTime) {
+		this.cardOffTime = cardOffTime;
+	}
+
+	public String getFamilyAddress() {
+		return familyAddress;
+	}
+
+	public void setFamilyAddress(String familyAddress) {
+		this.familyAddress = familyAddress;
+	}
+
+	@Transient
 	private String startTime; //开始时间入参
     @Transient
 	private String endTime;// 结束时间入参
@@ -269,20 +363,21 @@ public class User implements Serializable {
 		this.extend1 = extend1;
 	}
 
-	public String getExtend2() {
-		return extend2;
+
+	public String getWorkType() {
+		return workType;
 	}
 
-	public void setExtend2(String extend2) {
-		this.extend2 = extend2;
+	public void setWorkType(String workType) {
+		this.workType = workType;
 	}
 
-	public String getExtend3() {
-		return extend3;
+	public String getExperienceLevel() {
+		return experienceLevel;
 	}
 
-	public void setExtend3(String extend3) {
-		this.extend3 = extend3;
+	public void setExperienceLevel(String experienceLevel) {
+		this.experienceLevel = experienceLevel;
 	}
 
 	/**
@@ -439,12 +534,13 @@ public class User implements Serializable {
 		this.ssex = ssex == null ? null : ssex.trim();
 	}
 
-	public String getTheme() {
-		return theme;
+
+	public String getNickName() {
+		return nickName;
 	}
 
-	public void setTheme(String theme) {
-		this.theme = theme;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public String getDeptName() {

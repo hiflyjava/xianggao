@@ -346,5 +346,19 @@ where tu.user_id =#{userId}
   </select>
 
 
+  <select id="getDesignUserProductionList" resultMap="BaseResultMap">
+
+    select
+
+ 	COUNT(DISTINCT pd.id) AS productionDianzanCount,
+      xp.*
+     from xg_production xp
+     LEFT JOIN xg_production_dianzan pd on xp.id =pd.p_id
+     where xp.user_id =#{userId}
+     GROUP BY xp.id
+     ORDER BY productionDianzanCount desc
+     LIMIT 3
+
+  </select>
 
 </mapper>

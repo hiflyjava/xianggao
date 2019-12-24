@@ -20,7 +20,7 @@
 	  <result column="down_vip_date" jdbcType="TIMESTAMP" property="downVipDate" />
 	  <result column="down_date" jdbcType="TIMESTAMP" property="downDate" />
     <result column="SSEX" jdbcType="CHAR" property="ssex" />
-    <result column="THEME" jdbcType="VARCHAR" property="theme" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
     <result column="AVATAR" jdbcType="VARCHAR" property="avatar" />
     <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
 
@@ -33,10 +33,23 @@
 	  <result column="school" property="school" jdbcType="VARCHAR" />
 	  <result column="registed_address" property="registedAddress" jdbcType="VARCHAR" />
 	  <result column="extend1" property="extend1" jdbcType="VARCHAR" />
-	  <result column="extend2" property="extend2" jdbcType="VARCHAR" />
-	  <result column="extend3" property="extend3" jdbcType="VARCHAR" />
+	  <result column="work_type" property="workType" jdbcType="VARCHAR" />
+	  <result column="experience_level" property="experienceLevel" jdbcType="VARCHAR" />
 	  <result column="company_id" property="companyId" jdbcType="BIGINT"></result>
 
+	  <result column="create_vip_date" property="createVipDate" jdbcType="TIMESTAMP" />
+	  <result column="down_vip_date" property="downVipDate" jdbcType="TIMESTAMP" />
+	  <result column="down_date" property="downDate" jdbcType="TIMESTAMP" />
+	  <result column="right_name" property="rightName" jdbcType="VARCHAR" />
+	  <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+	  <result column="card_on_img" property="cardOnImg" jdbcType="VARCHAR" />
+	  <result column="card_off_img" property="cardOffImg" jdbcType="VARCHAR" />
+	  <result column="card_off_time" property="cardOffTime" jdbcType="TIMESTAMP" />
+	  <result column="family_address" property="familyAddress" jdbcType="VARCHAR" />
+	  <result column="mony_hour" jdbcType="DECIMAL" property="monyHour" />
+	  <result column="mony_mouth" jdbcType="DECIMAL" property="monyMouth" />
+      <result column="productionCount" jdbcType="INTEGER" property="productionCount"></result>
+	  <result column="fensiCount" property="fensiCount" jdbcType="INTEGER"></result>
 
 	 <association property="companys" javaType="cc.mrbird.system.domain.XgCompanys">
 		 <id column="cid" property="id"></id>
@@ -212,6 +225,49 @@
 				where tu.USER_ID =#{userId}
 
 	</select>
+
+
+
+	<select id="getDesignUserListByItems" resultMap="BaseResultMap">
+
+           SELECT
+				COUNT(DISTINCT xp.id) AS productionCount,
+				COUNT(DISTINCT xuf.id) AS fensiCount,
+				tu.*
+				from t_user tu
+
+				LEFT JOIN xg_production xp on tu.USER_ID = xp.user_id
+
+				LEFT JOIN xg_user_fensi xuf on xuf.to_user_id =tu.USER_ID
+
+				<where>
+					<if test='isCompany == "N"  '>
+						tu.company_id = 0
+					</if>
+					<if test='isCompany == "Y"  '>
+					AND	tu.company_id != 0
+					</if>
+					<if test="profession != null and profession != '' ">
+						AND tu.profession like '%${profession}%'
+					</if>
+					<if test="workType != null and workType != '' ">
+						AND	tu.work_type = #{workType}
+					</if>
+					<if test="experienceLevel != null and experienceLevel != '' ">
+						AND	tu.experience_level = #{experienceLevel}
+					</if>
+					<if test="nickName != null and nickName != '' ">
+						AND	tu.nick_name like '%${nickName}%'
+					</if>
+					<if test="registedAddress != null and registedAddress != '' ">
+						AND	tu.registed_address = #{registedAddress}
+					</if>
+				</where>
+		    GROUP BY tu.user_id
+            ORDER BY fensiCount desc
+
+	</select>
+
 
 
 

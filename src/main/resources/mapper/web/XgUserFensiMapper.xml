@@ -143,4 +143,10 @@
   </update>
 
 
+  <select id="getUserFensiByUserId" resultMap="BaseResultMap">
+    select  * from xg_user_fensi where to_user_id =#{userId}
+
+  </select>
+
+
 </mapper>
