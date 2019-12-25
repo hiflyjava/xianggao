@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -71,6 +72,7 @@ public class RedisService {
      */
     public void set(String key, Object value, long expireTime) {
         redisTemplate.opsForValue().set(key, JsonUtil.convertObj2String(value), expireTime, TimeUnit.SECONDS);
+
     }
 
     /**
@@ -115,8 +117,9 @@ public class RedisService {
         redisTemplate.delete(key);
     }
 
+    public  void  hset(String params,Object o,Object o2){
 
-
-
+        redisTemplate.opsForHash().put("user:33", "name", "harden");
+    }
 
 }

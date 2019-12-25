@@ -49,6 +49,7 @@ public class testController {
     @RequestMapping("/test2")
     public RespBean teset(@RequestBody XgUserFensi xgUserFensi){
           //请求进来默认是离线的
+     //   redisService.hset(null, null, null);
         String s = redisService.get(XgCodeUtil.WEB_STATUS + xgUserFensi.getExtend1(),String.class);
         System.out.println(s);
         if(StringUtils.isEmptyOrNull(s)){//离线状态
