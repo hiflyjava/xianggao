@@ -33,4 +33,10 @@ public interface XgProductionService  extends IService<XgProduction> {
     Map<String , IndexUserOut> getDashBoardUpProNeedByItems(XgProductionPageIn productionPageIn);
 
     PageInfo<XgProduction> myCollectionProductions(XgProductionPageIn productionPageIn);
+
+    //查询我关注的设计师的作品列表
+    PageInfo <XgProduction> getMyStarProductionList(XgProductionPageIn productionPageIn);
+
+
+
 }

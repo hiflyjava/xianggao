@@ -6,6 +6,8 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @Auther: Harden Yan
  * @Date: 2019/12/24 16:08
@@ -19,5 +21,7 @@ public interface XgPcWebDesignUserService {
 
     PageInfo<User> getDesignUserListByItems(UserPageIn userPageIn);
 
+    PageInfo<User> getMyStarDesignUserListByItems(UserPageIn userPageIn);
 
+    PageInfo<User> getMyFansDesignUserListByItems (UserPageIn userPageIn);
 }

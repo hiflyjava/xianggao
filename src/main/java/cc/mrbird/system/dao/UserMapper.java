@@ -26,6 +26,9 @@ public interface UserMapper extends MyMapper<User> {
 
 	User getUserInfoById(Long userId);
 
-
 	List<User>  getDesignUserListByItems(UserPageIn userPageIn);
+
+	List<User> getMyStarDesignUserListByItems(UserPageIn userPageIn);
+
+	List<User> getMyFansDesignUserListByItems (UserPageIn userPageIn);
 }

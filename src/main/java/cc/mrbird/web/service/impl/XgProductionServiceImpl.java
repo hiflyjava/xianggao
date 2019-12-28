@@ -353,5 +353,29 @@ public class XgProductionServiceImpl extends BaseService<XgProduction> implement
         return new PageInfo<>(myCollectionProductions);
     }
 
+    @Override
+    public PageInfo<XgProduction> getMyStarProductionList(XgProductionPageIn productionPageIn) {
+        PageHelper.startPage(productionPageIn.getCurrentPage(), productionPageIn.getPageSize());
+        //得到产品的点赞数；
+        List<XgProduction> pdList = productionMapper.getMyStarProductionList(productionPageIn);
+        if(pdList==null || pdList.size()==0){
+            return new PageInfo<>(null);
+        }
+
+        for (XgProduction xgProduction:pdList){
+            List<XgProductionDianzan> dzs = productionDianzanMapper.getPdDzsByPid(xgProduction.getId());
+            if(dzs !=null && dzs.size()>0){
+                xgProduction.setPdzCount(dzs.size());
+            }else {
+                xgProduction.setPdzCount(0);
+            }
+        }
+
+        //得到产品的评论数;
+        //得到产品的阅读量；
+
+        return new PageInfo<>(pdList);
+    }
+
 
 }

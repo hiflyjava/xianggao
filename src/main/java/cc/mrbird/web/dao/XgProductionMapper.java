@@ -20,4 +20,7 @@ public interface XgProductionMapper extends MyMapper<XgProduction> {
 
     List<XgProduction>  myCollectionProductions(XgProductionPageIn xgProductionPageIn);
 
+    List<XgProduction> getMyStarProductionList(XgProductionPageIn xgProductionPageIn);
+
+
 }

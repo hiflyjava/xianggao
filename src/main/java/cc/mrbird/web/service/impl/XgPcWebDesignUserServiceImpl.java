@@ -44,6 +44,8 @@ public class XgPcWebDesignUserServiceImpl implements XgPcWebDesignUserService {
 
         List<User> userListByItems = userMapper.getDesignUserListByItems(userPageIn);
            for(User user :userListByItems){
+               user.setPassword("");
+               user.setIdCard("");
                List<XgUserFensi> fensi = userFensiMapper.getUserFensiByUserId(user.getUserId());
                    user.setFensis(fensi);
 
@@ -51,6 +53,46 @@ public class XgPcWebDesignUserServiceImpl implements XgPcWebDesignUserService {
               user.setProductions(productionList);
 
            }
+
+
+        return new PageInfo<>(userListByItems);
+    }
+
+    @Override
+    public PageInfo<User> getMyStarDesignUserListByItems(UserPageIn userPageIn) {
+        PageHelper.startPage(userPageIn.getCurrentPage(), userPageIn.getPageSize());
+
+        List<User> userListByItems = userMapper.getMyStarDesignUserListByItems(userPageIn);
+        for(User user :userListByItems){
+            user.setPassword("");
+            user.setIdCard("");
+            List<XgUserFensi> fensi = userFensiMapper.getUserFensiByUserId(user.getUserId());
+            user.setFensis(fensi);
+
+            List<XgProduction> productionList = productionMapper.getDesignUserProductionList(user.getUserId());//查询点赞数最多的前三个作品
+            user.setProductions(productionList);
+
+        }
+
+
+        return new PageInfo<>(userListByItems);
+    }
+
+    @Override
+    public PageInfo<User> getMyFansDesignUserListByItems(UserPageIn userPageIn) {
+        PageHelper.startPage(userPageIn.getCurrentPage(), userPageIn.getPageSize());
+
+        List<User> userListByItems = userMapper.getMyFansDesignUserListByItems(userPageIn);
+        for(User user :userListByItems){
+            user.setPassword("");
+            user.setIdCard("");
+            List<XgUserFensi> fensi = userFensiMapper.getUserFensiByUserId(user.getUserId());
+            user.setFensis(fensi);
+
+            List<XgProduction> productionList = productionMapper.getDesignUserProductionList(user.getUserId());//查询点赞数最多的前三个作品
+            user.setProductions(productionList);
+
+        }
 
 
         return new PageInfo<>(userListByItems);

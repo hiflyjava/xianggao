@@ -373,7 +373,7 @@ where tu.user_id =#{userId}
       tu.USERNAME as username,
       xp.*
       from
-  (SELECT xpp.*  FROM xg_production_collection xpc LEFT JOIN xg_production xpp on xpc.p_id = xpp.id where xpc.user_id =4)
+  (SELECT xpp.*  FROM xg_production_collection xpc LEFT JOIN xg_production xpp on xpc.p_id = xpp.id where xpc.user_id =#{userId})
 
 		xp
       LEFT join xg_production_type xpt on xp.type =xpt.id
@@ -393,6 +393,40 @@ where tu.user_id =#{userId}
       </if>
     </where>
     ORDER BY xp.create_date desc
+
+
   </select>
+
+
+
+  <select id="getMyStarProductionList" resultMap="BaseResultMap">
+
+    select
+    xpt.p_type as productionType,
+    tu.USERNAME as username,
+    xp.*
+    from
+    (
+    SELECT xpp.*  from xg_user_fensi uf INNER JOIN xg_production xpp  on uf.to_user_id =xpp.user_id
+    where uf.from_user_id =#{userId})
+    xp
+    LEFT join xg_production_type xpt on xp.type =xpt.id
+    INNER JOIN t_user tu on  tu.USER_ID =xp.user_id
+    <where>
+      <if test="type != null and type != '' ">
+        xp.type= #{type}
+      </if>
+      <if test="status != null and status != '' ">
+        and xp.status= #{status}  and xp.status != 'I' AND xp.status != 'C' AND xp.status != 'D'
+      </if>
+      <if test="id != null and id != '' ">
+        and xp.id= #{id}
+      </if>
+    </where>
+    ORDER BY xp.create_date desc
+
+  </select>
+
+
 
 </mapper>

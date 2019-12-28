@@ -228,6 +228,16 @@ public class User implements Serializable {
 
 	private int productionCount;
 
+	private String isFansEachOther;//是否互相关注; YES NO
+
+	public String getIsFansEachOther() {
+		return isFansEachOther;
+	}
+
+	public void setIsFansEachOther(String isFansEachOther) {
+		this.isFansEachOther = isFansEachOther;
+	}
+
 	public int getFensiCount() {
 		return fensiCount;
 	}

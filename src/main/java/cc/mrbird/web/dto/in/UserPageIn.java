@@ -28,6 +28,25 @@ public class UserPageIn implements Serializable {
 
       private String  nickName;  //昵称
 
+      private Long fromUserId;//粉丝id
+
+      private  Long  toUserId; //偶像id
+
+      public Long getToUserId() {
+            return toUserId;
+      }
+
+      public void setToUserId(Long toUserId) {
+            this.toUserId = toUserId;
+      }
+
+      public Long getFromUserId() {
+            return fromUserId;
+      }
+
+      public void setFromUserId(Long fromUserId) {
+            this.fromUserId = fromUserId;
+      }
 
       public int getPageSize() {
             return pageSize;

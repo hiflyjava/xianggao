@@ -51,6 +51,8 @@
       <result column="productionCount" jdbcType="INTEGER" property="productionCount"></result>
 	  <result column="fensiCount" property="fensiCount" jdbcType="INTEGER"></result>
 
+	  <result column="isFansEachOther" property="isFansEachOther" jdbcType="VARCHAR"></result>
+
 	 <association property="companys" javaType="cc.mrbird.system.domain.XgCompanys">
 		 <id column="cid" property="id"></id>
          <result column="cImg" property="cImg"></result>
@@ -269,6 +271,130 @@
 	</select>
 
 
+<!--得到我关注的设计师列表-->
+	<select id="getMyStarDesignUserListByItems" resultMap="BaseResultMap">
+
+
+
+		SELECT
+		t3.from_user_id,
+		CASE  WHEN t3.from_user_id= t2.USER_ID THEN 'YES'  ELSE 'NO' END as isFansEachOther,
+		t2.* from(
+		SELECT
+
+		COUNT(DISTINCT xp.id) AS productionCount,
+		COUNT(DISTINCT xufs.id) AS fensiCount,
+		t1.*
+		from (
+
+		SELECT
+
+		tu.*
+		from t_user tu
+
+		LEFT JOIN xg_user_fensi xuf on xuf.to_user_id =tu.USER_ID
+
+		where xuf.from_user_id =#{fromUserId}
+		) t1
+		LEFT JOIN xg_production xp on t1.USER_ID = xp.user_id
+
+		LEFT JOIN xg_user_fensi xufs on xufs.to_user_id =t1.USER_ID
+
+		GROUP BY t1.user_id
+		ORDER BY fensiCount desc) t2
+		LEFT JOIN
+		(select A.from_user_id
+		from xg_user_fensi A inner join xg_user_fensi B
+		on A.to_user_id=B.from_user_id and B.to_user_id=A.from_user_id
+		where A.to_user_id=#{fromUserId})
+		t3 on t2.user_id =t3.from_user_id
+		<where>
+			<if test='isCompany == "N"  '>
+				t2.company_id = 0
+			</if>
+			<if test='isCompany == "Y"  '>
+				AND	t2.company_id != 0
+			</if>
+			<if test="profession != null and profession != '' ">
+				AND t2.profession like '%${profession}%'
+			</if>
+			<if test="workType != null and workType != '' ">
+				AND	t2.work_type = #{workType}
+			</if>
+			<if test="experienceLevel != null and experienceLevel != '' ">
+				AND	t2.experience_level = #{experienceLevel}
+			</if>
+			<if test="nickName != null and nickName != '' ">
+				AND	t2.nick_name like '%${nickName}%'
+			</if>
+			<if test="registedAddress != null and registedAddress != '' ">
+				AND	t2.registed_address = #{registedAddress}
+			</if>
+		</where>
+
+	</select>
+
+	<select id="getMyFansDesignUserListByItems" resultMap="BaseResultMap">
+
+
+		SELECT
+		t3.from_user_id,
+		CASE  WHEN t3.from_user_id= t2.USER_ID THEN 'YES'  ELSE 'NO' END as isFansEachOther,
+		t2.* from(
+		SELECT
+
+		COUNT(DISTINCT xp.id) AS productionCount,
+		COUNT(DISTINCT xufs.id) AS fensiCount,
+		t1.*
+		from (
+
+		SELECT
+
+		tu.*
+		from t_user tu
+
+		LEFT JOIN xg_user_fensi xuf on xuf.from_user_id =tu.USER_ID
+
+		where xuf.to_user_id =#{toUserId}
+		) t1
+		LEFT JOIN xg_production xp on t1.USER_ID = xp.user_id
+
+		LEFT JOIN xg_user_fensi xufs on xufs.to_user_id =t1.USER_ID
+
+		GROUP BY t1.user_id
+		ORDER BY fensiCount desc) t2
+		LEFT JOIN
+		(select A.from_user_id
+		from xg_user_fensi A inner join xg_user_fensi B
+		on A.to_user_id=B.from_user_id and B.to_user_id=A.from_user_id
+		where A.to_user_id=#{toUserId})
+		t3 on t2.user_id =t3.from_user_id
+		<where>
+			<if test='isCompany == "N"  '>
+				t2.company_id = 0
+			</if>
+			<if test='isCompany == "Y"  '>
+				AND	t2.company_id != 0
+			</if>
+			<if test="profession != null and profession != '' ">
+				AND t2.profession like '%${profession}%'
+			</if>
+			<if test="workType != null and workType != '' ">
+				AND	t2.work_type = #{workType}
+			</if>
+			<if test="experienceLevel != null and experienceLevel != '' ">
+				AND	t2.experience_level = #{experienceLevel}
+			</if>
+			<if test="nickName != null and nickName != '' ">
+				AND	t2.nick_name like '%${nickName}%'
+			</if>
+			<if test="registedAddress != null and registedAddress != '' ">
+				AND	t2.registed_address = #{registedAddress}
+			</if>
+		</where>
+
+
+	</select>
 
 
 </mapper>
