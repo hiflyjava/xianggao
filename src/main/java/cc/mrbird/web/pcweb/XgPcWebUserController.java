@@ -73,7 +73,7 @@ public class XgPcWebUserController  extends BaseController {
     public RespBean getMyStarProductionList(@RequestBody XgProductionPageIn productionPageIn){
 
         if(StringUtils.isEmptyOrNull(productionPageIn.getStatus())){  //这里是可以帅选首推的作品
-            productionPageIn.setStatus(XgCodeUtil.PRODUCTION_STATUS_A);
+           // productionPageIn.setStatus(XgCodeUtil.PRODUCTION_STATUS_A);
         }else {
 
             if(!XgCodeUtil.PRODUCTION_STATUS_B.equals( productionPageIn.getStatus())){

@@ -16,18 +16,17 @@ import cc.mrbird.common.domain.RespBean;
 import cc.mrbird.common.util.StringUtils;
 import cc.mrbird.web.domain.XgOrderMaster;
 import cc.mrbird.web.domain.XgPayOrder;
+import cc.mrbird.web.dto.in.PayIn;
 import cc.mrbird.web.service.XgOrderMasterService;
 import cc.mrbird.web.service.XgPayOrderService;
 import cc.mrbird.web.utils.XgCodeUtil;
 import com.alipay.api.request.*;
-import com.alipay.api.response.AlipayEbppInvoiceTitleListGetResponse;
-import com.alipay.api.response.AlipayOpenAuthTokenAppQueryResponse;
-import com.alipay.api.response.AlipayOpenAuthTokenAppResponse;
-import com.alipay.api.response.AlipayUserInfoAuthResponse;
+import com.alipay.api.response.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alipay.api.AlipayApiException;
@@ -158,6 +157,9 @@ public class AliPayController {
 			String source = request.getParameter("source");
 			String appAuthCode = request.getParameter("app_auth_code");
 			String total_amount = request.getParameter("total_amount");
+		  //  String refreshToken=	request.getParameter("refresh_token");
+			String authCode = request.getParameter("auth_code");
+
 			System.out.println(total_amount);
 			// 使用app_auth_code换取app_auth_token
 			AlipayClient alipayClient = new DefaultAlipayClient(alipayConfig.gatewayUrl, // 支付宝网关（固定）
@@ -167,10 +169,19 @@ public class AliPayController {
 					"utf-8",
 					alipayConfig.alipayPublicKey,
 					alipayConfig.signType); // 商户生成签名字符串所使用的签名算法类型，目前支持RSA2和RSA，推荐使用RSA2
+
 			AlipayOpenAuthTokenAppRequest aoataRequest = new AlipayOpenAuthTokenAppRequest();
 			// 设置请求参数 使用app_auth_code换取app_auth_token
+
+
+			//aoataRequest.setBizContent("{\"grant_type\":\"authorization_code"+ "\"}");
 			aoataRequest.setBizContent("{\"grant_type\":\"authorization_code\",\"code\":\"" + appAuthCode + "\"}");
+		//	aoataRequest.setBizContent("{\"grant_type\":\"authorization_code\",\"code\":\"" + appAuthCode +",\"refresh_token\":\""+refreshToken+ "\"}");
+
+
 			// 发送请求得到响应
+
+
 			AlipayOpenAuthTokenAppResponse aoataResponse = alipayClient.execute(aoataRequest);
 			if (!aoataResponse.isSuccess()) {
 				throw new RuntimeException("获取app_auth_token失败！" + aoataResponse.getSubMsg());
@@ -191,13 +202,15 @@ public class AliPayController {
 			System.out.println(body);
 			AlipayEbppInvoiceTitleListGetRequest request2 = new AlipayEbppInvoiceTitleListGetRequest();
 			request2.setBizContent("{"+"\"user_id\":\""+userId+"\"" + "}");
-			AlipayEbppInvoiceTitleListGetResponse responses = alipayClient.execute(request2, aoataResponse.getAppAuthToken());
-			if (responses.isSuccess()) {
-				System.out.println("调用成功");
-			} else {
-				System.out.println("调用失败");
-
-			}
+			//alipayClient.execute(, );
+//		AlipayEbppInvoiceTitleListGetResponse responses = alipayClient.execute(request2, aoataResponse.getAppAuthToken());
+//
+//			if (responses.isSuccess()) {
+//				System.out.println("调用成功");
+//			} else {
+//				System.out.println("调用失败");
+//
+//			}
 
 
 		}else {//支付回调
@@ -454,8 +467,8 @@ public class AliPayController {
 	 */
 
 	@RequestMapping("zhuanzhuang")
-	public  RespBean zhuanzhuang(){
-		Map<String, String> stringStringMap = ZhuanZhangUtil.getInstance().alipay2User(null, null, null, null);
+	public  RespBean zhuanzhuang(@RequestBody PayIn payIn){
+		Map<String, String> stringStringMap = ZhuanZhangUtil.getInstance().alipay2User(payIn.getBizNo(), payIn.getAmount(), payIn.getAccount(), payIn.getUserName());
 		System.out.println(stringStringMap);
 
 		return  RespBean.ok("success",stringStringMap);
@@ -507,9 +520,12 @@ public class AliPayController {
 
 		String appId = request.getParameter("app_id");
 		String source = request.getParameter("source");
-		String appAuthCode = request.getParameter("app_auth_code");
-		String total_amount = request.getParameter("total_amount");
-		System.out.println(total_amount);
+		//String appAuthCode = request.getParameter("app_auth_code");
+		//获取用户信息授权
+		String authUser = request.getParameter("scope");
+
+		String authCode = request.getParameter("auth_code");
+
 		// 使用app_auth_code换取app_auth_token
 		AlipayClient alipayClient = new DefaultAlipayClient(alipayConfig.gatewayUrl, // 支付宝网关（固定）
 				"2016101600701324", // APPID 即创建应用后生成
@@ -518,37 +534,35 @@ public class AliPayController {
 				"utf-8",
 				alipayConfig.alipayPublicKey,
 				alipayConfig.signType); // 商户生成签名字符串所使用的签名算法类型，目前支持RSA2和RSA，推荐使用RSA2
-		AlipayOpenAuthTokenAppRequest aoataRequest = new AlipayOpenAuthTokenAppRequest();
+		AlipaySystemOauthTokenRequest aoataRequest = new AlipaySystemOauthTokenRequest();
 		// 设置请求参数 使用app_auth_code换取app_auth_token
-		aoataRequest.setBizContent("{\"grant_type\":\"authorization_code\",\"code\":\"" + appAuthCode + "\"}");
+		aoataRequest.setCode(authCode);
+		aoataRequest.setGrantType("authorization_code");
+		//aoataRequest.setBizContent("{\"grant_type\":\"authorization_code\",\"code\":\"" + authCode + "\"}");
 		// 发送请求得到响应
-		AlipayOpenAuthTokenAppResponse aoataResponse = alipayClient.execute(aoataRequest);
+
+		AlipaySystemOauthTokenResponse aoataResponse = alipayClient.execute(aoataRequest);
+
 		if (!aoataResponse.isSuccess()) {
 			throw new RuntimeException("获取app_auth_token失败！" + aoataResponse.getSubMsg());
 		}
 		// 根据appAuthToken换取用户信息
-		AlipayOpenAuthTokenAppQueryRequest aoataqRequest = new AlipayOpenAuthTokenAppQueryRequest();
-		aoataqRequest.setBizContent("{\"app_auth_token\":\"" + aoataResponse.getAppAuthToken() + "\"}");
-		AlipayOpenAuthTokenAppQueryResponse appQueryResponse = alipayClient.execute(aoataqRequest);
-		if (!appQueryResponse.isSuccess()) {
-			throw new RuntimeException("获取用户授权信息失败！" + appQueryResponse.getSubMsg());
-		}
-		// 用户授权成功 获取授权信息
-		String userId = appQueryResponse.getUserId();
-		String appID = appQueryResponse.getAuthAppId();
-		String body = appQueryResponse.getBody();
-		System.out.println(userId);
-		System.out.println(appID);
-		System.out.println(body);
-		AlipayEbppInvoiceTitleListGetRequest request2 = new AlipayEbppInvoiceTitleListGetRequest();
-		request2.setBizContent("{"+"\"user_id\":\""+userId+"\"" + "}");
-		AlipayEbppInvoiceTitleListGetResponse response = alipayClient.execute(request2, aoataResponse.getAppAuthToken());
-		if (response.isSuccess()) {
-			System.out.println("调用成功");
-		} else {
-			System.out.println("调用失败");
+		AlipayUserInfoShareRequest requestUser = new AlipayUserInfoShareRequest();
 
-		}
+
+		AlipayUserInfoShareResponse userinfoShareResponse   = alipayClient.execute(requestUser,aoataResponse.getAccessToken());
+
+		System.out.println(userinfoShareResponse.isSuccess());
+
+//		AlipayEbppInvoiceTitleListGetRequest request2 = new AlipayEbppInvoiceTitleListGetRequest();
+//		request2.setBizContent("{"+"\"user_id\":\""+aoataResponse.getUserId()+"\"" + "}");
+//		AlipayEbppInvoiceTitleListGetResponse response = alipayClient.execute(request2, aoataResponse.getAccessToken());
+//		if (response.isSuccess()) {
+//			System.out.println("调用成功");
+//		} else {
+//			System.out.println("调用失败");
+//
+//		}
 
 		return null;
 

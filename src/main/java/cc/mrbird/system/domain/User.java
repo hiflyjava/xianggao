@@ -223,11 +223,11 @@ public class User implements Serializable {
 
 	private List<XgProduction> productions;//作品数
 
-
+	@Transient
 	private int fensiCount;
-
+	@Transient
 	private int productionCount;
-
+	@Transient
 	private String isFansEachOther;//是否互相关注; YES NO
 
 	public String getIsFansEachOther() {

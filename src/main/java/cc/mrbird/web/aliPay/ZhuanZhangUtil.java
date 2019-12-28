@@ -52,12 +52,12 @@ public class ZhuanZhangUtil {
     public Map<String,String> alipay2User(String bizNo,String amount,String account,String userName){
         Map<String,String> resultMap=new HashMap<String,String>();
         AlipayVo vo = new AlipayVo();
-        vo.setOut_biz_no("13452");
+        vo.setOut_biz_no(bizNo);
         vo.setPayee_type("ALIPAY_LOGONID");
-        vo.setAmount("100.21");
-        vo.setPayee_account("dpqngj5498@sandbox.com");
-        vo.setPayer_show_name("沙箱环境");
-        vo.setPayee_real_name("沙箱环境");
+        vo.setAmount(amount);
+        vo.setPayee_account(account);
+        vo.setPayer_show_name(userName);
+        vo.setPayee_real_name(userName);
         vo.setRemark("支付宝转账");
         String json = new Gson().toJson(vo);
         // 设置请求参数

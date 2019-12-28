@@ -357,6 +357,7 @@ public class XgProductionServiceImpl extends BaseService<XgProduction> implement
     public PageInfo<XgProduction> getMyStarProductionList(XgProductionPageIn productionPageIn) {
         PageHelper.startPage(productionPageIn.getCurrentPage(), productionPageIn.getPageSize());
         //得到产品的点赞数；
+        productionPageIn.setUserId(MyUserUtiles.getUser().getUserId());
         List<XgProduction> pdList = productionMapper.getMyStarProductionList(productionPageIn);
         if(pdList==null || pdList.size()==0){
             return new PageInfo<>(null);

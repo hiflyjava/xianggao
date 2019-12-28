@@ -47,7 +47,7 @@ public class QiniuUtil {
 //        String localFilePath = "D:\\23912475_130759767000_2.jpg";
         //        String localFilePath = "/home/qiniu/test.png";
         //默认不指定key的情况下，以文件内容的hash值作为文件名
-        String key = "images/"+fileName+"xgId="+System.currentTimeMillis();
+        String key = "images/"+"xianggao/"+"xgId="+System.currentTimeMillis();
         com.qiniu.util.Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
         String upToken = auth.uploadToken(BUCKET_NAME);
 
@@ -61,7 +61,8 @@ public class QiniuUtil {
             logger.info("{七牛图片上传key: "+ putRet.key+",七牛图片上传hash: "+ putRet.hash+"}");
 
             //result = "外链域名(如:image.domain.com)"+putRet.key;
-            result =ips+"/"+putRet.key;
+            //result =ips+"/"+putRet.key;
+            result ="/"+putRet.key;
         } catch (QiniuException ex) {
             Response r = ex.response;
             System.err.println(r.toString());

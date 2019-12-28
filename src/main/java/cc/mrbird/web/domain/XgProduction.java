@@ -2,6 +2,7 @@ package cc.mrbird.web.domain;
 
 import cc.mrbird.system.domain.User;
 
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -63,6 +64,17 @@ public class XgProduction  implements Serializable {
     private  List<XgProductionShare> xgProductionShares;//分享
 
     private User user;
+
+    @Transient
+    private String userImg;//该作品主人的 头像
+
+    public String getUserImg() {
+        return userImg;
+    }
+
+    public void setUserImg(String userImg) {
+        this.userImg = userImg;
+    }
 
     public User getUser() {
         return user;

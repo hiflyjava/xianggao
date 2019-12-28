@@ -309,8 +309,10 @@
 		where A.to_user_id=#{fromUserId})
 		t3 on t2.user_id =t3.from_user_id
 		<where>
+
+		   t2.user_id != #{fromUserId}
 			<if test='isCompany == "N"  '>
-				t2.company_id = 0
+				and t2.company_id = 0
 			</if>
 			<if test='isCompany == "Y"  '>
 				AND	t2.company_id != 0
@@ -370,8 +372,9 @@
 		where A.to_user_id=#{toUserId})
 		t3 on t2.user_id =t3.from_user_id
 		<where>
+		     t2.USER_ID !=#{toUserId}
 			<if test='isCompany == "N"  '>
-				t2.company_id = 0
+			and	t2.company_id = 0
 			</if>
 			<if test='isCompany == "Y"  '>
 				AND	t2.company_id != 0

@@ -24,6 +24,8 @@
     <result column="companyId" property="companyId" jdbcType="VARCHAR"/>
     <result column="username" property="username" jdbcType="VARCHAR"/>
     <result column="productionType" property="productionType" jdbcType="VARCHAR"></result>
+    <result column="userImg" property="userImg" jdbcType="VARCHAR"></result>
+
 
     <collection property="xgProductionCollections" ofType="cc.mrbird.web.domain.XgProductionCollection">
       <id property="id" column="cId"></id>
@@ -325,7 +327,8 @@ where tu.user_id =#{userId}
 
           select
       xpt.p_type as productionType,
-      tu.USERNAME as username,
+    tu.USERNAME as username,
+    tu.AVATAR as userImg,
       xp.*
       from
       xg_production xp
@@ -354,10 +357,11 @@ where tu.user_id =#{userId}
     select
 
  	COUNT(DISTINCT pd.id) AS productionDianzanCount,
+
       xp.*
      from xg_production xp
      LEFT JOIN xg_production_dianzan pd on xp.id =pd.p_id
-     where xp.user_id =#{userId}
+     where xp.user_id =#{userId} and xp.status != 'I' AND xp.status != 'C' AND xp.status != 'D'
      GROUP BY xp.id
      ORDER BY productionDianzanCount desc
      LIMIT 3
@@ -370,7 +374,8 @@ where tu.user_id =#{userId}
 
  select
       xpt.p_type as productionType,
-      tu.USERNAME as username,
+    tu.USERNAME as username,
+    tu.AVATAR as userImg,
       xp.*
       from
   (SELECT xpp.*  FROM xg_production_collection xpc LEFT JOIN xg_production xpp on xpc.p_id = xpp.id where xpc.user_id =#{userId})
@@ -404,6 +409,7 @@ where tu.user_id =#{userId}
     select
     xpt.p_type as productionType,
     tu.USERNAME as username,
+    tu.AVATAR as userImg,
     xp.*
     from
     (
@@ -418,6 +424,9 @@ where tu.user_id =#{userId}
       </if>
       <if test="status != null and status != '' ">
         and xp.status= #{status}  and xp.status != 'I' AND xp.status != 'C' AND xp.status != 'D'
+      </if>
+      <if test="status == null or status == '' ">
+          and xp.status != 'I' AND xp.status != 'C' AND xp.status != 'D'
       </if>
       <if test="id != null and id != '' ">
         and xp.id= #{id}

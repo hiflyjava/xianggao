@@ -48,6 +48,7 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/test2", "anon");
 		filterChainDefinitionMap.put("/sys/upVideo/**", "anon");
 
+		filterChainDefinitionMap.put("/sys/upImg/**", "anon");
 		filterChainDefinitionMap.put("/alipay/**", "anon");
 		filterChainDefinitionMap.put("/websocket/server/**", "anon");
 
