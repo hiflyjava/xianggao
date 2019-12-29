@@ -333,6 +333,27 @@
 			<version>1.1.0</version>
 		</dependency>
 
+		<!-- 授权登录 SD -->
+		<dependency>
+			<groupId>me.zhyd.oauth</groupId>
+			<artifactId>JustAuth</artifactId>
+			<version>1.13.2</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<repositories>

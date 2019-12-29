@@ -40,14 +40,23 @@ public class ShiroConfig {
 	public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
+
+		// /
+	//	shiroFilterFactoryBean.setLoginUrl("/swagger-ui.html");
 		shiroFilterFactoryBean.setLoginUrl("/login");
 		shiroFilterFactoryBean.setSuccessUrl("/index");
 		shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 		LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 		filterChainDefinitionMap.put("/test1", "anon");
 		filterChainDefinitionMap.put("/test2", "anon");
-		filterChainDefinitionMap.put("/sys/upVideo/**", "anon");
 
+
+		filterChainDefinitionMap.put("/swagger-ui.html/**", "anon"); // /webjars
+		filterChainDefinitionMap.put("/webjars/**", "anon"); //
+		filterChainDefinitionMap.put("/swagger-resources/**", "anon");
+		filterChainDefinitionMap.put("/v2/api-docs/**", "anon");
+
+		filterChainDefinitionMap.put("/sys/upVideo/**", "anon");
 		filterChainDefinitionMap.put("/sys/upImg/**", "anon");
 		filterChainDefinitionMap.put("/alipay/**", "anon");
 		filterChainDefinitionMap.put("/websocket/server/**", "anon");

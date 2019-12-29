@@ -1,5 +1,8 @@
 package cc.mrbird.web.dto.in;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 /**
@@ -7,35 +10,36 @@ import java.io.Serializable;
  * @Date: 2019/11/23 13:42
  * @Description:
  */
+@ApiModel
 public class XgProductionPageIn implements Serializable {
 
-
+    @ApiModelProperty(value = "分页大小",example ="2000")
     private  int pageSize=2000000;
-
+    @ApiModelProperty(value = "分页页数",example ="2000")
     private int currentPage=1;
 
 
-
+    @ApiModelProperty(value = "用户名",example ="2000")
     private String username;
-
+    @ApiModelProperty(value = "开始时间",example ="2000")
     private String startTime;
-
+    @ApiModelProperty(value = "结束时间",example ="2000")
     private String endTime;
-
+    @ApiModelProperty(value = "类型",example ="2000")
     private String type;
-
+    @ApiModelProperty(value = "状态值",example ="2000")
     private String status;
 
 
     private Long userId;
 
     private int selectType;
-
-    private String orderNum;//订单号
-
+    @ApiModelProperty(value = "订单号",example ="2000")
+    private String orderNum;//
+    @ApiModelProperty(value = "",example ="2000")
     private Long id;
-
-    private  Long toUserId;//给谁点赞
+    @ApiModelProperty(value = "给谁点赞",example ="2000")
+    private  Long toUserId;//
 
 
     public Long getToUserId() {
